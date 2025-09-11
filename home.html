@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REDIVE - Servicio Digital</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: linear-gradient(95deg, #9b9ea2, #49698b);
+      color: #333;
+      scroll-behavior: smooth; /* scroll suave */
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(13, 37, 63, 0.95);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 25px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    nav .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #e9dc4f;
+    }
+
+    /* Botón hamburguesa */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1100; /* siempre arriba */
+    }
+    .menu-btn span {
+      height: 3px;
+      width: 100%;
+      background: #fff;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    /* Menú responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        flex-direction: column;
+        background: rgba(13, 37, 63, 0.95);
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+        transition: 0.4s;
+        z-index: 1000;
+      }
+      nav ul.active {
+        left: 0;
+      }
+      .menu-btn {
+        display: flex;
+      }
+    }
+
+    /* Animación hamburguesa */
+    .menu-btn.open span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .menu-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-btn.open span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+
+    /* ===== HERO ===== */
+    header {
+      position: relative;
+      background: url("https://i.ibb.co/207zW8L3/1705414816269.png") center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 120px 20px;
+      margin-top: 60px; /* espacio por navbar fijo */
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 0;
+    }
+    header h1, header p, header a {
+      position: relative;
+      z-index: 1;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+      text-shadow: 0px 2px 12px rgba(0,0,0,0.9);
+    }
+    header p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      opacity: 0.85;
+      text-shadow: 0px 2px 25px rgba(255, 255, 255, 1.8);
+    }
+    header a {
+      display: inline-block;
+      padding: 14px 30px;
+      border-radius: 30px;
+      background: #d6cf4e;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      margin: 10px;
+      box-shadow: 0 1px 20px black;
+    }
+    header a:hover {
+      background: #357011;
+      color: white;
+    }
+
+    /* ===== SECCIONES ===== */
+    .services, .benefits, .steps {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .card {
+      background: linear-gradient(145deg, #ffffff, #f3f6fa);
+      border-radius: 15px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    }
+    .card-icon {
+      font-size: 2rem;
+      background: #646c77;
+      color: white;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 50%;
+      margin: auto;
+      margin-bottom: 15px;
+    }
+
+    .benefits h2, .steps h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .benefit-list, .step-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+    .benefit, .step {
+      flex: 1 1 250px;
+      background: linear-gradient(145deg, #95d7ec, #f3f6fa);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    /* ===== CTA ===== */
+    .cta {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+      text-shadow: 0 1px 10px black;
+      background: #333;
+    }
+    .cta a {
+      display: inline-block;
+      margin: 10px;
+      padding: 14px 30px;
+      border-radius: 30px;
+      background: #e9dc4f;
+      color: #111;
+      text-decoration: none;
+      box-shadow: 0 1px 20px black;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .cta a.mail { background: #4ea9d6; color: white; }
+    .cta a.mail:hover { background: #2f6e94; }
+    .cta a:hover {
+      background: #8cd951;
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #0b1a2c;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">REDIVE</div>
+    <ul>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#benefits">Beneficios</a></li>
+      <li><a href="#steps">Cómo trabajamos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="menu-btn" id="menu-btn">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <h1>REDIVE</h1>
+    <p>Soluciones Digitales a tu alcance</p>
+    <a href="https://wa.me/5492646706973" target="_blank">📲 Envianos un Mensaje</a>
+    <a href="mailto:jquilpatay14@gmail.com" class="mail">✉️ Email</a>
+  </header>
+
+  <!-- Servicios -->
+  <section id="services" class="services">
+    <div class="card"><div class="card-icon">📄</div><h3>Fotocopias e impresiones</h3><p>BN, color y PDF’s en alta calidad con entrega inmediata.</p></div>
+    <div class="card"><div class="card-icon">💼</div><h3>Currículums profesionales</h3><p>CV’s modernos y personalizados listos para destacar.</p></div>
+    <div class="card"><div class="card-icon">🌐</div><h3>Diseño Web</h3><p>Landing pages y sitios adaptados a tu negocio.</p></div>
+    <div class="card"><div class="card-icon">🎨</div><h3>Diseños gráficos</h3><p>QR personalizados, flyers, logotipos y más.</p></div>
+    <div class="card"><div class="card-icon">📝</div><h3>Trámites y redacción</h3><p>Formularios, documentos, resúmenes y traducciones.</p></div>
+  </section>
+
+  <!-- Beneficios -->
+  <section id="benefits" class="benefits">
+    <h2>¿Por qué elegirnos?</h2>
+    <div class="benefit-list">
+      <div class="benefit"><h3>⚡ Rapidez</h3><p>Entrega ágil y resultados inmediatos.</p></div>
+      <div class="benefit"><h3>🔒 Confianza</h3><p>Atención personalizada y segura en cada trámite.</p></div>
+      <div class="benefit"><h3>💰 Accesible</h3><p>Precios justos con opción de pago flexible.</p></div>
+    </div>
+  </section>
+
+  <!-- Pasos -->
+  <section id="steps" class="steps">
+    <h2>¿Cómo trabajamos?</h2>
+    <div class="step-list">
+      <div class="step"><h3>1. Contacto</h3><p>Nos escribís por WhatsApp y contás tu necesidad.</p></div>
+      <div class="step"><h3>2. Coordinación</h3><p>Definimos el servicio y los detalles en minutos.</p></div>
+      <div class="step"><h3>3. Entrega</h3><p>Recibís tu trabajo final rápido y sin complicaciones.</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div id="contacto" class="cta">
+    <h2>¿Listo para empezar?</h2>
+    <a href="https://wa.me/5492646706973" target="_blank">📲 WhatsApp</a>
+    <a href="mailto:jquilpatay14@gmail.com" target="_blank" class="mail">✉️ Email</a>
+    <a href="https://www.google.com/maps/@-30.3080897,-69.2208525,1827m/data=!3m1!1e3?entry=ttu" target="_blank">📍 Ubicación</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 REDIVE – Todos los derechos reservados.
+  </footer>
+
+  <!-- SCRIPT MENU -->
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const navUl = document.querySelector("nav ul");
+
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("open");
+      navUl.classList.toggle("active");
+    });
+
+    // Cerrar menú al hacer clic en un enlace (móvil)
+    document.querySelectorAll("nav ul li a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuBtn.classList.remove("open");
+        navUl.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>
