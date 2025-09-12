@@ -321,7 +321,15 @@
   <footer>
     © 2025 REDIVE – Todos los derechos reservados.
   </footer>
+<script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+document.onkeydown = function(e) {
+  if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) {
+    return false;
+  }
+}
 
+  </script>
   <script>
     const menuBtn = document.getElementById("menu-btn");
     const navUl = document.querySelector("nav ul");
