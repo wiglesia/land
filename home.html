@@ -11,15 +11,14 @@
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
       background: linear-gradient(95deg, #9b9ea2, #49698b);
       color: #333;
-      scroll-behavior: smooth; /* scroll suave */
+      scroll-behavior: smooth;
     }
 
-    /* ===== NAVBAR ===== */
     nav {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      width: 97%;
       background: rgba(13, 37, 63, 0.95);
       color: white;
       display: flex;
@@ -32,6 +31,8 @@
     nav .logo {
       font-size: 1.4rem;
       font-weight: bold;
+      color: #50eb2d;
+      text-shadow: 0px 1px 20px#fcf5f5;
     }
     nav ul {
       list-style: none;
@@ -50,29 +51,30 @@
       color: #e9dc4f;
     }
 
-    /* Botón hamburguesa */
     .menu-btn {
       display: none;
       flex-direction: column;
       justify-content: space-between;
-      width: 30px;
-      height: 22px;
+      width: 40px;
+      height: 32px;
+      padding: 10px;
+      margin-right: 8px;
       cursor: pointer;
-      z-index: 1100; /* siempre arriba */
+      z-index: 1100;
     }
     .menu-btn span {
-      height: 3px;
+      height: 4px;
       width: 100%;
       background: #fff;
       border-radius: 3px;
       transition: 0.3s;
+      transform-origin: center;
     }
 
-    /* Menú responsive */
     @media (max-width: 768px) {
       nav ul {
         position: absolute;
-        top: 60px;
+        top: 65px;
         left: -100%;
         flex-direction: column;
         background: rgba(13, 37, 63, 0.95);
@@ -90,25 +92,23 @@
       }
     }
 
-    /* Animación hamburguesa */
     .menu-btn.open span:nth-child(1) {
-      transform: rotate(45deg) translateY(8px);
+      transform: rotate(45deg) translate(6px, 6px);
     }
     .menu-btn.open span:nth-child(2) {
       opacity: 0;
     }
     .menu-btn.open span:nth-child(3) {
-      transform: rotate(-45deg) translateY(-8px);
+      transform: rotate(-45deg) translate(6px, -6px);
     }
 
-    /* ===== HERO ===== */
     header {
       position: relative;
       background: url("https://i.ibb.co/207zW8L3/1705414816269.png") center/cover no-repeat;
       color: white;
       text-align: center;
       padding: 120px 20px;
-      margin-top: 60px; /* espacio por navbar fijo */
+      margin-top: 60px;
     }
     header::before {
       content: "";
@@ -146,11 +146,10 @@
       box-shadow: 0 1px 20px black;
     }
     header a:hover {
-      background: #357011;
+      background: #e0a040;
       color: white;
     }
 
-    /* ===== SECCIONES ===== */
     .services, .benefits, .steps {
       padding: 60px 20px;
       max-width: 1200px;
@@ -204,7 +203,26 @@
       text-align: center;
     }
 
-    /* ===== CTA ===== */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(13,37,63,0.70);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    z-index: 2000;
+  }
+  .notification.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
     .cta {
       text-align: center;
       padding: 60px 20px;
@@ -218,16 +236,16 @@
       padding: 14px 30px;
       border-radius: 30px;
       background: #e9dc4f;
-      color: #111;
+      color: #fffafa;
       text-decoration: none;
-      box-shadow: 0 1px 20px black;
+      box-shadow: 0 1px 10px black;
       font-weight: bold;
       transition: 0.3s;
     }
-    .cta a.mail { background: #4ea9d6; color: white; }
-    .cta a.mail:hover { background: #2f6e94; }
+    .cta a.mail { background: #e9dc4f; color: white; }
+    .cta a.mail:hover { background: #ed8773; }
     .cta a:hover {
-      background: #8cd951;
+      background: #ed8773;
       color: #000;
     }
 
@@ -241,8 +259,6 @@
   </style>
 </head>
 <body>
-
-  <!-- NAVBAR -->
   <nav>
     <div class="logo">REDIVE</div>
     <ul>
@@ -256,24 +272,27 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <header>
     <h1>REDIVE</h1>
     <p>Soluciones Digitales a tu alcance</p>
     <a href="https://wa.me/5492646706973" target="_blank">📲 Envianos un Mensaje</a>
     <a href="mailto:jquilpatay14@gmail.com" class="mail">✉️ Email</a>
   </header>
+<div id="notification" class="notification"></div>
 
-  <!-- Servicios -->
   <section id="services" class="services">
     <div class="card"><div class="card-icon">📄</div><h3>Fotocopias e impresiones</h3><p>BN, color y PDF’s en alta calidad con entrega inmediata.</p></div>
     <div class="card"><div class="card-icon">💼</div><h3>Currículums profesionales</h3><p>CV’s modernos y personalizados listos para destacar.</p></div>
     <div class="card"><div class="card-icon">🌐</div><h3>Diseño Web</h3><p>Landing pages y sitios adaptados a tu negocio.</p></div>
     <div class="card"><div class="card-icon">🎨</div><h3>Diseños gráficos</h3><p>QR personalizados, flyers, logotipos y más.</p></div>
     <div class="card"><div class="card-icon">📝</div><h3>Trámites y redacción</h3><p>Formularios, documentos, resúmenes y traducciones.</p></div>
+    <div class="card">
+  <div class="card-icon">📺</div>
+  <h3>Instalación y Venta de TV Box</h3>
+  <p>Televisor en Smart con cuenta segura y App Mágica lista para usar.</p>
+</div>
   </section>
 
-  <!-- Beneficios -->
   <section id="benefits" class="benefits">
     <h2>¿Por qué elegirnos?</h2>
     <div class="benefit-list">
@@ -283,7 +302,6 @@
     </div>
   </section>
 
-  <!-- Pasos -->
   <section id="steps" class="steps">
     <h2>¿Cómo trabajamos?</h2>
     <div class="step-list">
@@ -293,7 +311,6 @@
     </div>
   </section>
 
-  <!-- CTA -->
   <div id="contacto" class="cta">
     <h2>¿Listo para empezar?</h2>
     <a href="https://wa.me/5492646706973" target="_blank">📲 WhatsApp</a>
@@ -301,22 +318,17 @@
     <a href="https://www.google.com/maps/@-30.3080897,-69.2208525,1827m/data=!3m1!1e3?entry=ttu" target="_blank">📍 Ubicación</a>
   </div>
 
-  <!-- Footer -->
   <footer>
     © 2025 REDIVE – Todos los derechos reservados.
   </footer>
 
-  <!-- SCRIPT MENU -->
   <script>
     const menuBtn = document.getElementById("menu-btn");
     const navUl = document.querySelector("nav ul");
-
     menuBtn.addEventListener("click", () => {
       menuBtn.classList.toggle("open");
       navUl.classList.toggle("active");
     });
-
-    // Cerrar menú al hacer clic en un enlace (móvil)
     document.querySelectorAll("nav ul li a").forEach(link => {
       link.addEventListener("click", () => {
         menuBtn.classList.remove("open");
@@ -324,5 +336,40 @@
       });
     });
   </script>
+  <script>
+  const nombres = ["Jorge", "María", "Lucía", "Carlos", "Marta", "Pedro", "Sofía", "Diego", "Laura", "Andrés","Jaime", "Esteban","Rosa lopez","Jose Luis"];
+  const acciones = [
+    "realizó una consulta por WhatsApp 📲",
+    "envió un correo electrónico ✉️",
+    "accedió a conocer la ubicación 📍",
+    "solicitó más información ℹ️",
+    "está interesado en el servicio ⭐"
+  ];
+
+  function generarNombre() {
+    const nombre = nombres[Math.floor(Math.random() * nombres.length)];
+    const oculto = nombre.substring(0, 3) + "** *****";
+    return oculto;
+  }
+
+  function mostrarNotificacion() {
+    const notif = document.getElementById("notification");
+    const nombre = generarNombre();
+    const accion = acciones[Math.floor(Math.random() * acciones.length)];
+    notif.textContent = `${nombre} ${accion}`;
+
+    notif.classList.add("show");
+
+    setTimeout(() => {
+      notif.classList.remove("show");
+    }, 5000); // visible 5 seg
+  }
+
+  // Mostrar cada 15 seg
+  setInterval(mostrarNotificacion, 15000);
+
+  // Mostrar la primera a los 3 seg
+  setTimeout(mostrarNotificacion, 3000);
+</script>
 </body>
 </html>
