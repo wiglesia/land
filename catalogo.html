@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Online - RedTienda</title>
+  <style>
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0d1a2b, #162c46); color: #fff; }
+
+    header { background: #111c2e; padding: 40px 20px; text-align: center; color: #ff6b00; box-shadow: 0 4px 12px rgba(0,0,0,0.5); position: sticky; top:0; z-index:100; }
+    header h1 { margin: 0; font-size: 2.5rem; text-shadow: 0 0 15px #ff6b00; }
+    header p { color: #ccc; margin: 8px 0 0; }
+    nav { margin-top: 15px; }
+    nav a { margin: 0 12px; color: #ffb400; text-decoration: none; font-weight: 600; transition: 0.3s; }
+    nav a:hover { color: #ff6b00; text-shadow: 0 0 8px #ff6b00; }
+
+    #filtros { max-width: 1200px; margin: 20px auto; padding: 0 20px; display:flex; flex-wrap:wrap; gap:15px; justify-content:center; align-items:center; }
+    #buscador { padding:10px; border-radius:8px; border:none; width:200px; }
+    #categoriaFiltro { padding:10px; border-radius:8px; border:none; }
+    #contador { font-size: 0.95rem; color:#aaa; margin-left: auto; }
+
+    #productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 20px; max-width: 1200px; margin: auto; }
+    .card { background: linear-gradient(160deg, #1c304d, #243a59); border-radius: 16px; padding: 18px; text-align: center; box-shadow: 0 6px 25px rgba(0,0,0,0.6); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; align-items: center; min-height: 440px; }
+    .card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 0 25px rgba(255, 107, 0, 0.9); }
+    .card img { width: 100%; max-width: 240px; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; cursor: pointer; transition: transform 0.3s; }
+    .card img:hover { transform: scale(1.05); }
+    .card h3 { margin: 10px 0; font-size: 1.3rem; color: #f0f40a; font-weight: 600; }
+    .card span { font-size: 1.2rem; font-weight: bold; color: #4de07e; margin: 6px 0; text-shadow: 0 0 6px rgba(77,224,126,0.8); }
+    .condicion { font-size: 0.85rem; background: #ff6b00; color: #fff; padding: 4px 12px; border-radius: 14px; margin:8px; display:inline-block; }
+    .card p { flex-grow: 1; font-size: 0.95rem; color: #ddd; margin: 10px 0; }
+    .card a { margin-top: auto; display: block; width: 100%; padding: 12px; background: #2a4fc7; color: #fff; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s, transform 0.2s; }
+    .card a:hover { background: #1ab13b; transform: scale(1.02); box-shadow: 0 0 15px rgba(0, 255, 247, 0.9); }
+
+    footer { background: #111c2e; text-align: center; padding: 25px; margin-top: 40px; color: #ccc; font-size: 0.9rem; box-shadow: 0 -2px 8px rgba(0,0,0,0.6); }
+    footer a { color: #ffb400; margin: 0 10px; text-decoration: none; }
+    footer a:hover { color: #ff6b00; text-shadow: 0 0 6px #ff6b00; }
+
+    /* Loader */
+    #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13,26,43,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; }
+    .bar { width: 80%; height: 20px; background: #243a59; border-radius: 10px; overflow: hidden; margin-top: 20px; }
+    .bar-fill { width: 0; height: 100%; background: linear-gradient(90deg, #ff6b00, #12d25c); animation: loading 3s linear infinite; }
+    @keyframes loading { 0%{width:0;} 50%{width:80%;} 100%{width:100%;} }
+
+    /* Modal para imágenes */
+    #modal { display:none; position:fixed; z-index:3000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; }
+    #modal img { max-width:90%; max-height:80%; border-radius:12px; box-shadow:0 0 25px #ff6b00; }
+    #modal span { position:absolute; top:20px; right:35px; color:#fff; font-size:40px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div id="loader">
+    <h2>Cargando productos...</h2>
+    <div class="bar"><div class="bar-fill"></div></div>
+  </div>
+
+  <header>
+    <h1>🛒 RedTienda</h1>
+    <p>Productos digitales y más, a tu alcance</p>
+    <nav>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- Filtros -->
+  <div id="filtros">
+    <input type="text" id="buscador" placeholder="Buscar producto...">
+    <select id="categoriaFiltro">
+      <option value="">Todas las categorías</option>
+    </select>
+    <span id="contador"></span>
+  </div>
+
+  <main id="productos"></main>
+
+  <footer id="contacto">
+    <p>© 2025 RedTienda – Todos los derechos reservados</p>
+    <p><a href="https://wa.me/5492646706973">WhatsApp</a> | <a href="mailto:jquilpatay14@gmail.com">Email</a></p>
+  </footer>
+
+  <!-- Modal imagen -->
+  <div id="modal">
+    <span onclick="cerrarModal()">&times;</span>
+    <img id="modalImg">
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCJ8DR1VYm8uatEccUAry-J3mYD90Bo91s",
+      authDomain: "redtienda.firebaseapp.com",
+      projectId: "redtienda",
+      storageBucket: "redtienda.appspot.com",
+      messagingSenderId: "11235227426",
+      appId: "1:11235227426:web:cb70c8c5ae4bbb1fb5977b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const DEMO_EMAIL = "cliente@demo.com";
+    const DEMO_PASS = "123456";
+    const API_URL = "https://script.google.com/macros/s/AKfycby3UfKvwxDWifPkCBb8YLyFKv3VFSH-RCZK-As8E-8Hsvm8GjBTmkohWTxUYS1F6w_H/exec";
+
+    let productosData = [];
+
+    async function cargarProductos(silencioso = false){
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, DEMO_EMAIL, DEMO_PASS);
+        const token = await userCredential.user.getIdToken();
+        const res = await fetch(API_URL + "?token=" + token);
+        const data = await res.json();
+        productosData = data;
+        filtrar(); // aplica filtros actuales
+        cargarCategorias(data);
+        if (!silencioso) document.getElementById("loader").style.display = "none";
+      } catch (err) {
+        console.error("Error al cargar productos:", err);
+        if (!silencioso){
+          document.getElementById("productos").innerHTML = "<p style='color:#f66;text-align:center'>No se pudieron cargar los productos.</p>";
+          document.getElementById("loader").style.display = "none";
+        }
+      }
+    }
+
+    function renderProductos(lista){
+      const contenedor = document.getElementById("productos");
+      contenedor.innerHTML = "";
+      lista.forEach(p => {
+        contenedor.innerHTML += `
+          <div class="card">
+            <img src="${p.Imagen}" alt="${p.Nombre}" onclick="abrirModal('${p.Imagen}')">
+            <h3>${p.Nombre}</h3>
+            <span>$${p.Precio}</span>
+            <div class="condicion">${p.Condicion || 'Nuevo'}</div>
+            <p>${p.Descripcion}</p>
+            <a href="${p.LinkCompra}" target="_blank">Comprar</a>
+          </div>
+        `;
+      });
+      document.getElementById("contador").textContent = `Mostrando ${lista.length} de ${productosData.length}`;
+    }
+
+    function cargarCategorias(lista){
+      const select = document.getElementById("categoriaFiltro");
+      const cats = [...new Set(lista.map(p=>p.Categoria).filter(Boolean))];
+      select.innerHTML = '<option value="">Todas las categorías</option>';
+      cats.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+      });
+    }
+
+    document.getElementById("buscador").addEventListener("input", filtrar);
+    document.getElementById("categoriaFiltro").addEventListener("change", filtrar);
+
+    function filtrar(){
+      const texto = document.getElementById("buscador").value.toLowerCase();
+      const cat = document.getElementById("categoriaFiltro").value;
+      const filtrados = productosData.filter(p =>
+        (p.Nombre.toLowerCase().includes(texto) || p.Descripcion.toLowerCase().includes(texto)) &&
+        (cat === "" || p.Categoria === cat)
+      );
+      renderProductos(filtrados);
+    }
+
+    window.abrirModal = function(src){
+      document.getElementById("modal").style.display = "flex";
+      document.getElementById("modalImg").src = src;
+    }
+    window.cerrarModal = function(){
+      document.getElementById("modal").style.display = "none";
+    }
+
+    // Primera carga con loader
+    cargarProductos(false);
+
+    // Auto refresh cada 5 segundos sin loader
+    setInterval(() => cargarProductos(true), 5000);
+  </script>
+</body>
+</html>
