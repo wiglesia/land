@@ -1,154 +1,239 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda Online - RedTienda</title>
+  <title>Catálogo REDIVE</title>
   <style>
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0d1a2b, #162c46); color: #fff; }
-    header { background: #111c2e; padding: 40px 20px; text-align: center; color: #ff6b00; box-shadow: 0 4px 12px rgba(0,0,0,0.5); position: sticky; top:0; z-index:100; }
-    header h1 { margin: 0; font-size: 2.5rem; text-shadow: 0 0 15px #ff6b00; }
-    header p { color: #ccc; margin: 8px 0 0; }
-    nav { margin-top: 15px; }
-    nav a { margin: 0 12px; color: #ffb400; text-decoration: none; font-weight: 600; transition: 0.3s; }
-    nav a:hover { color: #ff6b00; text-shadow: 0 0 8px #ff6b00; }
+    /* ================== BASE ================== */
+    body {
+      margin:0;
+      font-family:'Segoe UI','Roboto',sans-serif;
+      background: linear-gradient(160deg,#1e003d,#350060,#200040);
+      color:#e0cfff;
+    }
+    h1 {
+      text-align:center;
+      margin:25px 0;
+      font-size:2.2rem;
+      color:#bb86fc;
+      letter-spacing:1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+    h1 span { color:#fff; }
 
-    #filtros { max-width: 1200px; margin: 20px auto; padding: 0 20px; display:flex; flex-wrap:wrap; gap:15px; justify-content:center; align-items:center; }
-    #buscador { padding:10px; border-radius:8px; border:none; width:200px; }
-    #categoriaFiltro { padding:10px; border-radius:8px; border:none; }
-    #contador { font-size: 0.95rem; color:#aaa; margin-left: auto; }
+    /* ================== LOADER ================== */
+    .loader-bar {
+      height:4px; width:0;
+      background:linear-gradient(90deg,#bb86fc,#7f39fb,#03dac6);
+      animation:loading 2s infinite;
+    }
+    @keyframes loading { 0%{width:0;} 50%{width:80%;} 100%{width:0;} }
 
-    #productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 20px; max-width: 1200px; margin: auto; }
-    .card { background: linear-gradient(160deg, #1c304d, #243a59); border-radius: 16px; padding: 18px; text-align: center; box-shadow: 0 6px 25px rgba(0,0,0,0.6); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; align-items: center; min-height: 440px; }
-    .card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 0 25px rgba(255, 107, 0, 0.9); }
-    .card img { width: 100%; max-width: 240px; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; cursor: pointer; transition: transform 0.3s; }
-    .card img:hover { transform: scale(1.05); }
-    .card h3 { margin: 10px 0; font-size: 1.3rem; color: #f0f40a; font-weight: 600; }
-    .card span { font-size: 1.2rem; font-weight: bold; color: #4de07e; margin: 6px 0; text-shadow: 0 0 6px rgba(77,224,126,0.8); }
-    .condicion { font-size: 0.85rem; background: #ff6b00; color: #fff; padding: 4px 12px; border-radius: 14px; margin:8px; display:inline-block; }
-    .card p { flex-grow: 1; font-size: 0.95rem; color: #ddd; margin: 10px 0; }
-    .card a { margin-top: auto; display: block; width: 100%; padding: 12px; background: #2a4fc7; color: #fff; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s, transform 0.2s; }
-    .card a:hover { background: #1ab13b; transform: scale(1.02); box-shadow: 0 0 15px rgba(0, 255, 247, 0.9); }
+    /* ================== TABS ================== */
+    .tabs { text-align:center; margin:20px 0; }
+    .tabs button {
+      padding:10px 22px; margin:5px;
+      border:none; border-radius:30px;
+      background:#2c1f44; color:#ccc;
+      font-weight:bold; font-size:0.9rem;
+      cursor:pointer; transition:all .3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,.4);
+    }
+    .tabs button.active {
+      background: linear-gradient(45deg,#bb86fc,#7f39fb);
+      color:#fff; font-size:1rem;
+      box-shadow: 0 0 12px rgba(187,134,252,.7);
+    }
+    .tabs button:hover:not(.active) {
+      background:#3b2a57;
+    }
 
-    footer { background: #111c2e; text-align: center; padding: 25px; margin-top: 40px; color: #ccc; font-size: 0.9rem; box-shadow: 0 -2px 8px rgba(0,0,0,0.6); }
-    footer a { color: #ffb400; margin: 0 10px; text-decoration: none; }
-    footer a:hover { color: #ff6b00; text-shadow: 0 0 6px #ff6b00; }
+    /* ================== SEARCH ================== */
+    .search { text-align:center; margin:15px; }
+    .search input {
+      width:90%; max-width:420px;
+      padding:12px 15px;
+      border:none; border-radius:25px;
+      font-size:0.95rem;
+      background:#2c1f44; color:#f0f0f0;
+      outline:none;
+    }
+    .search input::placeholder { color:#aaa; }
 
-    #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13,26,43,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; }
-    .bar { width: 80%; height: 20px; background: #243a59; border-radius: 10px; overflow: hidden; margin-top: 20px; }
-    .bar-fill { width: 0; height: 100%; background: linear-gradient(90deg, #ff6b00, #12d25c); animation: loading 3s linear infinite; }
-    @keyframes loading { 0%{width:0;} 50%{width:80%;} 100%{width:100%;} }
+    /* ================== GRID ================== */
+    .grid {
+      display:grid; gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      padding:20px;
+    }
 
-    #modal { display:none; position:fixed; z-index:3000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; }
-    #modal img { max-width:90%; max-height:80%; border-radius:12px; box-shadow:0 0 25px #ff6b00; }
-    #modal span { position:absolute; top:20px; right:35px; color:#fff; font-size:40px; cursor:pointer; }
+    /* ================== CARDS ================== */
+    .card {
+      background:#2a1744;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,0.5);
+      display:flex; flex-direction:column;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover { transform:translateY(-6px); box-shadow:0 8px 18px rgba(0,0,0,0.7); }
+    .card img {
+      width:100%; height:200px;
+      object-fit:cover; cursor:pointer;
+    }
+    .card-body {
+      padding:16px;
+      display:flex; flex-direction:column;
+      flex:1; justify-content:space-between;
+    }
+    .card-body h3 { margin:0; font-size:1.1rem; color:#fff; }
+    .desc { font-size:0.9rem; color:#cbb5e9; margin:10px 0; flex:1; }
+    .cond { font-size:0.8rem; color:#aaa; margin-bottom:5px; }
+    .price { font-size:1rem; color:#bb86fc; font-weight:bold; margin:5px 0; }
+
+    /* ================== BUTTON ================== */
+    .btn {
+      background: linear-gradient(45deg,#bb86fc,#7f39fb);
+      color:white; text-align:center;
+      padding:10px; border-radius:8px;
+      text-decoration:none; font-size:0.9rem;
+      font-weight:bold; transition:.3s;
+      box-shadow:0 3px 10px rgba(0,0,0,.5);
+    }
+    .btn:hover {
+      background: linear-gradient(45deg,#9b67d9,#5e2cb0);
+      color:#fff; box-shadow:0 4px 14px rgba(0,0,0,.7);
+    }
+
+    /* ================== CTA ================== */
+    .cta { text-align:center; margin:50px 20px; }
+    .cta h2 {
+      font-size:1.4rem;
+      color:#e0cfff; font-weight:600;
+      margin-bottom:15px;
+    }
+    .cta span.green { color:#03dac6; }
+    .cta span.blue { color:#bb86fc; }
+    .cta a {
+      display:inline-block; margin:8px;
+      padding:12px 25px;
+      border-radius:30px;
+      text-decoration:none; font-weight:bold;
+      box-shadow:0 2px 10px rgba(0,0,0,.5);
+    }
+    .cta .wsp { background:#25d366; color:#fff; }
+    .cta .wsp:hover { background:#1fa955; }
+    .cta .mail { background:#2196f3; color:#fff; }
+    .cta .mail:hover { background:#1976d2; }
+
+    /* ================== FOOTER ================== */
+    footer {
+      text-align:center; padding:20px;
+      background:#111; color:#aaa;
+      font-size:0.85rem;
+    }
+
+    /* ================== MODAL ================== */
+    .modal { display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); align-items:center; justify-content:center; }
+    .modal img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,.9); }
+    .modal:target { display:flex; }
   </style>
 </head>
 <body>
-  <div id="loader">
-    <h2>Cargando productos...</h2>
-    <div class="bar"><div class="bar-fill"></div></div>
+
+  <div id="loader" class="loader-bar"></div>
+  <h1>TIENDA <span>REDIVE</span></h1>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button id="btnProductos" class="active" onclick="setTab('producto')">Productos</button>
+    <button id="btnServicios" onclick="setTab('servicio')">Servicios</button>
   </div>
 
-  <header>
-    <h1>🛒 RedTienda</h1>
-    <p>Productos digitales y más, a tu alcance</p>
-    <nav>
-      <a href="#productos">Productos</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
-
-  <div id="filtros">
-    <input type="text" id="buscador" placeholder="Buscar producto...">
-    <select id="categoriaFiltro"><option value="">Todas las categorías</option></select>
-    <span id="contador"></span>
+  <!-- Buscador -->
+  <div class="search">
+    <input type="text" id="searchInput" placeholder="Buscar...">
   </div>
 
-  <main id="productos"></main>
+  <!-- Grid -->
+  <div class="grid" id="grid"></div>
 
-  <footer id="contacto">
-    <p>© 2025 RedTienda – Todos los derechos reservados</p>
-    <p><a href="https://wa.me/5492646706973">WhatsApp</a> | <a href="mailto:jquilpatay14@gmail.com">Email</a></p>
+  <!-- CTA -->
+  <div class="cta">
+    <h2>¿Querés publicar tus <span class="green">productos/servicios</span> o <span class="blue">tu propia tienda web?</span> Comunicate con nosotros.</h2>
+    <a href="https://wa.me/549XXXXXXXXX" target="_blank" class="wsp">WhatsApp</a>
+    <a href="mailto:contacto@redive.com" class="mail">Email</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 REDIVE – Soluciones Digitales
   </footer>
 
-  <div id="modal">
-    <span onclick="cerrarModal()">&times;</span>
-    <img id="modalImg">
+  <!-- Modal para ampliar imagen -->
+  <div id="modal" class="modal" onclick="cerrarModal()">
+    <img id="modalImg" src="">
   </div>
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycby1crJ7v64rU5TUz7TNNdE853I1oxut_hBsgR7JMxa4iLYvJpyOOIuZVXfkxwXbG2Y3/exec"; // poné acá tu URL de Google Apps Script
-    let productosData = [];
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzGg7HN3t0_ZW6sQ9zqNT2ybSIScJRWJM0DoA5ae1mSnA_BV6EdMSPKKgihPICOWxE/exec";
+let productos = [], servicios = [];
+let activeTab = "producto";
 
-    async function cargarProductos(silencioso = false){
-      try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        productosData = data;
-        filtrar();
-        cargarCategorias(data);
-        if (!silencioso) document.getElementById("loader").style.display = "none";
-      } catch (err) {
-        console.error("Error al cargar productos:", err);
-        document.getElementById("productos").innerHTML = "<p style='color:#f66;text-align:center'>No se pudieron cargar los productos.</p>";
-        document.getElementById("loader").style.display = "none";
-      }
-    }
+async function cargarDatos() {
+  document.getElementById("loader").style.display="block";
+  const resProd = await fetch(`${API_URL}?action=productos`);
+  productos = await resProd.json();
+  const resServ = await fetch(`${API_URL}?action=servicios`);
+  servicios = await resServ.json();
+  renderGrid();
+  document.getElementById("loader").style.display="none";
+}
 
-    function renderProductos(lista){
-      const contenedor = document.getElementById("productos");
-      contenedor.innerHTML = "";
-      lista.forEach(p => {
-        contenedor.innerHTML += `
-          <div class="card">
-            <img src="${p.Imagen}" alt="${p.Nombre}" onclick="abrirModal('${p.Imagen}')">
-            <h3>${p.Nombre}</h3>
-            <span>$${p.Precio}</span>
-            <div class="condicion">${p.Condicion || 'Nuevo'}</div>
-            <p>${p.Descripcion}</p>
-            <a href="${p.LinkCompra}" target="_blank">Comprar</a>
-          </div>
-        `;
-      });
-      document.getElementById("contador").textContent = `Mostrando ${lista.length} de ${productosData.length}`;
-    }
+function setTab(tab) {
+  activeTab = tab;
+  document.getElementById("btnProductos").classList.remove("active");
+  document.getElementById("btnServicios").classList.remove("active");
+  document.getElementById(tab === "producto" ? "btnProductos" : "btnServicios").classList.add("active");
+  renderGrid();
+}
 
-    function cargarCategorias(lista){
-      const select = document.getElementById("categoriaFiltro");
-      const cats = [...new Set(lista.map(p=>p.Categoria).filter(Boolean))];
-      select.innerHTML = '<option value="">Todas las categorías</option>';
-      cats.forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        select.appendChild(opt);
-      });
-    }
+function renderGrid() {
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const list = activeTab==="producto" ? productos : servicios;
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  list.filter(i=> i.nombre.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q))
+      .forEach(i => {
+    grid.innerHTML += `
+      <div class="card">
+        <img src="${i.img}" alt="${i.nombre}" onclick="ampliarImagen('${i.img}')">
+        <div class="card-body">
+          <h3>${i.nombre}</h3>
+          <p class="desc">${i.desc}</p>
+          <p class="cond">Condición: ${i.condicion}</p>
+          <p class="price">$${i.precio}</p>
+          <a href="https://wa.me/${i.whatsapp}?text=Hola,%20me%20interesa%20${encodeURIComponent(i.nombre)}" 
+             class="btn" target="_blank" onclick="registrarClick('${i.id}','${activeTab}')">Consultar</a>
+        </div>
+      </div>`;
+  });
+}
 
-    document.getElementById("buscador").addEventListener("input", filtrar);
-    document.getElementById("categoriaFiltro").addEventListener("change", filtrar);
+function ampliarImagen(src) {
+  document.getElementById("modalImg").src = src;
+  document.getElementById("modal").style.display="flex";
+}
+function cerrarModal(){ document.getElementById("modal").style.display="none"; }
 
-    function filtrar(){
-      const texto = document.getElementById("buscador").value.toLowerCase();
-      const cat = document.getElementById("categoriaFiltro").value;
-      const filtrados = productosData.filter(p =>
-        (p.Nombre.toLowerCase().includes(texto) || p.Descripcion.toLowerCase().includes(texto)) &&
-        (cat === "" || p.Categoria === cat)
-      );
-      renderProductos(filtrados);
-    }
+async function registrarClick(id, tipo) {
+  await fetch(`${API_URL}?action=click&id=${id}&tipo=${tipo}`);
+}
 
-    window.abrirModal = function(src){
-      document.getElementById("modal").style.display = "flex";
-      document.getElementById("modalImg").src = src;
-    }
-    window.cerrarModal = function(){
-      document.getElementById("modal").style.display = "none";
-    }
+document.getElementById("searchInput").addEventListener("input", renderGrid);
 
-    cargarProductos(false);
-    setInterval(() => cargarProductos(true), 5000);
-  </script>
+cargarDatos();
+</script>
 </body>
 </html>
