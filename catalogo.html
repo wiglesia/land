@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,6 @@
   <title>Tienda Online - RedTienda</title>
   <style>
     body { margin: 0; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0d1a2b, #162c46); color: #fff; }
-
     header { background: #111c2e; padding: 40px 20px; text-align: center; color: #ff6b00; box-shadow: 0 4px 12px rgba(0,0,0,0.5); position: sticky; top:0; z-index:100; }
     header h1 { margin: 0; font-size: 2.5rem; text-shadow: 0 0 15px #ff6b00; }
     header p { color: #ccc; margin: 8px 0 0; }
@@ -35,13 +34,11 @@
     footer a { color: #ffb400; margin: 0 10px; text-decoration: none; }
     footer a:hover { color: #ff6b00; text-shadow: 0 0 6px #ff6b00; }
 
-    /* Loader */
     #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13,26,43,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; }
     .bar { width: 80%; height: 20px; background: #243a59; border-radius: 10px; overflow: hidden; margin-top: 20px; }
     .bar-fill { width: 0; height: 100%; background: linear-gradient(90deg, #ff6b00, #12d25c); animation: loading 3s linear infinite; }
     @keyframes loading { 0%{width:0;} 50%{width:80%;} 100%{width:100%;} }
 
-    /* Modal para imágenes */
     #modal { display:none; position:fixed; z-index:3000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; }
     #modal img { max-width:90%; max-height:80%; border-radius:12px; box-shadow:0 0 25px #ff6b00; }
     #modal span { position:absolute; top:20px; right:35px; color:#fff; font-size:40px; cursor:pointer; }
@@ -62,12 +59,9 @@
     </nav>
   </header>
 
-  <!-- Filtros -->
   <div id="filtros">
     <input type="text" id="buscador" placeholder="Buscar producto...">
-    <select id="categoriaFiltro">
-      <option value="">Todas las categorías</option>
-    </select>
+    <select id="categoriaFiltro"><option value="">Todas las categorías</option></select>
     <span id="contador"></span>
   </div>
 
@@ -78,51 +72,27 @@
     <p><a href="https://wa.me/5492646706973">WhatsApp</a> | <a href="mailto:jquilpatay14@gmail.com">Email</a></p>
   </footer>
 
-  <!-- Modal imagen -->
   <div id="modal">
     <span onclick="cerrarModal()">&times;</span>
     <img id="modalImg">
   </div>
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCJ8DR1VYm8uatEccUAry-J3mYD90Bo91s",
-      authDomain: "redtienda.firebaseapp.com",
-      projectId: "redtienda",
-      storageBucket: "redtienda.appspot.com",
-      messagingSenderId: "11235227426",
-      appId: "1:11235227426:web:cb70c8c5ae4bbb1fb5977b"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const DEMO_EMAIL = "cliente@demo.com";
-    const DEMO_PASS = "123456";
-    const API_URL = "https://script.google.com/macros/s/AKfycby1crJ7v64rU5TUz7TNNdE853I1oxut_hBsgR7JMxa4iLYvJpyOOIuZVXfkxwXbG2Y3/exec";
-
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycby1crJ7v64rU5TUz7TNNdE853I1oxut_hBsgR7JMxa4iLYvJpyOOIuZVXfkxwXbG2Y3/exec"; // poné acá tu URL de Google Apps Script
     let productosData = [];
 
     async function cargarProductos(silencioso = false){
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, DEMO_EMAIL, DEMO_PASS);
-        const token = await userCredential.user.getIdToken();
-        const res = await fetch(API_URL + "?token=" + token);
+        const res = await fetch(API_URL);
         const data = await res.json();
         productosData = data;
-        filtrar(); // aplica filtros actuales
+        filtrar();
         cargarCategorias(data);
         if (!silencioso) document.getElementById("loader").style.display = "none";
       } catch (err) {
         console.error("Error al cargar productos:", err);
-        if (!silencioso){
-          document.getElementById("productos").innerHTML = "<p style='color:#f66;text-align:center'>No se pudieron cargar los productos.</p>";
-          document.getElementById("loader").style.display = "none";
-        }
+        document.getElementById("productos").innerHTML = "<p style='color:#f66;text-align:center'>No se pudieron cargar los productos.</p>";
+        document.getElementById("loader").style.display = "none";
       }
     }
 
@@ -177,16 +147,8 @@
       document.getElementById("modal").style.display = "none";
     }
 
-    // Primera carga con loader
     cargarProductos(false);
-
-    // Auto refresh cada 5 segundos sin loader
     setInterval(() => cargarProductos(true), 5000);
   </script>
 </body>
 </html>
-
-
-
-
-
