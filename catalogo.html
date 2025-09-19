@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo REDIVE</title>
   <style>
-    /* ================== BASE ================== */
+
     body {
       margin:0;
       font-family:'Segoe UI','Roboto',sans-serif;
@@ -22,7 +22,7 @@
     }
     h1 span { color:#fff; }
 
-    /* ================== LOADER ================== */
+
     .loader-bar {
       height:4px; width:0;
       background:linear-gradient(90deg,#bb86fc,#7f39fb,#03dac6);
@@ -49,7 +49,7 @@
       background:#3b2a57;
     }
 
-    /* ================== SEARCH ================== */
+  
     .search { text-align:center; margin:15px; }
     .search input {
       width:90%; max-width:420px;
@@ -61,14 +61,14 @@
     }
     .search input::placeholder { color:#aaa; }
 
-    /* ================== GRID ================== */
+
     .grid {
       display:grid; gap:20px;
       grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       padding:20px;
     }
 
-    /* ================== CARDS ================== */
+
     .card {
       background:#2a1744;
       border-radius:14px;
@@ -92,7 +92,7 @@
     .cond { font-size:0.8rem; color:#aaa; margin-bottom:5px; }
     .price { font-size:1rem; color:#bb86fc; font-weight:bold; margin:5px 0; }
 
-    /* ================== BUTTON ================== */
+
     .btn {
       background: linear-gradient(45deg,#bb86fc,#7f39fb);
       color:white; text-align:center;
@@ -106,7 +106,7 @@
       color:#fff; box-shadow:0 4px 14px rgba(0,0,0,.7);
     }
 
-    /* ================== CTA ================== */
+ 
     .cta { text-align:center; margin:50px 20px; }
     .cta h2 {
       font-size:1.4rem;
@@ -127,14 +127,14 @@
     .cta .mail { background:#2196f3; color:#fff; }
     .cta .mail:hover { background:#1976d2; }
 
-    /* ================== FOOTER ================== */
+ 
     footer {
       text-align:center; padding:20px;
       background:#111; color:#aaa;
       font-size:0.85rem;
     }
 
-    /* ================== MODAL ================== */
+
     .modal { display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); align-items:center; justify-content:center; }
     .modal img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,.9); }
     .modal:target { display:flex; }
@@ -145,33 +145,32 @@
   <div id="loader" class="loader-bar"></div>
   <h1>TIENDA <span>REDIVE</span></h1>
 
-  <!-- Tabs -->
+
   <div class="tabs">
     <button id="btnProductos" class="active" onclick="setTab('producto')">Productos</button>
     <button id="btnServicios" onclick="setTab('servicio')">Servicios</button>
   </div>
 
-  <!-- Buscador -->
+
   <div class="search">
     <input type="text" id="searchInput" placeholder="Buscar...">
   </div>
 
-  <!-- Grid -->
   <div class="grid" id="grid"></div>
 
-  <!-- CTA -->
+
   <div class="cta">
     <h2>¿Querés publicar tus <span class="green">productos/servicios</span> o <span class="blue">tu propia tienda web?</span> Comunicate con nosotros.</h2>
-    <a href="https://wa.me/549XXXXXXXXX" target="_blank" class="wsp">WhatsApp</a>
-    <a href="mailto:contacto@redive.com" class="mail">Email</a>
+    <a href="https://wa.me/5492646706973" target="_blank" class="wsp">WhatsApp</a>
+    <a href="mailto:jquilpatay14@gmail.com" class="mail">Email</a>
   </div>
 
-  <!-- Footer -->
+
   <footer>
-    © 2025 REDIVE – Soluciones Digitales
+    © 2025 REDIVE – Soluciones Digitales.
   </footer>
 
-  <!-- Modal para ampliar imagen -->
+
   <div id="modal" class="modal" onclick="cerrarModal()">
     <img id="modalImg" src="">
   </div>
@@ -237,3 +236,4 @@ cargarDatos();
 </script>
 </body>
 </html>
+
