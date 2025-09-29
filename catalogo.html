@@ -1,239 +1,1099 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo REDIVE</title>
-  <style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redive - Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+    /* Variables de Color y Tipografía */
+    :root {
+        /* Modo Claro (Light Mode) */
+        --color-primary: #007bff; /* Azul profesional */
+        --color-secondary: #2ecc71; /* Verde (WhatsApp, Éxito) */
+        --color-background: #f4f6f9; /* Fondo suave */
+        --color-surface: #ffffff; /* Fondo de tarjetas */
+        --color-text: #333;
+        --color-text-light: #777;
+        --color-hover: #0056b3;
+        --color-advertisement: #ffff00fe; /* Naranja/Amarillo para anuncios */
+        --shadow-md: 0 1px 15px rgba(0, 0, 0, 0.617);
+        --border-radius: 12px;
+        --color-danger: #e74c3c;
+        
+        /* Modo Oscuro (Dark Mode) - Variables */
+        --color-dark-primary: #8ab4f8; 
+        --color-dark-secondary: #5cb85c;
+        --color-dark-background: #121212; 
+        --color-dark-surface: #1e1e1e; 
+        --color-dark-text: #e0e0e0;
+        --color-dark-text-light: #aaaaaa;
+        --shadow-dark: 0 1px 15px rgba(15, 214, 211, 0.383);
+        --color-dark-hover: #0084ff;
+        --color-dark-advertisement: #f8c440;
+    }
 
+    /* Aplicación del Modo Oscuro */
+    body.dark-mode {
+        background: var(--color-dark-background);
+        color: var(--color-dark-text);
+    }
+    body.dark-mode header,
+    body.dark-mode .filter-bar,
+    body.dark-mode .card,
+    body.dark-mode .modal-content {
+        background: var(--color-dark-surface);
+        color: var(--color-dark-text);
+        box-shadow: var(--shadow-dark);
+    }
+    body.dark-mode header h1 { color: var(--color-dark-primary); }
+    body.dark-mode .switches button {
+        border-color: var(--color-dark-primary);
+        color: var(--color-dark-primary);
+    }
+    body.dark-mode .switches button.active {
+        background: var(--color-dark-primary);
+        color: var(--color-dark-background);
+    }
+    body.dark-mode .btn-info { background: var(--color-dark-primary); }
+    body.dark-mode .btn-info:hover { background: var(--color-dark-hover); }
+    body.dark-mode .btn-whatsapp { background: var(--color-dark-secondary); }
+    
+    body.dark-mode .ad-card {
+        border: 3px solid var(--color-dark-advertisement);
+        box-shadow: 0 4px 12px rgba(248, 196, 64, 0.2); 
+    }
+    body.dark-mode .ad-card-body h4 {
+        color: var(--color-dark-advertisement);
+    }
+    body.dark-mode .ad-card .ad-cta {
+        background: var(--color-dark-advertisement);
+        color: var(--color-dark-background) !important;
+    }
+
+    body.dark-mode .cta-register-banner { 
+        background: #202b3a; 
+        border: 2px solid var(--color-dark-primary);
+    }
+    body.dark-mode .cta-register-banner h3 { color: var(--color-dark-primary); }
+    body.dark-mode .btn-register { background: var(--color-dark-primary); }
+
+    
+    /* Estilos Generales */
+    * { box-sizing: border-box; }
+    
     body {
-      margin:0;
-      font-family:'Segoe UI','Roboto',sans-serif;
-      background: linear-gradient(160deg,#1e003d,#350060,#200040);
-      color:#e0cfff;
-    }
-    h1 {
-      text-align:center;
-      margin:25px 0;
-      font-size:2.2rem;
-      color:#bb86fc;
-      letter-spacing:1px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    }
-    h1 span { color:#fff; }
-
-
-    .loader-bar {
-      height:4px; width:0;
-      background:linear-gradient(90deg,#bb86fc,#7f39fb,#03dac6);
-      animation:loading 2s infinite;
-    }
-    @keyframes loading { 0%{width:0;} 50%{width:80%;} 100%{width:0;} }
-
-    /* ================== TABS ================== */
-    .tabs { text-align:center; margin:20px 0; }
-    .tabs button {
-      padding:10px 22px; margin:5px;
-      border:none; border-radius:30px;
-      background:#2c1f44; color:#ccc;
-      font-weight:bold; font-size:0.9rem;
-      cursor:pointer; transition:all .3s;
-      box-shadow: 0 2px 6px rgba(0,0,0,.4);
-    }
-    .tabs button.active {
-      background: linear-gradient(45deg,#bb86fc,#7f39fb);
-      color:#fff; font-size:1rem;
-      box-shadow: 0 0 12px rgba(187,134,252,.7);
-    }
-    .tabs button:hover:not(.active) {
-      background:#3b2a57;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        background: var(--color-background);
+        color: var(--color-text);
+        line-height: 1.6;
+        transition: background 0.3s, color 0.3s;
     }
 
-  
-    .search { text-align:center; margin:15px; }
-    .search input {
-      width:90%; max-width:420px;
-      padding:12px 15px;
-      border:none; border-radius:25px;
-      font-size:0.95rem;
-      background:#2c1f44; color:#f0f0f0;
-      outline:none;
+    /* 1. Encabezado */
+    header {
+        background: var(--color-surface);
+        color: var(--color-text);
+        padding: 1.5rem 1rem;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    .search input::placeholder { color:#aaa; }
+    header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        text-shadow: 0 1px 1px rgb(1, 0, 1);
+    }
+    /* Botón Modo Oscuro */
+    #darkModeToggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        transition: transform 0.2s;
+    }
+    body.dark-mode #darkModeToggle {
+        color: var(--color-dark-primary);
+    }
 
+    /* 2. Navegación / Switches */
+    .nav-section {
+        padding: 0 1rem;
+        max-width: 1200px;
+        margin: 0 auto 1.5rem auto;
+    }
+    .switches {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .switches button {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--color-primary);
+        border-radius: 8px;
+        cursor: pointer;
+        background: transparent;
+        color: var(--color-primary);
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .switches button.active {
+        background: var(--color-primary);
+        color: var(--color-surface);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+    .btn-publish-nav {
+        background: var(--color-secondary); 
+        color: white !important;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s;
+        border: 2px solid var(--color-secondary); 
+    }
 
+    /* 3. Barra de Búsqueda y Filtros */
+    .filter-bar {
+        background: var(--color-surface);
+        padding: 1rem; 
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+    .filter-bar input, .filter-bar select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 1rem;
+        background: var(--color-background); 
+        color: var(--color-text); 
+    }
+    body.dark-mode .filter-bar input, body.dark-mode .filter-bar select {
+         background: #2b2b2b; 
+         border-color: #444;
+         color: var(--color-dark-text);
+    }
+    .filter-group label {
+        font-size: 0.8rem; 
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--color-text-light);
+        display: block;
+    }
+    @media (min-width: 768px) {
+        .filter-bar {
+            padding: 1.5rem;
+            grid-template-columns: 2fr 1fr 1fr;
+        }
+    }
+    
+    /* 4. Contenedor Principal (Grid) */
     .grid {
-      display:grid; gap:20px;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      padding:20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem 2rem 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
     }
-
-
+    
+    /* 5. Tarjetas (Cards) */
     .card {
-      background:#2a1744;
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 4px 12px rgba(0,0,0,0.5);
-      display:flex; flex-direction:column;
-      transition:transform .25s ease, box-shadow .25s ease;
+        background: var(--color-surface);
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
     }
-    .card:hover { transform:translateY(-6px); box-shadow:0 8px 18px rgba(0,0,0,0.7); }
+    .card-image-container {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+    }
     .card img {
-      width:100%; height:200px;
-      object-fit:cover; cursor:pointer;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
     .card-body {
-      padding:16px;
-      display:flex; flex-direction:column;
-      flex:1; justify-content:space-between;
+        padding: 1rem 1.25rem;
+        flex-grow: 1;
     }
-    .card-body h3 { margin:0; font-size:1.1rem; color:#fff; }
-    .desc { font-size:0.9rem; color:#cbb5e9; margin:10px 0; flex:1; }
-    .cond { font-size:0.8rem; color:#aaa; margin-bottom:5px; }
-    .price { font-size:1rem; color:#bb86fc; font-weight:bold; margin:5px 0; }
-
-
-    .btn {
-      background: linear-gradient(45deg,#bb86fc,#7f39fb);
-      color:white; text-align:center;
-      padding:10px; border-radius:8px;
-      text-decoration:none; font-size:0.9rem;
-      font-weight:bold; transition:.3s;
-      box-shadow:0 3px 10px rgba(0,0,0,.5);
+    .card-body h3 {
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-bottom: 5px;
     }
-    .btn:hover {
-      background: linear-gradient(45deg,#9b67d9,#5e2cb0);
-      color:#fff; box-shadow:0 4px 14px rgba(0,0,0,.7);
+    .card-body .price {
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        font-weight: 700;
+        margin-bottom: 10px;
     }
-
- 
-    .cta { text-align:center; margin:50px 20px; }
-    .cta h2 {
-      font-size:1.4rem;
-      color:#e0cfff; font-weight:600;
-      margin-bottom:15px;
+    .card-footer {
+        padding: 1rem 1.25rem;
+        border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
     }
-    .cta span.green { color:#03dac6; }
-    .cta span.blue { color:#bb86fc; }
-    .cta a {
-      display:inline-block; margin:8px;
-      padding:12px 25px;
-      border-radius:30px;
-      text-decoration:none; font-weight:bold;
-      box-shadow:0 2px 10px rgba(0,0,0,.5);
-    }
-    .cta .wsp { background:#25d366; color:#fff; }
-    .cta .wsp:hover { background:#1fa955; }
-    .cta .mail { background:#2196f3; color:#fff; }
-    .cta .mail:hover { background:#1976d2; }
-
- 
-    footer {
-      text-align:center; padding:20px;
-      background:#111; color:#aaa;
-      font-size:0.85rem;
+    body.dark-mode .card-footer {
+        border-top: 1px solid #333;
     }
 
+    /* Botones */
+    .btn-info, .btn-whatsapp, .btn-share {
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+    .btn-info { background: var(--color-primary); color: white; }
+    .btn-whatsapp { background: var(--color-secondary); color: white; }
+    .btn-share { 
+        background: #95a5a6; 
+        color: white; 
+        font-size: 0.85rem; 
+        padding: 0.5rem 1rem; 
+        margin-top: 10px; 
+        cursor: pointer;
+    }
 
-    .modal { display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); align-items:center; justify-content:center; }
-    .modal img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,.9); }
-    .modal:target { display:flex; }
-  </style>
+    /* 6. Banner CTA de Registro */
+    .cta-register-banner {
+        grid-column: 1 / -1; 
+        background: #ebf5ff; 
+        border: 2px solid var(--color-primary);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    .cta-register-banner h3 {
+        margin-top: 0;
+        color: var(--color-primary);
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+    .btn-register {
+        background: var(--color-primary);
+        color: white !important;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    /* 7. Modal de Detalle y Imagen */
+    .modal, .img-modal, .ad-popup-modal { /* Agregado ad-popup-modal */
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal.is-open, .img-modal.is-open, .ad-popup-modal.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+    .modal-content { 
+        background: var(--color-surface);
+        padding: 2.5rem;
+        border-radius: 16px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.95);
+        transition: transform 0.3s ease, background 0.3s;
+    }
+    .modal.is-open .modal-content {
+        transform: scale(1);
+    }
+    .modal-close {
+        position: absolute;
+        top: 10px; right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--color-text-light);
+        z-index: 1000; /* Alto para cierre de modales normales */
+    }
+    .modal-details-grid p {
+        margin-bottom: 8px;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 5px;
+    }
+    body.dark-mode .modal-details-grid p {
+        border-bottom: 1px dashed #444;
+    }
+    .modal-full-description {
+        padding: 15px;
+        background: var(--color-background);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: var(--color-text) !important; 
+        background: var(--color-surface);
+    }
+    body.dark-mode .modal-full-description {
+        color: var(--color-dark-text) !important;
+        background: var(--color-dark-surface);
+    }
+    .modal-full-description h4 {
+        color: inherit; 
+        margin-top: 0;
+    }
+
+    .img-modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        display: block;
+    }
+    .img-modal-content img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100vh;
+        display: block;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        .switches { flex-direction: column; }
+        .switches button, .btn-publish-nav { width: 100%; margin-bottom: 5px; justify-content: center; }
+        .modal-content { padding: 1.5rem; }
+        header { padding: 1rem 1rem; }
+        .card-footer { flex-direction: column; }
+        .btn-info, .btn-whatsapp { width: 100%; justify-content: center; }
+    }
+
+    /* --- ESTILOS PARA LA PUBLICIDAD POPUP DE PANTALLA COMPLETA (Modal Temporal) --- */
+
+/* 1. Contenedor Principal (Ad Content) - Ajuste de tamaño */
+.ad-popup-content {
+    background: var(--color-surface); 
+    padding: 0; 
+    border-radius: 20px;
+    max-width: 90%; 
+    width: 900px; /* Tamaño un poco más ancho para el banner */
+    height: 550px; /* Tamaño fijo para el banner */
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative; 
+    border: 5px solid var(--color-advertisement);
+    overflow: hidden; 
+}
+
+/* 2. Contenedor de Imagen (FONDO) */
+.ad-popup-image-container {
+    height: 100%; 
+    width: 100%; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: 1; 
+    overflow: hidden;
+    /* CLAVE: Centra el contenido si sobra espacio (debido a 'contain') */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black; /* Fondo negro para rellenar los huecos si la imagen no es 1:1 */
+}
+
+.ad-popup-image-container img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* ¡CLAVE! Muestra la imagen completa sin recortarla. */
+    object-position: center; 
+}
+
+/* ELIMINAMOS TODOS LOS ESTILOS DE ad-popup-overlay, ad-popup-title, y ad-popup-text */
+
+/* 3. Botón CTA (Posicionado Flotante) */
+.ad-popup-cta {
+    position: fixed; /* CLAVE: Flota sobre la imagen */
+    bottom: 70px; /* Posición desde abajo */
+    left: 50%;
+    transform: translateX(-50%); /* Centra horizontalmente */
+    z-index: 10; 
+    
+    background: var(--color-advertisement);
+    color: rgb(11, 7, 7) !important;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* 4. Texto pequeño de cierre */
+.ad-popup-small-text {
+    position: fixed; /* Flota sobre la imagen */
+    bottom: 20px; /* Justo al borde */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    
+    color: #ccc; 
+    text-shadow: 1px 1px 2px black; 
+    font-size: 0.7em;
+    padding-bottom: 5px;
+    background: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente para asegurar legibilidad */
+    width: 100%;
+    text-align: center;
+}
+
+/* 5. Ajuste del Botón de Cierre (se mantiene visible) */
+.ad-popup-modal .modal-close {
+    position: absolute;
+    top: 10px; right: 10px;
+    color: white; 
+    text-shadow: 1px 1px 2px black;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    width: 30px; /* Un poco más pequeño */
+    height: 30px;
+    /* ... otros estilos ... */
+}
+    @media (max-width: 600px) {
+        .ad-popup-content { padding: 0; max-width: 90%; }
+        .ad-popup-overlay { padding: 15px; }
+        .ad-popup-title { font-size: 1.5rem; }
+    }
+    /* --- Estilos para el Botón Flotante de WhatsApp --- */
+.button2 {
+  display: inline-flex; /* Asegura que texto y SVG se alineen */
+  align-items: center; /* Centra verticalmente el contenido */
+  justify-content: center; /* Centra horizontalmente el contenido */
+  
+  /* --- Posicionamiento Flotante --- */
+  position: fixed; /* ¡CLAVE! Hace que el botón flote con respecto al viewport */
+  bottom: 20px;    /* 20px desde el borde inferior */
+  right: 20px;     /* 20px desde el borde derecho */
+  z-index: 9999;   /* ¡CLAVE! Asegura que esté SIEMPRE por encima de otros elementos */
+  
+  /* --- Estilos de Diseño --- */
+  transition: all 0.2s ease-in;
+  overflow: hidden;
+  color: #090909;
+  padding: 0.7em 1.7em; /* Ajustado el padding para el icono interno */
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  box-shadow: 6px 6px 12px #c5c5c5,
+              -6px -6px 12px #ffffff;
+  text-decoration: none; /* Quita el subrayado del enlace */
+}
+
+/* Estilos para el SVG del icono de WhatsApp */
+.button2 > svg {
+  height: 30px; /* Tamaño del icono */
+  width: 30px; /* Ancho del icono */
+  margin-left: 10px; /* Espacio entre el texto "WhatsApp" y el icono */
+  /* No necesita position: absolute si el padre es display: inline-flex */
+}
+
+/* Estilos de interaccion (hover y active) */
+.button2:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5,
+              inset -4px -4px 12px #ffffff;
+}
+
+.button2:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #009087; /* Color de fondo al hacer hover */
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:hover {
+  color: #ffffff;
+  border: 1px solid #009087;
+}
+
+.button2:hover:before {
+  top: -35%;
+  background-color: #009087;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button2:hover:after {
+  top: -45%;
+  background-color: #009087;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+    </style>
 </head>
-<body>
+<body class="light-mode">
+    <header> <h1><i class="fas fa-store"></i> Tienda Redive</h1> <button id="darkModeToggle" onclick="toggleDarkMode()"> <i class="fas fa-moon"></i> </button> </header> 
+    <main class="tienda-container"> 
+        <div class="nav-section"> 
+            <div class="switches"> <button onclick="cambiarVista('productos')" class="active"><i class="fas fa-box"></i> Productos</button> <button onclick="cambiarVista('servicios')"><i class="fas fa-handshake"></i> Servicios</button> <a href="#" class="btn-publish-nav" target="_blank"><i class="fas fa-cloud-upload-alt"></i> Publica Ahora</a> </div> 
+            <div class="filter-bar"> 
+                <div class="filter-group"> <label for="search-input"><i class="fas fa-search"></i> Buscar por nombre/descripción</label> <input type="text" id="search-input" placeholder="Ej: Zapatillas, Consultoría..." onkeyup="debouncedAplicarFiltros()"> </div> 
+                <div class="filter-group"> <label for="category-filter"><i class="fas fa-tags"></i> Categoría</label> <select id="category-filter" onchange="aplicarFiltros()"> <option value="">Todas</option> </select> </div> 
+                <div class="filter-group"> <label for="sort-filter"><i class="fas fa-sort"></i> Ordenar por</label> <select id="sort-filter" onchange="aplicarFiltros()"> <option value="default">Relevancia</option> <option value="price_asc">Precio ↑</option> <option value="price_desc">Precio ↓</option> <option value="date_desc">Más Reciente</option> <option value="date_asc">Más Antiguo</option> </select> </div> 
+            </div> 
+        </div> 
+        <div class="grid main-content-grid" id="contenedor"> </div> 
+        <div class="grid" id="cta-registro-final"> 
+            <div class="cta-register-banner"> 
+                <h3>¿Quieres vender o publicar un servicio? 🚀</h3> <p>¡Únete a nuestra comunidad de vendedores! Es fácil, rápido y te ayuda a llegar a más clientes.</p> 
+                <a href="#" class="btn-register" target="_blank"><i class="fas fa-hand-point-up"></i> ¡Publica Ahora!</a> 
+            </div> 
+        </div> 
+        
+    </main> 
+    <div class="modal" id="modalInfo"> <div class="modal-content" id="modalDetalle"> <button class="modal-close" onclick="cerrarModal('modalInfo')"><i class="fas fa-times"></i></button> <h2 id="modal-titulo">Detalle del Item</h2> <button class="btn-share" id="btnShareModal" style="margin-bottom: 20px;"><i class="fas fa-share-alt"></i> Copiar Enlace</button> <div class="modal-full-description"> <h4>Descripción Completa</h4> <p id="modal-description"></p> </div> <div class="modal-details-grid" id="modalContenido"> </div> </div> </div> 
+    <div class="img-modal" id="modalImg" onclick="cerrarModal('modalImg')"> <div class="img-modal-content"> <img id="imgAmpliada" src="" alt="Imagen ampliada"> </div> </div> 
+    
+    <div class="ad-popup-modal" id="modalPublicidadPopup">
+        <div class="ad-popup-content">
+            <button class="modal-close" onclick="cerrarPublicidadModal()"><i class="fas fa-times"></i></button>
 
-  <div id="loader" class="loader-bar"></div>
-  <h1>TIENDA <span>REDIVE</span></h1>
+            <div class="ad-popup-image-container" id="adPopupImageContainer">
+                <img id="adPopupImage" src="" alt="Imagen de publicidad" style="display:none;">
+                <i class="fas fa-bullhorn fa-4x" id="adPopupIcon" style="color: var(--color-advertisement); margin: 30px 0;"></i>
+            </div>
 
+            <div class="ad-popup-overlay">
+                <h2 class="ad-popup-title" id="adPopupTitle">¡PROMOCIÓN!</h2>
+                <p class="ad-popup-text" id="adPopupText">Aprovecha esta oferta.</p>
 
-  <div class="tabs">
-    <button id="btnProductos" class="active" onclick="setTab('producto')">Productos</button>
-    <button id="btnServicios" onclick="setTab('servicio')">Servicios</button>
-  </div>
+                <a href="#" id="adPopupLink" target="_blank" class="ad-popup-cta" onclick="registrarClickPublicidad(this.dataset.adid); cerrarPublicidadModal();">
+                    Ver Publicidad <i class="fas fa-arrow-right"></i>
+                </a>
 
-
-  <div class="search">
-    <input type="text" id="searchInput" placeholder="Buscar...">
-  </div>
-
-  <div class="grid" id="grid"></div>
-
-
-  <div class="cta">
-    <h2>¿Querés publicar tus <span class="green">productos/servicios</span> o <span class="blue">tu propia tienda web?</span> Comunicate con nosotros.</h2>
-    <a href="https://wa.me/5492646706973" target="_blank" class="wsp">WhatsApp</a>
-    <a href="mailto:jquilpatay14@gmail.com" class="mail">Email</a>
-  </div>
-
-
-  <footer>
-    © 2025 REDIVE – Soluciones Digitales.
-  </footer>
-
-
-  <div id="modal" class="modal" onclick="cerrarModal()">
-    <img id="modalImg" src="">
-  </div>
-
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzGg7HN3t0_ZW6sQ9zqNT2ybSIScJRWJM0DoA5ae1mSnA_BV6EdMSPKKgihPICOWxE/exec";
-let productos = [], servicios = [];
-let activeTab = "producto";
-
-async function cargarDatos() {
-  document.getElementById("loader").style.display="block";
-  const resProd = await fetch(`${API_URL}?action=productos`);
-  productos = await resProd.json();
-  const resServ = await fetch(`${API_URL}?action=servicios`);
-  servicios = await resServ.json();
-  renderGrid();
-  document.getElementById("loader").style.display="none";
-}
-
-function setTab(tab) {
-  activeTab = tab;
-  document.getElementById("btnProductos").classList.remove("active");
-  document.getElementById("btnServicios").classList.remove("active");
-  document.getElementById(tab === "producto" ? "btnProductos" : "btnServicios").classList.add("active");
-  renderGrid();
-}
-
-function renderGrid() {
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  const list = activeTab==="producto" ? productos : servicios;
-  const q = document.getElementById("searchInput").value.toLowerCase();
-  list.filter(i=> i.nombre.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q))
-      .forEach(i => {
-    grid.innerHTML += `
-      <div class="card">
-        <img src="${i.img}" alt="${i.nombre}" onclick="ampliarImagen('${i.img}')">
-        <div class="card-body">
-          <h3>${i.nombre}</h3>
-          <p class="desc">${i.desc}</p>
-          <p class="cond">Condición: ${i.condicion}</p>
-          <p class="price">$${i.precio}</p>
-          <a href="https://wa.me/${i.whatsapp}?text=Hola,%20me%20interesa%20${encodeURIComponent(i.nombre)}" 
-             class="btn" target="_blank" onclick="registrarClick('${i.id}','${activeTab}')">Consultar</a>
+                <small class="ad-popup-small-text">Este anuncio se cerrará automáticamente en 5 segundos.</small>
+            </div>
         </div>
-      </div>`;
-  });
-}
-
-function ampliarImagen(src) {
-  document.getElementById("modalImg").src = src;
-  document.getElementById("modal").style.display="flex";
-}
-function cerrarModal(){ document.getElementById("modal").style.display="none"; }
-
-async function registrarClick(id, tipo) {
-  await fetch(`${API_URL}?action=click&id=${id}&tipo=${tipo}`);
-}
-
-document.getElementById("searchInput").addEventListener("input", renderGrid);
-
-cargarDatos();
-</script>
+    </div>
+    
 </body>
-</html>
+<div class="modal" id="modalInfo"> 
+    </div> 
 
+<div class="img-modal" id="modalImg" onclick="cerrarModal('modalImg')"> 
+    </div> 
+
+<div class="ad-popup-modal" id="modalPublicidadPopup">
+    </div>
+
+<a href="https://wa.me/+5492646706973" target="_blank" class="button2">
+    WhatsApp
+    <svg viewBox="0 0 48 48" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z" fill="#fff"></path><path d="M4.868,43.803c-0.132,0-0.26-0.052-0.355-0.148c-0.125-0.127-0.174-0.312-0.127-0.483l2.639-9.636c-1.636-2.906-2.499-6.206-2.497-9.556C4.532,13.238,13.273,4.5,24.014,4.5c5.21,0.002,10.105,2.031,13.784,5.713c3.679,3.683,5.704,8.577,5.702,13.781c-0.004,10.741-8.746,19.48-19.486,19.48c-3.189-0.001-6.344-0.788-9.144-2.277l-9.875,2.589C4.953,43.798,4.911,43.803,4.868,43.803z" fill="#fff"></path><path d="M24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,4C24.014,4,24.014,4,24.014,4C12.998,4,4.032,12.962,4.027,23.979c-0.001,3.367,0.849,6.685,2.461,9.622l-2.585,9.439c-0.094,0.345,0.002,0.713,0.254,0.967c0.19,0.192,0.447,0.297,0.711,0.297c0.085,0,0.17-0.011,0.254-0.033l9.687-2.54c2.828,1.468,5.998,2.243,9.197,2.244c11.024,0,19.99-8.963,19.995-19.98c0.002-5.339-2.075-10.359-5.848-14.135C34.378,6.083,29.357,4.002,24.014,4L24.014,4z" fill="#cfd8dc"></path><path d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z" fill="#40c351"></path><path clip-rule="evenodd" d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z" fill-rule="evenodd" fill="#fff"></path>
+    </svg>
+</a>
+    <script>
+    // URL DE LA API: Mantengo la última URL que proporcionaste.
+    const API_URL = "https://script.google.com/macros/s/AKfycbyfr9ROQWtRy-waEJQEkUq0WC3P84fsgN-ml00Wwqct5Z-1jHDuGZfuGLSzXLdMpcRA8Q/exec"; 
+    
+    let vistaActual = 'productos';
+    let datosOriginales = []; 
+    // Ahora 'publicidadActiva' es crucial para el modal temporal Y el grid.
+    let publicidadActiva = []; 
+    // Se eliminaron claves internas para que no se muestren en el modal de detalle de productos
+    const CAMPOS_A_EXCLUIR = ['ID', 'Estado', 'Imagen', 'DNI', 'Tipo', 'FechaInicio', 'FechaFin', 'Descripción', 'Clicks', 'Vendedor', 'Tienda', 'DíasPublicados', 'Posición', 'Título', 'Clics', 'Categoría', 'Precio']; 
+    
+    // Función de Debouncing (para filtros)
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+    const debouncedAplicarFiltros = debounce(aplicarFiltros, 300);
+
+    // Formato de Moneda
+    function formatPrice(price) {
+        const num = parseFloat(price);
+        if (isNaN(num)) return price;
+        return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(num).replace('ARS', '$');
+    }
+
+    // --- FUNCIONES DE MODO OSCURO (Mantenidas) ---
+    function toggleDarkMode() {
+        const body = document.body;
+        const isDarkMode = body.classList.toggle('dark-mode');
+        const toggleButton = document.getElementById('darkModeToggle');
+        
+        if (isDarkMode) {
+            localStorage.setItem('darkMode', 'enabled');
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+            body.classList.remove('light-mode');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+            body.classList.add('light-mode');
+        }
+    }
+
+    function loadDarkModePreference() {
+        const preference = localStorage.getItem('darkMode');
+        const toggleButton = document.getElementById('darkModeToggle');
+        
+        if (preference === 'enabled') {
+            document.body.classList.add('dark-mode');
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+             document.body.classList.remove('dark-mode');
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    }
+
+
+    // --- FUNCIONES DE LA TIENDA (Mantenidas) ---
+
+    function cambiarVista(tipo) {
+        vistaActual = tipo;
+        document.querySelectorAll('.switches button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.switches button').forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(tipo)) btn.classList.add('active');
+        });
+        document.getElementById('search-input').value = '';
+        document.getElementById('category-filter').value = '';
+        document.getElementById('sort-filter').value = 'default';
+        cargarDatos();
+    }
+
+    function llenarFiltroCategorias(data) {
+        const select = document.getElementById('category-filter');
+        select.innerHTML = '<option value="">Todas</option>'; 
+        const categorias = new Set();
+        data.forEach(item => {
+            if (item.Categoría && String(item.Categoría).trim() !== "") {
+                categorias.add(item.Categoría);
+            }
+        });
+        
+        const categoriasOrdenadas = Array.from(categorias).sort();
+
+        categoriasOrdenadas.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat;
+            select.appendChild(option);
+        });
+    }
+
+    function aplicarFiltros() {
+        const searchText = document.getElementById('search-input').value.toLowerCase();
+        const category = document.getElementById('category-filter').value;
+        const sortCriteria = document.getElementById('sort-filter').value;
+        
+        let datosFiltrados = [...datosOriginales];
+        
+        // 1. Filtrar por texto
+        if (searchText) {
+            datosFiltrados = datosFiltrados.filter(item => 
+                (item.Nombre && String(item.Nombre).toLowerCase().includes(searchText)) ||
+                (item.Descripción && String(item.Descripción).toLowerCase().includes(searchText))
+            );
+        }
+        
+        // 2. Filtrar por Categoría
+        if (category) {
+            datosFiltrados = datosFiltrados.filter(item => item.Categoría === category);
+        }
+
+        // 3. Aplicar Ordenamiento
+        switch (sortCriteria) {
+            case 'price_asc':
+                datosFiltrados.sort((a, b) => (parseFloat(a.Precio) || 0) - (parseFloat(b.Precio) || 0));
+                break;
+            case 'price_desc':
+                datosFiltrados.sort((a, b) => (parseFloat(b.Precio) || 0) - (parseFloat(a.Precio) || 0));
+                break;
+            case 'date_desc':
+                datosFiltrados.sort((a, b) => (String(b.ID).localeCompare(String(a.ID)))); 
+                break;
+            case 'date_asc':
+                datosFiltrados.sort((a, b) => (String(a.ID).localeCompare(String(b.ID))));
+                break;
+        }
+
+        // 4. Mostrar los datos (mostrarDatos usará la variable global publicidadActiva)
+        mostrarDatos(datosFiltrados); 
+    }
+    
+    // 🔑 FUNCIÓN DE CARGA PRINCIPAL (Carga Ítems Y Publicidad)
+    function cargarDatos() {
+        const contenedor = document.getElementById('contenedor');
+        contenedor.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Cargando...</p>';
+
+        // Hacemos las dos llamadas a la API de forma paralela
+        Promise.all([
+            fetch(`${API_URL}?tipo=${vistaActual}`).then(res => res.json()),
+            fetch(`${API_URL}?tipo=publicidad`).then(res => res.json())
+        ])
+        .then(([datosItems, datosPublicidad]) => {
+            // 1. Procesar Ítems (Productos/Servicios)
+            datosOriginales = datosItems.filter(item => item.Estado && String(item.Estado).toLowerCase() === 'activo');
+            
+            // 2. Procesar Publicidad
+            // 🚨 CORRECCIÓN CRÍTICA: Almacenamos TODA la publicidad activa en la variable global.
+            publicidadActiva = datosPublicidad.filter(ad => 
+                ad.Estado && String(ad.Estado).toLowerCase() === 'activo'
+            );
+            
+            console.log(`[DEBUG PUBLICIDAD] Anuncios activos TOTALES: ${publicidadActiva.length}`);
+            
+            // 3. Rellenar filtros y aplicar filtros/renderizado
+            llenarFiltroCategorias(datosOriginales);
+            aplicarFiltros(); 
+        })
+        .catch(error => {
+            contenedor.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> **ERROR CRÍTICO DE CARGA:** No se pudo conectar a la API o no hay ítems activos. Por favor, revisa el **API_URL** y la columna **Estado**.</p>';
+            console.error("Error al cargar datos:", error);
+            datosOriginales = [];
+            publicidadActiva = [];
+            mostrarDatos([]);
+        });
+    }
+
+    // 🔑 FUNCIÓN AUXILIAR: Crea el HTML de la tarjeta de publicidad
+    function crearCardPublicidad(item) {
+        // CORRECCIÓN: Uso de item.Enlace para el link
+        const adLink = item.Enlace || '#';
+        const adImage = item.Imagen && item.Imagen.startsWith('http') ? item.Imagen : '';
+
+        return `
+            <div class="ad-card" data-ad-id="${item.ID}">
+                <a href="${adLink}" target="_blank" onclick="registrarClickPublicidad('${item.ID}')" style="text-decoration: none;">
+                    ${adImage ? `
+                        <div class="ad-card-image-container">
+                            <img src="${adImage}" alt="${item.Nombre || 'Anuncio'}" loading="lazy">
+                        </div>
+                    ` : `
+                        <div class="ad-card-image-container" style="background: var(--color-surface); display: flex; justify-content: center; align-items: center; min-height: 100px;">
+                            <i class="fas fa-bullhorn fa-4x" style="color: var(--color-advertisement);"></i>
+                        </div>
+                    `}
+                    <div class="ad-card-body">
+                        <h4><i class="fas fa-bullhorn"></i> ${item.Nombre || 'Promoción Especial'}</h4>
+                        <p>${item.Descripción || '¡Haz crecer tu negocio hoy mismo!'}</p>
+                    </div>
+                    <div class="ad-cta">
+                        ¡Más Información! <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        `;
+    }
+
+    // 🔑 FUNCIÓN DE RENDERIZADO (CORREGIDA para usar la variable global 'publicidadActiva')
+    function mostrarDatos(items) {
+        const contenedor = document.getElementById('contenedor');
+        contenedor.innerHTML = ''; 
+        
+        if (!items || items.length === 0) {
+            const searchActive = document.getElementById('search-input').value || document.getElementById('category-filter').value;
+            
+            const mensaje = !searchActive
+                ? '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-danger);"><i class="fas fa-exclamation-triangle"></i> **NO HAY ITEMS ACTIVOS.**</p>'
+                : '<p style="grid-column: 1 / -1; text-align: center;"><i class="fas fa-info-circle"></i> No hay ítems que coincidan con los filtros aplicados en esta sección.</p>';
+            
+            contenedor.innerHTML = mensaje;
+        }
+        
+        // 1. Crear un fragmento para optimizar la inserción en el DOM
+        const fragment = document.createDocumentFragment();
+
+        // 2. Convertir los items a Nodos DOM (elementos <div class="card">)
+        const itemNodes = items.map(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const imgUrl = item.Imagen && item.Imagen.startsWith('http') ? item.Imagen : 'https://via.placeholder.com/400x220?text=Sin+Imagen';
+            const price = formatPrice(item.Precio) || 'Consultar';
+            const desc = item.Descripción || 'Sin descripción disponible.';
+            
+            // Se asume que item.Nombre es para productos/servicios y no para anuncios
+            const itemName = item.Nombre || item.Titulo || 'Sin Título'; 
+            
+            card.innerHTML = `
+                <div class="card-image-container">
+                    <img src="${imgUrl}" alt="${itemName}" loading="lazy" onclick="event.stopPropagation(); mostrarImg('${imgUrl}');">
+                </div>
+                <div class="card-body">
+                    <h3>${itemName}</h3>
+                    <div class="price">${price}</div>
+                    <p class="description">${desc}</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-info" onclick="mostrarInfo(datosOriginales.find(i => i.ID === '${item.ID}')); registrarClick('${item.ID}');">
+                        <i class="fas fa-info-circle"></i> Detalle
+                    </button>
+                    <a href="https://wa.me/${item.WhatsApp}?text=Hola! Vi tu ${vistaActual.slice(0, -1)}: ${itemName}. Me interesa!" 
+                       class="btn-whatsapp" target="_blank" onclick="registrarClick('${item.ID}')">
+                        <i class="fab fa-whatsapp"></i> Contactar
+                    </a>
+                </div>
+            `;
+            return card;
+        });
+
+        // 3. Insertar la publicidad del Grid
+        // Filtramos de la lista global, solo los que tienen una POSICIÓN válida (>= 1)
+        const adsParaGrid = publicidadActiva.filter(ad => 
+            !isNaN(parseInt(ad.Posición)) && parseInt(ad.Posición) >= 1
+        );
+
+        if (adsParaGrid && adsParaGrid.length > 0) {
+            adsParaGrid.sort((a, b) => parseInt(a.Posición) - parseInt(b.Posición));
+
+            for (let i = adsParaGrid.length - 1; i >= 0; i--) {
+                const ad = adsParaGrid[i];
+                const posicion = parseInt(ad.Posición);
+                
+                const adNodeHTML = crearCardPublicidad(ad); 
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = adNodeHTML;
+                const adElement = tempDiv.firstChild;
+                
+                if (adElement) {
+                    if (posicion >= 1 && posicion && posicion <= itemNodes.length) { 
+                        itemNodes.splice(posicion, 0, adElement); 
+                    } else if (posicion > itemNodes.length) {
+                        itemNodes.push(adElement);
+                    }
+                }
+                console.log(`[DEBUG PUBLICIDAD] Anuncio ID: ${ad.ID} (Posición: ${posicion}) insertado en el Grid.`);
+            }
+        } else {
+            console.log("[DEBUG PUBLICIDAD] No hay anuncios activos con Posición válida para el Grid.");
+        }
+        
+        // 4. Renderizar el array final al contenedor usando un fragmento
+        itemNodes.forEach(node => {
+            fragment.appendChild(node);
+        });
+
+        contenedor.appendChild(fragment); 
+    }
+    
+    // --- REGISTROS Y MODALES (Mantenidas) ---
+
+    function registrarClick(itemID) {
+         if (!itemID) return;
+         fetch(`${API_URL}?tipo=${vistaActual}&accion=click&id=${itemID}`, { method: 'POST' })
+         .then(res => {
+             if (res.ok) console.log(`Click registrado para el item ID: ${itemID} (${vistaActual})`);
+         })
+         .catch(error => console.error("Error al registrar click:", error));
+    }
+
+    function registrarClickPublicidad(adID) {
+        fetch(`${API_URL}?tipo=publicidad&accion=click&id=${adID}`, { method: 'POST' })
+        .then(res => {
+            if (res.ok) console.log(`Click registrado para el anuncio ID: ${adID} (Publicidad)`);
+         })
+         .catch(error => console.error("Error al registrar click de publicidad:", error));
+    }
+
+    function mostrarInfo(item) {
+        const modal = document.getElementById('modalInfo');
+        const titulo = document.getElementById('modal-titulo');
+        const contenido = document.getElementById('modalContenido');
+        const descripcionCompleta = document.getElementById('modal-description');
+        const btnShare = document.getElementById('btnShareModal');
+        
+        titulo.textContent = `Detalle de: ${item.Nombre || item.Titulo}`;
+        descripcionCompleta.textContent = item.Descripción || 'No hay una descripción completa disponible.';
+
+        let detailHTML = '';
+        for (const [key, value] of Object.entries(item)) {
+            if (!CAMPOS_A_EXCLUIR.includes(key) && value) {
+                const displayKey = key === 'WhatsApp' ? 'Contacto' : key;
+                const displayValue = (key === 'Precio' && !isNaN(value)) ? formatPrice(value) : value;
+                detailHTML += `<p><strong>${displayKey}:</strong> ${displayValue}</p>`;
+            }
+        }
+        contenido.innerHTML = detailHTML;
+        
+        btnShare.onclick = () => {
+            const url = `${window.location.origin}${window.location.pathname}?tipo=${vistaActual}&id=${item.ID}`;
+            if (navigator.clipboard) {
+                 navigator.clipboard.writeText(url).then(() => {
+                     alert('Enlace copiado al portapapeles!');
+                 }).catch(err => {
+                     console.error('Error al copiar el enlace:', err);
+                     alert('Error al copiar. Por favor, copia la URL de la barra de direcciones.');
+                 });
+            } else {
+                 alert('Tu navegador no soporta la copia automática. Por favor, copia la URL de la barra de direcciones.');
+            }
+        };
+
+        modal.classList.add('is-open'); 
+    }
+    
+    function mostrarImg(src) {
+        const modal = document.getElementById('modalImg');
+        document.getElementById('imgAmpliada').src = src && src.startsWith('http') ? src : 'https://via.placeholder.com/600x400?text=Imagen+No+Disponible';
+        modal.classList.add('is-open'); 
+    }
+
+    function cerrarModal(id) {
+        document.getElementById(id).classList.remove('is-open');
+    }
+
+    window.onclick = e => {
+        if (e.target.id === 'modalInfo') cerrarModal('modalInfo');
+        if (e.target.id === 'modalImg') cerrarModal('modalImg');
+    };
+
+    // --- FUNCIONES DE PUBLICIDAD POPUP TEMPORAL ACTUALIZADAS ---
+    const AD_POPUP_INTERVAL = 60000; // 60 segundos
+    const AD_POPUP_DURATION = 10000; // 5 segundos
+    let adPopupTimeout = null;
+    let adInterval = null;
+
+    function mostrarPublicidadModal() {
+        // Filtramos solo los anuncios que no están en el grid (Posición NO válida)
+        const adsParaPopup = publicidadActiva.filter(ad => 
+            isNaN(parseInt(ad.Posición)) || parseInt(ad.Posición) < 1
+        );
+        
+        if (adsParaPopup.length === 0) {
+            console.log("No hay anuncios activos sin posición válida para mostrar en el modal POPUP.");
+            return; 
+        }
+
+        // 1. Seleccionar un anuncio aleatorio de la lista filtrada
+        const randomIndex = Math.floor(Math.random() * adsParaPopup.length);
+        const ad = adsParaPopup[randomIndex];
+
+        // 2. Referencias del DOM
+        const modal = document.getElementById('modalPublicidadPopup');
+        const title = document.getElementById('adPopupTitle');
+        const text = document.getElementById('adPopupText');
+        const link = document.getElementById('adPopupLink');
+        const imageContainer = document.getElementById('adPopupImageContainer');
+        
+        // 3. Inyectar los datos del anuncio
+        title.textContent = ad.Nombre || '¡PROMOCIÓN IMPERDIBLE!';
+        text.textContent = ad.Descripción || 'Aprovecha esta oferta por tiempo limitado.';
+        link.href = ad.Enlace || '#';
+        link.dataset.adid = ad.ID; // Guarda el ID para registrar el clic
+        link.textContent = 'Ver Oferta '; // Texto del botón
+        
+        // 4. Manejar la imagen/icono
+        imageContainer.innerHTML = '';
+        if (ad.Imagen && ad.Imagen.startsWith('http')) {
+             imageContainer.innerHTML = `<img src="${ad.Imagen}" alt="${ad.Nombre || 'Anuncio'}">`;
+        } else {
+            // Mostrar icono si no hay imagen válida
+            imageContainer.innerHTML = `<i class="fas fa-bullhorn fa-4x" style="color: var(--color-advertisement); margin: 30px 0;"></i>`;
+        }
+        
+        // 5. Mostrar el modal
+        modal.classList.add('is-open');
+
+        // 6. Cierra automáticamente después de 5 segundos
+        adPopupTimeout = setTimeout(() => {
+            cerrarPublicidadModal();
+        }, AD_POPUP_DURATION);
+    }
+
+    function cerrarPublicidadModal() {
+        const modal = document.getElementById('modalPublicidadPopup');
+        modal.classList.remove('is-open');
+        if (adPopupTimeout) {
+            clearTimeout(adPopupTimeout);
+            adPopupTimeout = null;
+        }
+    }
+
+    function iniciarIntervaloPublicidad() {
+        // Asegurarse de que no haya intervalos duplicados
+        if (adInterval) {
+            clearInterval(adInterval);
+        }
+        
+        // Iniciar el intervalo: mostrar publicidad cada 60 segundos
+        adInterval = setInterval(mostrarPublicidadModal, AD_POPUP_INTERVAL);
+    }
+
+    // Se llama al final de la carga inicial
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDarkModePreference();
+        cambiarVista('productos');
+        iniciarIntervaloPublicidad(); // INICIA EL TEMPORIZADOR DE PUBLICIDAD
+    });
+</script>
+</script>
+</html>
