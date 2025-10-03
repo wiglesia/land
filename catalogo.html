@@ -1,348 +1,1012 @@
 <!DOCTYPE html>
-<html lang="es" oncontextmenu="return false;">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>J-Web – Desarrollo Web Profesional y Moderno</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    :root{
-        --primary:#0077b6;
-        --secondary:#00B4D8;
-        --dark:#212529;
-        --gray:#6c757d;
-        --bg:#f8f9fa;
-        --wa:#25d366;
-    }
-    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--dark);line-height:1.7;}
-    a{text-decoration:none;transition:color .3s, background-color .3s, transform .3s;}
-
-    nav{
-        position:fixed;top:0;left:0;width:100%;
-        background:rgba(33,37,41,.98);
-        display:flex;justify-content:space-between;align-items:center;
-        padding:.6rem 2rem;
-        box-shadow:0 3px 15px rgba(0,0,0,.3);
-        z-index:1000;
-    }
-    nav h1{color:var(--secondary);font-family:'Roboto Mono',monospace;font-size:1.8rem;}
-    nav ul{list-style:none;display:flex;gap:1.5rem;align-items:center;}
-    nav a{color:#fff;font-weight:500;}
-    nav a:hover{color:var(--secondary);}
-    .nav-btn{
-        background:var(--primary);color:#fff;
-        padding:.5rem 1rem;border-radius:20px;
-        font-weight:600;font-size:.9rem;
-        border:1px solid var(--primary);
-    }
-    .nav-btn:hover{background:#fff;color:var(--primary);transform:translateY(-1px);}
-
-    header{
-        background:linear-gradient(135deg,var(--dark),#000);
-        color:#fff;text-align:center;
-        padding:10rem 1rem 8rem;margin-top:55px;
-        position:relative;overflow:hidden;
-    }
-    header h1{
-        font-size:3.5rem;margin-bottom:.5rem;
-        color:var(--secondary);
-        text-shadow:0 0 10px rgba(0,180,216,.8);
-        animation:fadeIn 1.5s;
-    }
-    header p{font-size:1.4rem;margin-bottom:2.5rem;font-weight:300;max-width:800px;margin:0 auto 2.5rem;}
-    .cta-group a{
-        display:inline-block;
-        padding:1rem 2.5rem;border-radius:30px;
-        font-weight:600;
-        margin:0 .5rem;transition:all .3s ease;
-    }
-    .cta-primary{background:var(--primary);color:#fff;border:2px solid var(--primary);}
-    .cta-primary:hover{background:var(--dark);color:var(--primary);}
-    .cta-secondary{background:none;color:var(--secondary);border:2px solid var(--secondary);}
-    .cta-secondary:hover{background:var(--secondary);color:var(--dark);transform:translateY(-2px);}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
-
-    .lazy{opacity:0;transform:translateY(50px);transition:opacity 0.8s ease-out, transform 0.8s ease-out;}
-    .is-visible{opacity:1;transform:translateY(0);}
-
-    section{padding:6rem 1rem;max-width:1200px;margin:auto;}
-    section h2{text-align:center;font-size:2.5rem;margin-bottom:3rem;color:var(--primary);}
-    section h2::after{content:"";display:block;width:60px;height:4px;background:var(--secondary);margin:.5rem auto 0;border-radius:2px;}
-
-    #about{display:block;max-width: 800px;margin: auto;}
-    #about p{font-size:1.1rem;color:var(--dark);}
-
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}
-    .card{background:#fff;padding:2.5rem 1.5rem;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08);text-align:center;transition:transform .3s, box-shadow .3s;}
-    .card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.15);}
-    .card i{font-size:3.5rem;color:var(--secondary);margin-bottom:1rem;display:block;}
-    .card h3{margin-bottom:.8rem;color:var(--primary);}
-    .card p{color:var(--gray);}
-
-    .beneficios ul{list-style:none;max-width:600px;margin:0 auto;padding-left:0;}
-    .beneficios ul li{background:#fff;margin-bottom:.8rem;padding:1rem 1.5rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.05);font-size:1.1rem;}
-    .beneficios ul li b{color:var(--primary);}
-    .beneficios ul li i{color:var(--wa);margin-right:.5rem;}
-
-    .paso{background:#fff;padding:2rem;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.1);text-align:center;}
-    .paso h3{color:var(--primary);}
-
-    .portfolio img{width:100%;height:220px;object-fit:cover;border-radius:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:transform .3s, box-shadow .3s;}
-    .portfolio img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,.2);}
-    .portfolio-item{position:relative;}
-    .portfolio-item p{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.7);color:#fff;padding:.3rem .7rem;border-radius:5px;font-size:.8rem;opacity:0;transition:opacity .3s;}
-    .portfolio-item:hover p{opacity:1;}
-
-    .modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;padding:20px;overflow-y: auto;}
-    .modal-content{position:relative;background:#000;border-radius:12px;max-width:90%;max-height:90vh;display:flex;flex-direction: column;align-items:center;padding:15px;box-shadow:0 0 30px rgba(0, 0, 0, 0.7);}
-    .modal-image-container{position:relative;max-width:100%;max-height:70vh;display:flex;justify-content:center;align-items:center;margin-bottom:20px;}
-    .modal-content img{width:auto;max-width:100%;height:auto;border-radius:8px;max-height:70vh;object-fit:contain;}
-    .close{position:absolute;top:10px;right:15px;color:#fff;font-size:2.5rem;cursor:pointer;transition: color .3s;}
-    .close:hover{color: var(--secondary);}
-    .cta-btn{margin-top:0;background:var(--wa);box-shadow:0 6px 15px rgba(37,211,102,.5);padding:1rem 2.5rem;border-radius:30px;color:#fff;font-weight:700;font-size:1rem;transition:transform .2s, box-shadow .2s;}
-    .cta-btn:hover{transform: translateY(-3px);box-shadow:0 8px 20px rgba(37,211,102,.7);}
-    .arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:3.5rem;color: rgba(255, 255, 255, 0.8);cursor:pointer;background: rgba(0,0,0,0.3);padding:0 10px;border-radius:5px;}
-    .arrow:hover{color: #fff;background: rgba(0,0,0,0.6);}
-    .arrow.left{left:10px;} 
-    .arrow.right{right:10px;}
-
-    .faq .item{background:#fff;margin-bottom:.6rem;padding:1rem 1.5rem;border-radius:8px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:4px solid var(--primary);}
-    .faq .item:hover{background:#f0f0f0;}
-    .faq .item h4{margin:0;display:flex;justify-content:space-between;align-items:center;font-weight:600;}
-    .faq .item p{margin-top:1rem;padding-top:.5rem;border-top:1px solid #eee;color:var(--gray);display:none;}
-    .faq .item.open h4 i{transform:rotate(180deg);}
-
-    .contacto{background:var(--primary);color:#fff;text-align:center;padding:5rem 1rem;}
-    .contacto h2{color:#fff;}
-    .contacto .cta-wa-btn{display:inline-block;background:var(--wa);padding:1rem 2rem;border-radius:30px;color:#fff;font-weight:600;margin-top:2rem;}
-
-    .whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:var(--wa);color:#fff;border-radius:50%;text-align:center;font-size:2rem;line-height:60px;box-shadow:0 4px 15px rgba(37,211,102,.6);}
-    .whatsapp-float:hover{transform:scale(1.1) rotate(5deg);}
-    footer{background:var(--dark);padding:2rem;}
-    footer a{color:var(--secondary);}
-    footer a:hover{color:#fff;}
-
-    @media(max-width:992px){
-        #about{grid-template-columns:1fr;}
-        .arrow{font-size:3rem;}
-    }
-    @media(max-width:768px){
-        nav ul{display:none;}
-        header{padding-top:8rem;}
-        header h1{font-size:2.5rem;}
-        .cta-group a{padding:.8rem 1.8rem;font-size:.9rem;}
-        section{padding:4rem 1rem;}
-    }
-    @media(min-width:769px){
-        .nav-link-contact{display:none;}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compra-Venta Iglesia - Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+    :root {
+        --color-primary: #007bff;
+        --color-secondary: #2ecc71;
+        --color-background: #f4f6f9;
+        --color-surface: #ffffff;
+        --color-text: #333;
+        --color-text-light: #777;
+        --color-hover: #0056b3;
+        --color-advertisement: #ffff00fe;
+        --shadow-md: 0 1px 15px rgba(0, 0, 0, 0.617);
+        --border-radius: 12px;
+        --color-danger: #e74c3c;
+        --color-dark-primary: #8ab4f8; 
+        --color-dark-secondary: #5cb85c;
+        --color-dark-background: #121212; 
+        --color-dark-surface: #1e1e1e; 
+        --color-dark-text: #e0e0e0;
+        --color-dark-text-light: #aaaaaa;
+        --shadow-dark: 0 1px 15px rgba(15, 214, 211, 0.383);
+        --color-dark-hover: #0084ff;
+        --color-dark-advertisement: #f8c440;
     }
 
-    .shop-float {position: fixed;top: 50%;left: 0;transform: translateY(-50%);z-index: 1000;}
-    .shop-float a {display: flex;align-items: center;background: var(--secondary);color: #fff;padding: 0.5rem 1.2rem;border-radius: 0 5px 5px 0;white-space: nowrap;overflow: hidden;max-width: 60px;transition: max-width 0.5s ease-in-out;}
-    .shop-float a:hover {max-width: 350px;padding-right: 1.5rem;}
-    .shop-float i {font-size: 1.8rem;margin-right: 0.3rem;}
-    .shop-text {font-weight: 600;font-size: 0.95rem;opacity: 0;transition: opacity 0.3s 0.2s;}
-    .shop-float a:hover .shop-text {opacity: 1;}
-    @media (max-width: 768px) {.shop-float a {max-width: 50px;padding: 0.6rem;}.shop-text {display: none;}}
-  </style>
-</head>
-<body>
+    body.dark-mode {
+        background: var(--color-dark-background);
+        color: var(--color-dark-text);
+    }
+    body.dark-mode header,
+    body.dark-mode .filter-bar,
+    body.dark-mode .card,
+    body.dark-mode .modal-content {
+        background: var(--color-dark-surface);
+        color: var(--color-dark-text);
+        box-shadow: var(--shadow-dark);
+    }
+    body.dark-mode header h1 { color: var(--color-dark-primary); }
+    body.dark-mode .switches button {
+        border-color: var(--color-dark-primary);
+        color: var(--color-dark-primary);
+    }
+    body.dark-mode .switches button.active {
+        background: var(--color-dark-primary);
+        color: var(--color-dark-background);
+    }
+    body.dark-mode .btn-info { background: var(--color-dark-primary); }
+    body.dark-mode .btn-info:hover { background: var(--color-dark-hover); }
+    body.dark-mode .btn-whatsapp { background: var(--color-dark-secondary); }
+    body.dark-mode .ad-card {
+        border: 3px solid var(--color-dark-advertisement);
+        box-shadow: 0 4px 12px rgba(248, 196, 64, 0.2); 
+    }
+    body.dark-mode .ad-card-body h4 {
+        color: var(--color-dark-advertisement);
+    }
+    body.dark-mode .ad-card .ad-cta {
+        background: var(--color-dark-advertisement);
+        color: var(--color-dark-background) !important;
+    }
+    body.dark-mode .cta-register-banner { 
+        background: #202b3a; 
+        border: 2px solid var(--color-dark-primary);
+    }
+    body.dark-mode .cta-register-banner h3 { color: var(--color-dark-primary); }
+    body.dark-mode .btn-register { background: var(--color-dark-primary); }
 
-  <nav>
-    <h1>J-Web</h1>
-    <ul>
-      <li><a href="#about">Sobre mí</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contacto" class="nav-btn">Contacto ¡Ahora!</a></li>
-    </ul>
-    <li><a href="#contacto" class="nav-link-contact nav-btn">Contacto</a></li>
-  </nav>
+    * { box-sizing: border-box; }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        background: var(--color-background);
+        color: var(--color-text);
+        line-height: 1.6;
+        transition: background 0.3s, color 0.3s;
+    }
 
-  <header>
-    <h1>J-Web</h1>
-    <p>Impulsá tu negocio con una web moderna, rápida y optimizada</p>
-    <div class="cta-group">
-      <a href="#servicios" class="cta-primary">Ver Servicios</a>
-      <a href="https://wa.me/5492646706973" target="_blank" class="cta-secondary">
-        <i class="fab fa-whatsapp"></i> Contactar ahora
-      </a>
-    </div>
-  </header>
+    header {
+        background: var(--color-surface);
+        color: var(--color-text);
+        padding: 1.5rem 1rem;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        text-shadow: 0 1px 1px rgb(1, 0, 1);
+    }
+    #darkModeToggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        transition: transform 0.2s;
+    }
+    body.dark-mode #darkModeToggle {
+        color: var(--color-dark-primary);
+    }
 
-  <section id="about" class="lazy">
-    <div>
-      <h2>Sobre mí</h2>
-      <p>Hola! soy <span style="color: #0077b6;">Jonatan Quilpatay</span> <b>desarrollador web Freelancer</b>, especializado en impulsar marcas como la tuya. Me encargo de todo el proceso: <b>diseño, desarrollo y optimización SEO</b>.</p>
-      <p>Mi foco es que tu negocio logre una <b>presencia digital profesional, rápida y moderna</b> que te permita captar clientes las 24 horas del día. Hablemos de cómo llevar tu marca al siguiente nivel.</p>
-    </div>
-  </section>
+    .nav-section {
+        padding: 0 1rem;
+        max-width: 1200px;
+        margin: 0 auto 1.5rem auto;
+    }
+    .switches {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .switches button {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--color-primary);
+        border-radius: 8px;
+        cursor: pointer;
+        background: transparent;
+        color: var(--color-primary);
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .switches button.active {
+        background: var(--color-primary);
+        color: var(--color-surface);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+    .btn-publish-nav {
+        background: var(--color-secondary); 
+        color: white !important;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s;
+        border: 2px solid var(--color-secondary); 
+    }
 
-  <hr class="lazy">
-
-  <section id="servicios" class="lazy">
-    <h2>Servicios Destacados</h2>
-    <div class="grid">
-      <div class="card"><i class="fas fa-bullhorn"></i><h3>Landing Page</h3><p>Diseños claros y efectivos para captar leads y campañas de marketing.</p></div>
-      <div class="card"><i class="fas fa-th-large"></i><h3>Web de Catálogo</h3><p>Mostrá tus productos y servicios con enlaces directos a WhatsApp/compra.</p></div>
-      <div class="card"><i class="fas fa-rocket"></i><h3>Optimización SEO</h3><p>Estrategias clave para mejorar tu visibilidad en Google y conseguir más tráfico orgánico.</p></div>
-      <div class="card"><i class="fas fa-headset"></i><h3>Soporte y Mantenimiento</h3><p>Mantenimiento constante, copias de seguridad y actualizaciones para tu tranquilidad.</p></div>
-    </div>
-    <div style="text-align: center; margin-top: 3rem;">
-      <p style="margin-bottom: 1rem;">¿No sabes qué es una Landing Page y por qué la necesitas?</p>
-      <a href="https://wiglesia.github.io/land/landp.html" target="_blank" class="cta-primary" style="padding: 0.8rem 2rem; border-radius: 5px;">
-        Descubre Aquí la Explicación
-      </a>
-    </div>
-  </section>
-
-  <hr class="lazy">
-
-  <section id="beneficios" class="lazy">
-    <h2>Por qué Invertir en tu Web</h2>
-    <div class="beneficios">
-      <ul>
-        <li><i class="fas fa-check-circle"></i> <b>Autoridad:</b> Te diferenciás de la competencia y te posicionás como líder en tu nicho.</li>
-        <li><i class="fas fa-check-circle"></i> <b>Confianza:</b> Ofrecés una imagen profesional y seria a tus clientes potenciales.</li>
-        <li><i class="fas fa-check-circle"></i> <b>Organización:</b> Podés estructurar tu información y productos de forma clara y accesible 24/7.</li>
-        <li><i class="fas fa-check-circle"></i> <b>Canal Propio:</b> Dejás de depender exclusivamente de redes sociales.</li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="lazy">
-
-  <section id="proceso" class="lazy">
-    <h2>Nuestro Proceso Simple</h2>
-    <div class="grid pasos">
-      <div class="paso"><h3>1. Análisis y Planificación</h3><p>Definimos objetivos, audiencia y estructura.</p></div>
-      <div class="paso"><h3>2. Diseño y Prototipado</h3><p>Creamos una propuesta visual y ajustamos con tu feedback.</p></div>
-      <div class="paso"><h3>3. Desarrollo Web</h3><p>Codificación, integración de contenido y pruebas de funcionalidad.</p></div>
-      <div class="paso"><h3>4. Lanzamiento y Soporte</h3><p>Tu web se publica. Ofrecemos formación y soporte post-lanzamiento.</p></div>
-    </div>
-  </section>
-
-  <hr class="lazy">
-
-  <section id="portfolio" class="lazy">
-    <h2>Nuestros Últimos Proyectos</h2>
-    <div class="grid portfolio">
-      <div class="portfolio-item"><img src="https://i.ibb.co/LdDZ8vCb/Picsart-25-10-03-13-55-55-640.jpg" alt="Demo 1"><p>Clic para ver detalle</p></div>
-      <div class="portfolio-item"><img src="https://i.ibb.co/M5WzVdgX/Picsart-25-10-03-13-50-41-959.jpg" alt="Demo 2"><p>Clic para ver detalle</p></div>
-      <div class="portfolio-item"><img src="https://i.ibb.co/pBMbZwbZ/Picsart-25-10-03-13-50-08-043.jpg" alt="Demo 3"><p>Clic para ver detalle</p></div>
-      <div class="portfolio-item"><img src="https://i.ibb.co/sYkkjLd/Picsart-25-10-03-12-56-31-748.jpg" alt="Demo 4"><p>Clic para ver detalle</p></div>
-      <div class="portfolio-item"><img src="https://i.ibb.co/3w01tNL/Captura-de-pantalla-2025-10-03-163101.png" alt="Demo 5"><p>Clic para ver detalle</p></div>
-    </div>
-  </section>
-
-  <div id="imgModal" class="modal">
-    <span class="close">&times;</span>
-    <div class="modal-content">
-      <div class="modal-image-container">
-        <span class="arrow left">&#10094;</span>
-        <img id="modalImage" src="" alt="Vista ampliada del proyecto">
-        <span class="arrow right">&#10095;</span>
-      </div>
-      <a href="https://wa.me/5492646706973" target="_blank" class="cta-btn">
-        <i class="fab fa-whatsapp"></i> Consultar por este diseño
-      </a>
-    </div>
-  </div>
-
-  <hr class="lazy">
-
-  <section id="faq" class="lazy">
-    <h2>Preguntas Frecuentes</h2>
-    <div class="faq">
-      <div class="item"><h4>¿Cuánto tiempo demoran en desarrollar una web? <i class="fas fa-angle-down"></i></h4><p>Depende del proyecto. Una landing page simple puede estar lista en pocos días (3-5), mientras que un catálogo puede llevar 2-3 semanas.</p></div>
-      <div class="item"><h4>¿Necesito un servicio de hosting y dominio? <i class="fas fa-angle-down"></i></h4><p>Sí, son necesarios. Te asesoraré para que elijas el mejor hosting y te ayudo con el dominio.</p></div>
-      <div class="item"><h4>¿Puedo actualizar yo mismo el contenido de mi web? <i class="fas fa-angle-down"></i></h4><p>¡Absolutamente! Te entrego un sitio autoadministrable o te doy formación para que manejes tu propio contenido.</p></div>
-    </div>
-  </section>
-
-  <section id="contacto" class="contacto lazy">
-    <h2>Hablemos de tu Proyecto</h2>
-    <a href="https://wa.me/5492646706973" target="_blank" class="cta-wa-btn">
-      <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
-    </a>
-  </section>
-
-  <a href="https://wa.me/5492646706973" target="_blank" class="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <footer>
-    <p>&copy; 2025 Jonatan Quilpatay – Todos los derechos reservados</p>
-    <p><a href="#about">Sobre mí</a> | <a href="#servicios">Servicios</a> | <a href="#portfolio">Portfolio</a></p>
-  </footer>
-
-  <script>
-    const modal = document.getElementById("imgModal");
-    const modalImg = document.getElementById("modalImage");
-    const closeBtn = document.querySelector(".close");
-    const images = document.querySelectorAll(".portfolio img");
-    const leftArrow = document.querySelector(".arrow.left");
-    const rightArrow = document.querySelector(".arrow.right");
-    let currentIndex = 0;
-
-    const closeModal = () => { modal.style.display = "none"; };
-    images.forEach((img, i) => {
-      img.addEventListener("click", () => {
-        modal.style.display = "flex";
-        modalImg.src = img.src;
-        currentIndex = i;
-      });
-    });
-    closeBtn.onclick = closeModal;
-    window.onclick = (e) => { if (e.target === modal) closeModal(); };
-    leftArrow.onclick = () => { currentIndex = (currentIndex - 1 + images.length) % images.length; modalImg.src = images[currentIndex].src; };
-    rightArrow.onclick = () => { currentIndex = (currentIndex + 1) % images.length; modalImg.src = images[currentIndex].src; };
-
-    document.querySelectorAll(".faq .item").forEach(item => {
-      item.addEventListener("click", () => {
-        const p = item.querySelector("p");
-        const is_open = item.classList.contains("open");
-        document.querySelectorAll(".faq .item").forEach(i => {
-          i.classList.remove("open");
-          i.querySelector("p").style.display = "none";
-        });
-        if (!is_open) {
-          item.classList.add("open");
-          p.style.display = "block";
+    .filter-bar {
+        background: var(--color-surface);
+        padding: 1rem; 
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+    .filter-bar input, .filter-bar select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 1rem;
+        background: var(--color-background); 
+        color: var(--color-text); 
+    }
+    body.dark-mode .filter-bar input, body.dark-mode .filter-bar select {
+         background: #2b2b2b; 
+         border-color: #444;
+         color: var(--color-dark-text);
+    }
+    .filter-group label {
+        font-size: 0.8rem; 
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--color-text-light);
+        display: block;
+    }
+    @media (min-width: 768px) {
+        .filter-bar {
+            padding: 1.5rem;
+            grid-template-columns: 2fr 1fr 1fr;
         }
-      });
-    });
-
-    const lazySections = document.querySelectorAll('.lazy');
-    const observerOptions = {root:null,rootMargin:'0px 0px -10% 0px',threshold:0.1};
-    function setupLazyLoading() {
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-        lazySections.forEach(section => {observer.observe(section);});
-      } else {
-        lazySections.forEach(section => {section.classList.add('is-visible');});
-      }
     }
-    setupLazyLoading();
-  </script>
+    
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem 2rem 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-  <div class="shop-float">
-    <a href="https://wiglesia.github.io/land/catalogo.html" target="_blank">
-      <i class="fas fa-store"></i>
-      <span class="shop-text">Visita nuestra Tienda Web</span>
+    .card {
+        background: var(--color-surface);
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+    }
+    .card-image-container {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+    }
+    .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .card-body {
+        padding: 1rem 1.25rem;
+        flex-grow: 1;
+    }
+    .card-body h3 {
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .card-body .price {
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    .card-footer {
+        padding: 1rem 1.25rem;
+        border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    body.dark-mode .card-footer {
+        border-top: 1px solid #333;
+    }
+
+    .btn-info, .btn-whatsapp, .btn-share {
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+    .btn-info { background: var(--color-primary); color: white; }
+    .btn-whatsapp { background: var(--color-secondary); color: white; }
+    .btn-share { 
+        background: #95a5a6; 
+        color: white; 
+        font-size: 0.85rem; 
+        padding: 0.5rem 1rem; 
+        margin-top: 10px; 
+        cursor: pointer;
+    }
+    .cta-register-banner {
+        grid-column: 1 / -1; 
+        background: #ebf5ff; 
+        border: 2px solid var(--color-primary);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    .cta-register-banner h3 {
+        margin-top: 0;
+        color: var(--color-primary);
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+    .btn-register {
+        background: var(--color-primary);
+        color: white !important;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    .modal, .img-modal, .ad-popup-modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal.is-open, .img-modal.is-open, .ad-popup-modal.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+    .modal-content { 
+        background: var(--color-surface);
+        padding: 2.5rem;
+        border-radius: 16px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.95);
+        transition: transform 0.3s ease, background 0.3s;
+    }
+    .modal.is-open .modal-content {
+        transform: scale(1);
+    }
+    .modal-close {
+        position: absolute;
+        top: 10px; right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--color-text-light);
+        z-index: 1000;
+    }
+    .modal-details-grid p {
+        margin-bottom: 8px;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 5px;
+    }
+    body.dark-mode .modal-details-grid p {
+        border-bottom: 1px dashed #444;
+    }
+    .modal-full-description {
+        padding: 15px;
+        background: var(--color-background);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: var(--color-text) !important; 
+        background: var(--color-surface);
+    }
+    body.dark-mode .modal-full-description {
+        color: var(--color-dark-text) !important;
+        background: var(--color-dark-surface);
+    }
+    .modal-full-description h4 { margin-top: 0; }
+
+    .img-modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        display: block;
+    }
+    .img-modal-content img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100vh;
+        display: block;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+        .switches { flex-direction: column; }
+        .switches button, .btn-publish-nav { width: 100%; margin-bottom: 5px; justify-content: center; }
+        .modal-content { padding: 1.5rem; }
+        header { padding: 1rem 1rem; }
+        .card-footer { flex-direction: column; }
+        .btn-info, .btn-whatsapp { width: 100%; justify-content: center; }
+    }
+
+    .ad-popup-content {
+        background: var(--color-surface); 
+        padding: 0; 
+        border-radius: 20px;
+        max-width: 90%; 
+        width: 900px;
+        height: 550px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        position: relative; 
+        border: 5px solid var(--color-advertisement);
+        overflow: hidden; 
+    }
+    .ad-popup-image-container {
+        height: 100%; 
+        width: 100%; 
+        position: absolute; 
+        top: 0;
+        left: 0;
+        z-index: 1; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+    }
+    .ad-popup-image-container img {
+        width: 100%; 
+        height: 100%; 
+        object-fit: contain;
+        object-position: center; 
+    }
+    .ad-popup-cta {
+        position: fixed;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10; 
+        background: var(--color-advertisement);
+        color: rgb(11, 7, 7) !important;
+        padding: 0.8rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+        text-decoration: none;
+        font-weight: 700;
+    }
+    .ad-popup-small-text {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        color: #ccc; 
+        text-shadow: 1px 1px 2px black; 
+        font-size: 0.7em;
+        padding-bottom: 5px;
+        background: rgba(0, 0, 0, 0.4);
+        width: 100%;
+        text-align: center;
+    }
+    .ad-popup-modal .modal-close {
+        position: absolute;
+        top: 10px; right: 10px;
+        color: white; 
+        text-shadow: 1px 1px 2px black;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .button2 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      transition: all 0.2s ease-in;
+      overflow: hidden;
+      color: #090909;
+      padding: 0.7em 1.7em;
+      font-size: 18px;
+      border-radius: 0.5em;
+      background: #e8e8e8;
+      border: 1px solid #e8e8e8;
+      box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+      text-decoration: none;
+    }
+    .button2 > svg {
+      height: 30px;
+      width: 30px;
+      margin-left: 10px;
+    }
+    .button2:active {
+      color: #666;
+      box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+    }
+    .button2:before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) scaleY(1) scaleX(1.25);
+      top: 100%;
+      width: 140%;
+      height: 180%;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      display: block;
+      transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+      z-index: -1;
+    }
+    .button2:after {
+      content: "";
+      position: absolute;
+      left: 55%;
+      transform: translateX(-50%) scaleY(1) scaleX(1.45);
+      top: 180%;
+      width: 160%;
+      height: 190%;
+      background-color: #009087;
+      border-radius: 50%;
+      display: block;
+      transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+      z-index: -1;
+    }
+    .button2:hover {
+      color: #ffffff;
+      border: 1px solid #009087;
+    }
+    .button2:hover:before {
+      top: -35%;
+      background-color: #009087;
+      transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+    }
+    .button2:hover:after {
+      top: -45%;
+      background-color: #009087;
+      transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+    }
+   </style>
+</head>
+<body class="light-mode" oncontextmenu="return false;">
+    <header>
+        <h1><i class="fas fa-store"></i> Compra Venta Iglesia </h1>
+        <button id="darkModeToggle" onclick="toggleDarkMode()">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header> 
+
+    <main class="tienda-container"> 
+        <div class="nav-section"> 
+            <div class="switches">
+                <button onclick="cambiarVista('productos')" class="active"><i class="fas fa-box"></i> Productos</button> 
+                <button onclick="cambiarVista('servicios')"><i class="fas fa-handshake"></i> Servicios</button> 
+                <a href="https://wa.me/5492646706973?text=Hola%20quiero%20publicar%20en%20tu%20página,%20soy%20:" class="btn-publish-nav" target="_blank"><i class="fas fa-cloud-upload-alt"></i> Publica Ahora</a> 
+            </div> 
+            <div class="filter-bar"> 
+                <div class="filter-group"> 
+                    <label for="search-input"><i class="fas fa-search"></i> Buscar</label> 
+                    <input type="text" id="search-input" placeholder="Ej: Zapatillas, Consultoría..." onkeyup="debouncedAplicarFiltros()"> 
+                </div> 
+                <div class="filter-group"> 
+                    <label for="category-filter"><i class="fas fa-tags"></i> Categoría</label> 
+                    <select id="category-filter" onchange="aplicarFiltros()"> 
+                        <option value="">Todas</option> 
+                    </select> 
+                </div> 
+                <div class="filter-group"> 
+                    <label for="sort-filter"><i class="fas fa-sort"></i> Ordenar por</label> 
+                    <select id="sort-filter" onchange="aplicarFiltros()"> 
+                        <option value="default">Relevancia</option> 
+                        <option value="price_asc">Precio ↑</option> 
+                        <option value="price_desc">Precio ↓</option> 
+                        <option value="date_desc">Más Reciente</option> 
+                        <option value="date_asc">Más Antiguo</option> 
+                    </select> 
+                </div> 
+            </div> 
+        </div> 
+
+        <div class="grid main-content-grid" id="contenedor"></div> 
+
+        <div class="grid" id="cta-registro-final"> 
+            <div class="cta-register-banner"> 
+                <h3>¿Quieres vender o publicar un servicio? 🚀</h3> 
+                <p>¡Únete a nuestra comunidad de vendedores! Es fácil, rápido y te ayuda a llegar a más clientes.</p> 
+                <a href="https://wa.me/5492646706973?text=Hola%20quiero%20publicar%20en%20tu%20página,%20soy%20:" class="btn-register" target="_blank"><i class="fas fa-hand-point-up"></i> ¡Publica Ahora!</a> 
+            </div> 
+        </div> 
+    </main> 
+
+    <!-- MODALES -->
+    <div class="modal" id="modalInfo"> 
+        <div class="modal-content" id="modalDetalle"> 
+            <button class="modal-close" onclick="cerrarModal('modalInfo')"><i class="fas fa-times"></i></button> 
+            <h2 id="modal-titulo">Detalle del Item</h2> 
+            <button class="btn-share" id="btnShareModal" style="margin-bottom: 20px;"><i class="fas fa-share-alt"></i> Copiar Enlace</button> 
+            <div class="modal-full-description"> 
+                <h4>Descripción Completa</h4> 
+                <p id="modal-description"></p> 
+            </div> 
+            <div class="modal-details-grid" id="modalContenido"></div> 
+        </div> 
+    </div> 
+
+    <div class="img-modal" id="modalImg" onclick="cerrarModal('modalImg')"> 
+        <div class="img-modal-content"> 
+            <img id="imgAmpliada" src="" alt="Imagen ampliada"> 
+        </div> 
+    </div> 
+
+    <div class="ad-popup-modal" id="modalPublicidadPopup">
+        <div class="ad-popup-content">
+            <button class="modal-close" onclick="cerrarPublicidadModal()"><i class="fas fa-times"></i></button>
+            <div class="ad-popup-image-container" id="adPopupImageContainer"></div>
+            <a href="#" id="adPopupLink" target="_blank" class="ad-popup-cta">Ver Publicidad <i class="fas fa-arrow-right"></i></a>
+            <small class="ad-popup-small-text">Este anuncio se cerrará automáticamente.</small>
+        </div>
+    </div>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/+5492646706973" target="_blank" class="button2">
+        WhatsApp
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z" fill="#fff"></path>
+            <path d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z" fill="#40c351"></path>
+        </svg>
     </a>
-  </div>
+
+    <!-- SCRIPT PRINCIPAL -->
+    <script>
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; } // F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) { return false; } // Ctrl+Shift+I
+            if (e.ctrlKey && e.keyCode == 85) { return false; } // Ctrl+U
+        };
+    const API_URL = "https://script.google.com/macros/s/AKfycbyfr9ROQWtRy-waEJQEkUq0WC3P84fsgN-ml00Wwqct5Z-1jHDuGZfuGLSzXLdMpcRA8Q/exec"; 
+    
+    let vistaActual = 'productos';
+    let datosOriginales = []; 
+    let publicidadActiva = []; 
+    const CAMPOS_A_EXCLUIR = ['ID','Estado','Imagen','DNI','Tipo','Fecha','FechaFin','Descripción','Clicks','Vendedor','Tienda','DíasPublicados','Posición','Título','Clics','Categoría','Precio','WhatsApp'];
+
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+    const debouncedAplicarFiltros = debounce(aplicarFiltros, 300);
+
+    function formatPrice(price) {
+        const num = parseFloat(price);
+        if (isNaN(num)) return price;
+        return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(num).replace('ARS', '$');
+    }
+
+    function toggleDarkMode() {
+        const body = document.body;
+        const isDarkMode = body.classList.toggle('dark-mode');
+        const toggleButton = document.getElementById('darkModeToggle');
+        
+        if (isDarkMode) {
+            localStorage.setItem('darkMode', 'enabled');
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+            body.classList.remove('light-mode');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+            body.classList.add('light-mode');
+        }
+    }
+
+    function loadDarkModePreference() {
+        const preference = localStorage.getItem('darkMode');
+        const toggleButton = document.getElementById('darkModeToggle');
+        
+        if (preference === 'enabled') {
+            document.body.classList.add('dark-mode');
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            document.body.classList.remove('dark-mode');
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    }
+
+    function cambiarVista(tipo) {
+        vistaActual = tipo;
+        document.querySelectorAll('.switches button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.switches button').forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(tipo)) btn.classList.add('active');
+        });
+        document.getElementById('search-input').value = '';
+        document.getElementById('category-filter').value = '';
+        document.getElementById('sort-filter').value = 'default';
+        cargarDatos();
+    }
+
+    function llenarFiltroCategorias(data) {
+        const select = document.getElementById('category-filter');
+        select.innerHTML = '<option value="">Todas</option>'; 
+        const categorias = new Set();
+        data.forEach(item => {
+            if (item.Categoría && String(item.Categoría).trim() !== "") {
+                categorias.add(item.Categoría);
+            }
+        });
+        
+        const categoriasOrdenadas = Array.from(categorias).sort();
+
+        categoriasOrdenadas.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat;
+            select.appendChild(option);
+        });
+    }
+
+    function aplicarFiltros() {
+        const searchText = document.getElementById('search-input').value.toLowerCase();
+        const category = document.getElementById('category-filter').value;
+        const sortCriteria = document.getElementById('sort-filter').value;
+        
+        let datosFiltrados = [...datosOriginales];
+        
+        if (searchText) {
+            datosFiltrados = datosFiltrados.filter(item => 
+                (item.Nombre && String(item.Nombre).toLowerCase().includes(searchText)) ||
+                (item.Descripción && String(item.Descripción).toLowerCase().includes(searchText))
+            );
+        }
+        
+        if (category) {
+            datosFiltrados = datosFiltrados.filter(item => item.Categoría === category);
+        }
+
+        switch (sortCriteria) {
+            case 'price_asc':
+                datosFiltrados.sort((a, b) => (parseFloat(a.Precio) || 0) - (parseFloat(b.Precio) || 0));
+                break;
+            case 'price_desc':
+                datosFiltrados.sort((a, b) => (parseFloat(b.Precio) || 0) - (parseFloat(a.Precio) || 0));
+                break;
+            case 'date_desc':
+                datosFiltrados.sort((a, b) => (String(b.ID).localeCompare(String(a.ID)))); 
+                break;
+            case 'date_asc':
+                datosFiltrados.sort((a, b) => (String(a.ID).localeCompare(String(b.ID))));
+                break;
+        }
+
+        mostrarDatos(datosFiltrados); 
+    }
+    
+    function cargarDatos() {
+        const contenedor = document.getElementById('contenedor');
+        contenedor.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Cargando...</p>';
+
+        Promise.all([
+            fetch(`${API_URL}?tipo=${vistaActual}`).then(res => res.json()),
+            fetch(`${API_URL}?tipo=publicidad`).then(res => res.json())
+        ])
+        .then(([datosItems, datosPublicidad]) => {
+            datosOriginales = datosItems.filter(item => item.Estado && String(item.Estado).toLowerCase() === 'activo');
+            publicidadActiva = datosPublicidad.filter(ad => ad.Estado && String(ad.Estado).toLowerCase() === 'activo');
+            llenarFiltroCategorias(datosOriginales);
+            aplicarFiltros(); 
+        })
+        .catch(error => {
+            contenedor.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Error al cargar datos</p>';
+            console.error("Error al cargar datos:", error);
+            datosOriginales = [];
+            publicidadActiva = [];
+            mostrarDatos([]);
+        });
+    }
+
+    function crearCardPublicidad(item) {
+        const adLink = item.Enlace || '#';
+        const adImage = item.Imagen && item.Imagen.startsWith('http') ? item.Imagen : '';
+
+        return `
+            <div class="ad-card" data-ad-id="${item.ID}">
+                <a href="${adLink}" target="_blank" onclick="registrarClickPublicidad('${item.ID}')" style="text-decoration: none;">
+                    ${adImage ? `
+                        <div class="ad-card-image-container">
+                            <img src="${adImage}" alt="${item.Nombre || 'Anuncio'}" loading="lazy">
+                        </div>
+                    ` : `
+                        <div class="ad-card-image-container" style="background: var(--color-surface); display: flex; justify-content: center; align-items: center; min-height: 100px;">
+                            <i class="fas fa-bullhorn fa-4x" style="color: var(--color-advertisement);"></i>
+                        </div>
+                    `}
+                    <div class="ad-card-body">
+                        <h4><i class="fas fa-bullhorn"></i> ${item.Nombre || 'Promoción Especial'}</h4>
+                        <p>${item.Descripción || '¡Haz crecer tu negocio hoy mismo!'}</p>
+                    </div>
+                    <div class="ad-cta">
+                        ¡Más Información! <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        `;
+    }
+
+    function mostrarDatos(items) {
+        const contenedor = document.getElementById('contenedor');
+        contenedor.innerHTML = ''; 
+        
+        if (!items || items.length === 0) {
+            const searchActive = document.getElementById('search-input').value || document.getElementById('category-filter').value;
+            const mensaje = !searchActive
+                ? '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-danger);">No hay items activos.</p>'
+                : '<p style="grid-column: 1 / -1; text-align: center;">No hay ítems que coincidan con los filtros.</p>';
+            contenedor.innerHTML = mensaje;
+        }
+        
+        const fragment = document.createDocumentFragment();
+        const itemNodes = items.map(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const imgUrl = item.Imagen && item.Imagen.startsWith('http') ? item.Imagen : 'https://via.placeholder.com/400x220?text=Sin+Imagen';
+            const price = formatPrice(item.Precio) || 'Consultar';
+            const desc = item.Descripción || 'Sin descripción disponible.';
+            const itemName = item.Nombre || item.Titulo || 'Sin Título'; 
+            
+            card.innerHTML = `
+                <div class="card-image-container">
+                    <img src="${imgUrl}" alt="${itemName}" loading="lazy" onclick="event.stopPropagation(); mostrarImg('${imgUrl}');">
+                </div>
+                <div class="card-body">
+                    <h3>${itemName}</h3>
+                    <div class="price">${price}</div>
+                    <p class="description">${desc}</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-info" onclick="mostrarInfo(datosOriginales.find(i => i.ID === '${item.ID}')); registrarClick('${item.ID}');">
+                        <i class="fas fa-info-circle"></i> Detalle
+                    </button>
+                    <a href="https://wa.me/${item.WhatsApp}?text=Hola! Vi tu ${vistaActual.slice(0, -1)}: ${itemName}. Me interesa!" 
+                       class="btn-whatsapp" target="_blank" onclick="registrarClick('${item.ID}')">
+                        <i class="fab fa-whatsapp"></i> Contactar
+                    </a>
+                </div>
+            `;
+            return card;
+        });
+
+        const adsParaGrid = publicidadActiva.filter(ad => 
+            !isNaN(parseInt(ad.Posición)) && parseInt(ad.Posición) >= 1
+        );
+
+        if (adsParaGrid && adsParaGrid.length > 0) {
+            adsParaGrid.sort((a, b) => parseInt(a.Posición) - parseInt(b.Posición));
+
+            for (let i = adsParaGrid.length - 1; i >= 0; i--) {
+                const ad = adsParaGrid[i];
+                const posicion = parseInt(ad.Posición);
+                const adNodeHTML = crearCardPublicidad(ad); 
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = adNodeHTML;
+                const adElement = tempDiv.firstChild;
+                
+                if (adElement) {
+                    if (posicion >= 1 && posicion && posicion <= itemNodes.length) { 
+                        itemNodes.splice(posicion, 0, adElement); 
+                    } else if (posicion > itemNodes.length) {
+                        itemNodes.push(adElement);
+                    }
+                }
+            }
+        }
+        
+        itemNodes.forEach(node => {
+            fragment.appendChild(node);
+        });
+
+        contenedor.appendChild(fragment); 
+    }
+    
+    function registrarClick(itemID) {
+         if (!itemID) return;
+         fetch(`${API_URL}?tipo=${vistaActual}&accion=click&id=${itemID}`, { method: 'POST' })
+         .then(res => {
+             if (res.ok) console.log(`Click registrado para el item ID: ${itemID}`);
+         })
+         .catch(error => console.error("Error al registrar click:", error));
+    }
+
+    function registrarClickPublicidad(adID) {
+        fetch(`${API_URL}?tipo=publicidad&accion=click&id=${adID}`, { method: 'POST' })
+        .then(res => {
+            if (res.ok) console.log(`Click registrado para el anuncio ID: ${adID}`);
+         })
+         .catch(error => console.error("Error al registrar click de publicidad:", error));
+    }
+
+    function mostrarInfo(item) {
+        const modal = document.getElementById('modalInfo');
+        const titulo = document.getElementById('modal-titulo');
+        const contenido = document.getElementById('modalContenido');
+        const descripcionCompleta = document.getElementById('modal-description');
+        const btnShare = document.getElementById('btnShareModal');
+        
+        titulo.textContent = `Detalle de: ${item.Nombre || item.Titulo}`;
+        descripcionCompleta.textContent = item.Descripción || 'No hay una descripción completa disponible.';
+
+        let detailHTML = '';
+        for (const [key, value] of Object.entries(item)) {
+            if (!CAMPOS_A_EXCLUIR.includes(key) && value) {
+                const displayKey = key === 'WhatsApp' ? 'Contacto' : key;
+                const displayValue = (key === 'Precio' && !isNaN(value)) ? formatPrice(value) : value;
+                detailHTML += `<p><strong>${displayKey}:</strong> ${displayValue}</p>`;
+            }
+        }
+        contenido.innerHTML = detailHTML;
+        
+        btnShare.onclick = () => {
+            const url = `${window.location.origin}${window.location.pathname}?tipo=${vistaActual}&id=${item.ID}`;
+            if (navigator.clipboard) {
+                 navigator.clipboard.writeText(url).then(() => {
+                     alert('Enlace copiado al portapapeles!');
+                 }).catch(err => {
+                     console.error('Error al copiar el enlace:', err);
+                     alert('Error al copiar. Copia la URL manualmente.');
+                 });
+            } else {
+                 alert('Tu navegador no soporta la copia automática.');
+            }
+        };
+
+        modal.classList.add('is-open'); 
+    }
+    
+    function mostrarImg(src) {
+        const modal = document.getElementById('modalImg');
+        document.getElementById('imgAmpliada').src = src && src.startsWith('http') ? src : 'https://via.placeholder.com/600x400?text=Imagen+No+Disponible';
+        modal.classList.add('is-open'); 
+    }
+
+    function cerrarModal(id) {
+        document.getElementById(id).classList.remove('is-open');
+    }
+
+    window.onclick = e => {
+        if (e.target.id === 'modalInfo') cerrarModal('modalInfo');
+        if (e.target.id === 'modalImg') cerrarModal('modalImg');
+    };
+
+    const AD_POPUP_INTERVAL = 60000;
+    const AD_POPUP_DURATION = 10000;
+    let adPopupTimeout = null;
+    let adInterval = null;
+
+    function mostrarPublicidadModal() {
+        const adsParaPopup = publicidadActiva.filter(ad => 
+            isNaN(parseInt(ad.Posición)) || parseInt(ad.Posición) < 1
+        );
+        
+        if (adsParaPopup.length === 0) {
+            return; 
+        }
+
+        const randomIndex = Math.floor(Math.random() * adsParaPopup.length);
+        const ad = adsParaPopup[randomIndex];
+
+        const modal = document.getElementById('modalPublicidadPopup');
+        const title = document.getElementById('adPopupTitle');
+        const text = document.getElementById('adPopupText');
+        const link = document.getElementById('adPopupLink');
+        const imageContainer = document.getElementById('adPopupImageContainer');
+        
+        title.textContent = ad.Nombre || '¡PROMOCIÓN IMPERDIBLE!';
+        text.textContent = ad.Descripción || 'Aprovecha esta oferta por tiempo limitado.';
+        link.href = ad.Enlace || '#';
+        link.dataset.adid = ad.ID;
+        link.textContent = 'Ver Oferta ';
+        
+        imageContainer.innerHTML = '';
+        if (ad.Imagen && ad.Imagen.startsWith('http')) {
+             imageContainer.innerHTML = `<img src="${ad.Imagen}" alt="${ad.Nombre || 'Anuncio'}">`;
+        } else {
+            imageContainer.innerHTML = `<i class="fas fa-bullhorn fa-4x" style="color: var(--color-advertisement); margin: 30px 0;"></i>`;
+        }
+        
+        modal.classList.add('is-open');
+
+        adPopupTimeout = setTimeout(() => {
+            cerrarPublicidadModal();
+        }, AD_POPUP_DURATION);
+    }
+
+    function cerrarPublicidadModal() {
+        const modal = document.getElementById('modalPublicidadPopup');
+        modal.classList.remove('is-open');
+        if (adPopupTimeout) {
+            clearTimeout(adPopupTimeout);
+            adPopupTimeout = null;
+        }
+    }
+
+    function iniciarIntervaloPublicidad() {
+        if (adInterval) {
+            clearInterval(adInterval);
+        }
+        adInterval = setInterval(mostrarPublicidadModal, AD_POPUP_INTERVAL);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDarkModePreference();
+        cambiarVista('productos');
+        iniciarIntervaloPublicidad();
+    });
+</script>
 
 </body>
 </html>
