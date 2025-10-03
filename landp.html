@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Pages y Sitios Web | Descubre las Diferencias</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --secondary: #ffb400;
+            --dark: #1E1E2E;
+            --light-dark: #2c2c40;
+            --text-light: #ddd;
+            --text-white: #fff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0D0D0D, var(--dark));
+            color: var(--text-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: var(--primary); transition: color 0.3s; }
+        a:hover { color: var(--secondary); }
+
+        .highlight { color: var(--secondary); font-weight: 700; }
+        .bold-text { font-weight: 700; color: var(--text-white); }
+
+        header {
+            text-align: center;
+            padding: 120px 20px 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-white);
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: auto auto 30px;
+            font-weight: 300;
+            animation: fadeInUp 1.2s ease;
+        }
+        .header-cta {
+            display: inline-block;
+            background: var(--dark);
+            color: var(--text-white);
+            padding: 15px 35px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+        .header-cta:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+        }
+        h2::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--light-dark);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: transform 0.4s, box-shadow 0.4s;
+            animation: fadeIn 1.5s ease;
+            border-top: 5px solid var(--primary);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border-top-color: var(--secondary);
+        }
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        .card h3 i {
+            margin-right: 15px;
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+        .card p { font-size: 1rem; color: var(--text-light); }
+
+        .comparison-table {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        .comparison-column {
+            background: var(--light-dark);
+            padding: 30px;
+            border-radius: 15px;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-left: 3px solid var(--primary);
+        }
+        .comparison-column h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        .comparison-column ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .comparison-column ul li {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: flex-start;
+        }
+        .comparison-column ul li i {
+            color: #25d366;
+            margin-right: 10px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .cta-final {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--dark);
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--text-white);
+            padding: 18px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 6px 15px rgba(255,107,0,0.4);
+            animation: pulse 2s infinite;
+        }
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+            animation: none;
+        }
+        .cta-final p { margin-bottom: 25px; font-size: 1.1rem; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #111;
+            font-size: 0.9rem;
+            color: #aaa;
+            border-top: 5px solid var(--primary);
+        }
+        
+        @media (max-width: 900px) {
+            .comparison-table { flex-direction: column; }
+            .comparison-column { margin-bottom: 30px; }
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            header p { font-size: 1rem; }
+            h2 { font-size: 2rem; }
+            .card h3 { font-size: 1.5rem; }
+            .card h3 i { font-size: 2rem; }
+            .cta-button { font-size: 1.1rem; padding: 15px 30px; }
+        }
+
+        @keyframes fadeInDown { from {opacity:0; transform:translateY(-30px);} to {opacity:1; transform:translateY(0);} }
+        @keyframes fadeInUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        @keyframes pulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.03);} }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <header>
+        <h1>Landing Pages y Sitios Web</h1>
+        <p>Entendé sus diferencias, beneficios y cómo esta poderosa combinación te ayudará a impulsar tu negocio digital de forma profesional.</p>
+        <a href="https://wa.me/5492646706973" target="_blank" class="header-cta">
+            <i class="fab fa-whatsapp"></i> <span class="bold-text">¡Contactar y Empezar Ahora!</span>
+        </a>
+    </header>
+
+    <section id="explicacion">
+        <h2>Conceptos Clave Explicados</h2>
+        <div class="grid">
+            <div class="card">
+                <h3><i class="fas fa-bullseye"></i> Landing Page</h3>
+                <p>Es una página <span class="bold-text">enfocada en un único objetivo</span>: convertir visitantes en clientes. Puede ser para captar datos (<span class="bold-text">leads</span>), vender un producto específico o invitar a una acción directa. Se centra en un mensaje claro y persuasivo, <span class="bold-text">sin distracciones</span>.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-chart-line"></i> Beneficio de la Landing</h3>
+                <p>Sirve para <span class="bold-text">maximizar resultados</span> en campañas publicitarias (Google Ads, Facebook Ads) o promociones específicas. Redirige la atención a un solo botón: <span class="bold-text">comprar</span>, <span class="bold-text">registrarse</span>, <span class="bold-text">pedir presupuesto</span>. Es la forma más <span class="bold-text">eficiente</span> de transformar visitas en clientes reales.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-globe"></i> Sitio Web Completo</h3>
+                <p>Un sitio web es un ecosistema digital completo que incluye páginas como inicio, servicios, blog y contacto. Funciona como la <span class="bold-text">carta de presentación oficial</span> de tu marca, mostrando todo lo que hacés de manera organizada y profesional, generando <span class="bold-text">autoridad</span>.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-award"></i> Beneficio del Sitio Web</h3>
+                <p>Sirve para generar <span class="bold-text">confianza y credibilidad</span> a largo plazo. Un sitio bien diseñado te ayuda a <span class="bold-text">posicionarte en Google (SEO)</span>, dar información detallada de tu negocio y transmitir la identidad de tu marca. Es el pilar de tu presencia online.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparativa">
+        <h2>Landing vs. Sitio Web: ¿Cuál necesito?</h2>
+        <div class="comparison-table">
+            <div class="comparison-column">
+                <h4>Landing Page</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Objetivo</span>: Conversión rápida y directa (Venta/Lead).</li>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Estructura</span>: Una sola página con un único CTA.</li>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Velocidad </span>: Desarrollo e implementación rápidos.</li>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Función </span>: Soporte ideal para campañas de publicidad paga.</li>
+                </ul>
+            </div>
+            <div class="comparison-column">
+                <h4>Sitio Web Completo</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Objetivo  </span> : Autoridad, credibilidad y posicionamiento.</li>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Estructura  </span> : Múltiples páginas, secciones y navegación.</li>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Velocidad  </span>: Proceso de desarrollo más extenso.</li>
+                    <li><i class="fas fa-check-circle"></i> <span class="bold-text">Función  </span>:  Pilar central de la marca y tráfico orgánico (SEO).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 40px; text-align: center;">
+            <p><span class="bold-text">La mejor estrategia es tener <span class="highlight">ambas</span>:</span> Usar el Sitio Web para construir tu marca y las Landing Pages para <span class="highlight">vender y convertir eficientemente</span>.</p>
+        </div>
+        
+        <div class="cta-final">
+            <p>¿Listo para llevar tu negocio al siguiente nivel con una estrategia digital completa?</p>
+            <a href="https://wa.me/5492646706973" target="_blank" class="cta-button">
+                <i class="fab fa-whatsapp"></i> Hablemos de tu Proyecto
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 - J-Web | Transformamos ideas en experiencias digitales.</p>
+    </footer>
+</body>
+</html>
