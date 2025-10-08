@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compra-Venta Iglesia - Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+    :root {
+        --color-primary: #007bff;
+        --color-secondary: #2ecc71;
+        --color-background: #f4f6f9;
+        --color-surface: #ffffff;
+        --color-text: #333;
+        --color-text-light: #777;
+        --color-hover: #0056b3;
+        --color-advertisement: #ffff00fe;
+        --shadow-md: 0 1px 15px rgba(0, 0, 0, 0.617);
+        --border-radius: 12px;
+        --color-danger: #e74c3c;
+        --color-dark-primary: #8ab4f8; 
+        --color-dark-secondary: #5cb85c;
+        --color-dark-background: #121212; 
+        --color-dark-surface: #1e1e1e; 
+        --color-dark-text: #e0e0e0;
+        --color-dark-text-light: #aaaaaa;
+        --shadow-dark: 0 1px 15px rgba(15, 214, 211, 0.383);
+        --color-dark-hover: #0084ff;
+        --color-dark-advertisement: #f8c440;
+    }
+
+    body.dark-mode {
+        background: var(--color-dark-background);
+        color: var(--color-dark-text);
+    }
+    body.dark-mode header,
+    body.dark-mode .filter-bar,
+    body.dark-mode .card,
+    body.dark-mode .modal-content {
+        background: var(--color-dark-surface);
+        color: var(--color-dark-text);
+        box-shadow: var(--shadow-dark);
+    }
+    body.dark-mode header h1 { color: var(--color-dark-primary); }
+    body.dark-mode .switches button {
+        border-color: var(--color-dark-primary);
+        color: var(--color-dark-primary);
+    }
+    body.dark-mode .switches button.active {
+        background: var(--color-dark-primary);
+        color: var(--color-dark-background);
+    }
+    body.dark-mode .btn-info { background: var(--color-dark-primary); }
+    body.dark-mode .btn-info:hover { background: var(--color-dark-hover); }
+    body.dark-mode .btn-whatsapp { background: var(--color-dark-secondary); }
+    body.dark-mode .ad-card {
+        border: 3px solid var(--color-dark-advertisement);
+        box-shadow: 0 4px 12px rgba(248, 196, 64, 0.2); 
+    }
+    body.dark-mode .ad-card-body h4 {
+        color: var(--color-dark-advertisement);
+    }
+    body.dark-mode .ad-card .ad-cta {
+        background: var(--color-dark-advertisement);
+        color: var(--color-dark-background) !important;
+    }
+    body.dark-mode .cta-register-banner { 
+        background: #202b3a; 
+        border: 2px solid var(--color-dark-primary);
+    }
+    body.dark-mode .cta-register-banner h3 { color: var(--color-dark-primary); }
+    body.dark-mode .btn-register { background: var(--color-dark-primary); }
+
+    * { box-sizing: border-box; }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        background: var(--color-background);
+        color: var(--color-text);
+        line-height: 1.6;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+        background: var(--color-surface);
+        color: var(--color-text);
+        padding: 1.5rem 1rem;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        text-shadow: 0 1px 1px rgb(1, 0, 1);
+    }
+    #darkModeToggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        transition: transform 0.2s;
+    }
+    body.dark-mode #darkModeToggle {
+        color: var(--color-dark-primary);
+    }
+
+    .nav-section {
+        padding: 0 1rem;
+        max-width: 1200px;
+        margin: 0 auto 1.5rem auto;
+    }
+    .switches {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .switches button {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--color-primary);
+        border-radius: 8px;
+        cursor: pointer;
+        background: transparent;
+        color: var(--color-primary);
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .switches button.active {
+        background: var(--color-primary);
+        color: var(--color-surface);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+    .btn-publish-nav {
+        background: var(--color-secondary); 
+        color: white !important;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s;
+        border: 2px solid var(--color-secondary); 
+    }
+
+    .filter-bar {
+        background: var(--color-surface);
+        padding: 1rem; 
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+    .filter-bar input, .filter-bar select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 1rem;
+        background: var(--color-background); 
+        color: var(--color-text); 
+    }
+    body.dark-mode .filter-bar input, body.dark-mode .filter-bar select {
+         background: #2b2b2b; 
+         border-color: #444;
+         color: var(--color-dark-text);
+    }
+    .filter-group label {
+        font-size: 0.8rem; 
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--color-text-light);
+        display: block;
+    }
+    @media (min-width: 768px) {
+        .filter-bar {
+            padding: 1.5rem;
+            grid-template-columns: 2fr 1fr 1fr;
+        }
+    }
+    
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem 2rem 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: var(--color-surface);
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+    }
+    .card-image-container {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+    }
+    .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .card-body {
+        padding: 1rem 1.25rem;
+        flex-grow: 1;
+    }
+    .card-body h3 {
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .card-body .price {
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    .card-footer {
+        padding: 1rem 1.25rem;
+        border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    body.dark-mode .card-footer {
+        border-top: 1px solid #333;
+    }
+
+    .btn-info, .btn-whatsapp, .btn-share {
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+    .btn-info { background: var(--color-primary); color: white; }
+    .btn-whatsapp { background: var(--color-secondary); color: white; }
+    .btn-share { 
+        background: #95a5a6; 
+        color: white; 
+        font-size: 0.85rem; 
+        padding: 0.5rem 1rem; 
+        margin-top: 10px; 
+        cursor: pointer;
+    }
+    .cta-register-banner {
+        grid-column: 1 / -1; 
+        background: #ebf5ff; 
+        border: 2px solid var(--color-primary);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    .cta-register-banner h3 {
+        margin-top: 0;
+        color: var(--color-primary);
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+    .btn-register {
+        background: var(--color-primary);
+        color: white !important;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    .modal, .img-modal, .ad-popup-modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal.is-open, .img-modal.is-open, .ad-popup-modal.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+    .modal-content { 
+        background: var(--color-surface);
+        padding: 2.5rem;
+        border-radius: 16px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.95);
+        transition: transform 0.3s ease, background 0.3s;
+    }
+    .modal.is-open .modal-content {
+        transform: scale(1);
+    }
+    .modal-close {
+        position: absolute;
+        top: 10px; right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--color-text-light);
+        z-index: 1000;
+    }
+    .modal-details-grid p {
+        margin-bottom: 8px;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 5px;
+    }
+    body.dark-mode .modal-details-grid p {
+        border-bottom: 1px dashed #444;
+    }
+    .modal-full-description {
+        padding: 15px;
+        background: var(--color-background);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: var(--color-text) !important; 
+        background: var(--color-surface);
+    }
+    body.dark-mode .modal-full-description {
+        color: var(--color-dark-text) !important;
+        background: var(--color-dark-surface);
+    }
+    .modal-full-description h4 { margin-top: 0; }
+
+    .img-modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        display: block;
+    }
+    .img-modal-content img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100vh;
+        display: block;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+        .switches { flex-direction: column; }
+        .switches button, .btn-publish-nav { width: 100%; margin-bottom: 5px; justify-content: center; }
+        .modal-content { padding: 1.5rem; }
+        header { padding: 1rem 1rem; }
+        .card-footer { flex-direction: column; }
+        .btn-info, .btn-whatsapp { width: 100%; justify-content: center; }
+    }
+
+    .ad-popup-content {
+        background: var(--color-surface); 
+        padding: 0; 
+        border-radius: 20px;
+        max-width: 90%; 
+        width: 900px;
+        height: 550px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        position: relative; 
+        border: 5px solid var(--color-advertisement);
+        overflow: hidden; 
+    }
+    .ad-popup-image-container {
+        height: 100%; 
+        width: 100%; 
+        position: absolute; 
+        top: 0;
+        left: 0;
+        z-index: 1; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+    }
+    .ad-popup-image-container img {
+        width: 100%; 
+        height: 100%; 
+        object-fit: contain;
+        object-position: center; 
+    }
+    .ad-popup-cta {
+        position: fixed;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10; 
+        background: var(--color-advertisement);
+        color: rgb(11, 7, 7) !important;
+        padding: 0.8rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+        text-decoration: none;
+        font-weight: 700;
+    }
+    .ad-popup-small-text {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        color: #ccc; 
+        text-shadow: 1px 1px 2px black; 
+        font-size: 0.7em;
+        padding-bottom: 5px;
+        background: rgba(0, 0, 0, 0.4);
+        width: 100%;
+        text-align: center;
+    }
+    .ad-popup-modal .modal-close {
+        position: absolute;
+        top: 10px; right: 10px;
+        color: white; 
+        text-shadow: 1px 1px 2px black;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    /* ========================================= */
+/* ESTILOS ORIGINALES DE .button2 (NO CAMBIAR) */
+/* ========================================= */
+.button2 {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     z-index: 9999;
+     transition: all 0.2s ease-in;
+     overflow: hidden;
+     color: #090909;
+     padding: 0.7em 1.7em;
+     font-size: 18px;
+     border-radius: 0.5em;
+     background: #e8e8e8;
+     border: 1px solid #e8e8e8;
+     box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+     text-decoration: none;
+}
+
+.button2 > i {
+    /* Dimensiones para que se vea del mismo tamaño que el SVG */
+    height: 30px; 
+    width: 30px;
+    font-size: 30px; /* Tamaño del ícono de Font Awesome */
+    margin-left: 10px;
+    
+    /* Color de WhatsApp */
+    color: #25d366; 
+
+    /* Asegura que esté centrado si usas FA */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Color blanco del ícono al hacer hover (opcional, si lo quieres) */
+.button2:hover > i {
+    color: white; 
+}
+   </style>
+</head>
+<body class="light-mode" oncontextmenu="return false;">
+    <header>
+        <h1><i class="fas fa-store"></i> Compra Venta Iglesia </h1>
+        <button id="darkModeToggle" onclick="toggleDarkMode()">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header> 
+
+    <main class="tienda-container"> 
+        <div class="nav-section"> 
+            <div class="switches">
+                <button onclick="cambiarVista('productos')" class="active"><i class="fas fa-box"></i> Productos</button> 
+                <button onclick="cambiarVista('servicios')"><i class="fas fa-handshake"></i> Servicios</button> 
+                <a href="https://wa.me/5492646706973?text=Hola%20quiero%20publicar%20en%20tu%20página,%20soy%20:" class="btn-publish-nav" target="_blank"><i class="fas fa-cloud-upload-alt"></i> Publica Ahora</a> 
+            </div> 
+            <div class="filter-bar"> 
+                <div class="filter-group"> 
+                    <label for="search-input"><i class="fas fa-search"></i> Buscar</label> 
+                    <input type="text" id="search-input" placeholder="Ej: Zapatillas, Consultoría..." onkeyup="debouncedAplicarFiltros()"> 
+                </div> 
+                <div class="filter-group"> 
+                    <label for="category-filter"><i class="fas fa-tags"></i> Categoría</label> 
+                    <select id="category-filter" onchange="aplicarFiltros()"> 
+                        <option value="">Todas</option> 
+                    </select> 
+                </div> 
+                <div class="filter-group"> 
+                    <label for="sort-filter"><i class="fas fa-sort"></i> Ordenar por</label> 
+                    <select id="sort-filter" onchange="aplicarFiltros()"> 
+                        <option value="default">Relevancia</option> 
+                        <option value="price_asc">Precio ↑</option> 
+                        <option value="price_desc">Precio ↓</option> 
+                        <option value="date_desc">Más Reciente</option> 
+                        <option value="date_asc">Más Antiguo</option> 
+                    </select> 
+                </div> 
+            </div> 
+        </div> 
+
+        <div class="grid main-content-grid" id="contenedor"></div> 
+
+        <div class="grid" id="cta-registro-final"> 
+            <div class="cta-register-banner"> 
+                <h3>¿Quieres vender o publicar un servicio? 🚀</h3> 
+                <p>¡Únete a nuestra comunidad de vendedores! Es fácil, rápido y te ayuda a llegar a más clientes.</p> 
+                <a href="https://wa.me/5492646706973?text=Hola%20quiero%20publicar%20en%20tu%20página,%20soy%20:" class="btn-register" target="_blank"><i class="fas fa-hand-point-up"></i> ¡Publica Ahora!</a> 
+            </div> 
+        </div> 
+    </main> 
+
+    <!-- MODALES -->
+    <div class="modal" id="modalInfo"> 
+        <div class="modal-content" id="modalDetalle"> 
+            <button class="modal-close" onclick="cerrarModal('modalInfo')"><i class="fas fa-times"></i></button> 
+            <h2 id="modal-titulo">Detalle del Item</h2> 
+            <button class="btn-share" id="btnShareModal" style="margin-bottom: 20px;"><i class="fas fa-share-alt"></i> Copiar Enlace</button> 
+            <div class="modal-full-description"> 
+                <h4>Descripción Completa</h4> 
+                <p id="modal-description"></p> 
+            </div> 
+            <div class="modal-details-grid" id="modalContenido"></div> 
+        </div> 
+    </div> 
+
+    <div class="img-modal" id="modalImg" onclick="cerrarModal('modalImg')"> 
+        <div class="img-modal-content"> 
+            <img id="imgAmpliada" src="" alt="Imagen ampliada"> 
+        </div> 
+    </div> 
+
+    <div class="ad-popup-modal" id="modalPublicidadPopup">
+        <div class="ad-popup-content">
+            <button class="modal-close" onclick="cerrarPublicidadModal()"><i class="fas fa-times"></i></button>
+            <div class="ad-popup-image-container" id="adPopupImageContainer"></div>
+            <a href="#" id="adPopupLink" target="_blank" class="ad-popup-cta">Ver Publicidad <i class="fas fa-arrow-right"></i></a>
+            <small class="ad-popup-small-text">Este anuncio se cerrará automáticamente.</small>
+        </div>
+    </div>
+<a>
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/+5492646706973" target="_blank" class="button2">
+    WhatsApp
+    <i class="fab fa-whatsapp"></i> 
+</a>
+
+    <!-- SCRIPT PRINCIPAL -->
+    <script>
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; } // F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) { return false; } // Ctrl+Shift+I
+            if (e.ctrlKey && e.keyCode == 85) { return false; } // Ctrl+U
+        };
+    const API_URL = "https://script.google.com/macros/s/AKfycbyfr9ROQWtRy-waEJQEkUq0WC3P84fsgN-ml00Wwqct5Z-1jHDuGZfuGLSzXLdMpcRA8Q/exec"; 
+    
+    let vistaActual = 'productos';
+    let datosOriginales = []; 
+    let publicidadActiva = []; 
+    const CAMPOS_A_EXCLUIR = ['ID','Estado','Imagen','DNI','Tipo','Fecha','FechaFin','Descripción','Clicks','Vendedor','Tienda','DíasPublicados','Posición','Título','Clics','Categoría','Precio','WhatsApp'];
+
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+    const debouncedAplicarFiltros = debounce(aplicarFiltros, 300);
+
+    function formatPrice(price) {
+        const num = parseFloat(price);
+        if (isNaN(num)) return price;
+        return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(num).replace('ARS', '$');
+    }
+
+    function toggleDarkMode() {
+        const body = document.body;
+        const isDarkMode = body.classList.toggle('dark-mode');
+        const toggleButton = document.getElementById('darkModeToggle');
+        
+        if (isDarkMode) {
+            localStorage.setItem('darkMode', 'enabled');
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+            body.classList.remove('light-mode');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+            body.classList.add('light-mode');
+        }
+    }
+
+    function loadDarkModePreference() {
+        const preference = localStorage.getItem('darkMode');
+        const toggleButton = document.getElementById('darkModeToggle');
+        
+        if (preference === 'enabled') {
+            document.body.classList.add('dark-mode');
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            document.body.classList.remove('dark-mode');
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    }
+
+    function cambiarVista(tipo) {
+        vistaActual = tipo;
+        document.querySelectorAll('.switches button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.switches button').forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(tipo)) btn.classList.add('active');
+        });
+        document.getElementById('search-input').value = '';
+        document.getElementById('category-filter').value = '';
+        document.getElementById('sort-filter').value = 'default';
+        cargarDatos();
+    }
+
+    function llenarFiltroCategorias(data) {
+        const select = document.getElementById('category-filter');
+        select.innerHTML = '<option value="">Todas</option>'; 
+        const categorias = new Set();
+        data.forEach(item => {
+            if (item.Categoría && String(item.Categoría).trim() !== "") {
+                categorias.add(item.Categoría);
+            }
+        });
+        
+        const categoriasOrdenadas = Array.from(categorias).sort();
+
+        categoriasOrdenadas.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat;
+            select.appendChild(option);
+        });
+    }
+
+    function aplicarFiltros() {
+        const searchText = document.getElementById('search-input').value.toLowerCase();
+        const category = document.getElementById('category-filter').value;
+        const sortCriteria = document.getElementById('sort-filter').value;
+        
+        let datosFiltrados = [...datosOriginales];
+        
+        if (searchText) {
+            datosFiltrados = datosFiltrados.filter(item => 
+                (item.Nombre && String(item.Nombre).toLowerCase().includes(searchText)) ||
+                (item.Descripción && String(item.Descripción).toLowerCase().includes(searchText))
+            );
+        }
+        
+        if (category) {
+            datosFiltrados = datosFiltrados.filter(item => item.Categoría === category);
+        }
+
+        switch (sortCriteria) {
+            case 'price_asc':
+                datosFiltrados.sort((a, b) => (parseFloat(a.Precio) || 0) - (parseFloat(b.Precio) || 0));
+                break;
+            case 'price_desc':
+                datosFiltrados.sort((a, b) => (parseFloat(b.Precio) || 0) - (parseFloat(a.Precio) || 0));
+                break;
+            case 'date_desc':
+                datosFiltrados.sort((a, b) => (String(b.ID).localeCompare(String(a.ID)))); 
+                break;
+            case 'date_asc':
+                datosFiltrados.sort((a, b) => (String(a.ID).localeCompare(String(b.ID))));
+                break;
+        }
+
+        mostrarDatos(datosFiltrados); 
+    }
+    
+    function cargarDatos() {
+        const contenedor = document.getElementById('contenedor');
+        contenedor.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Cargando...</p>';
+
+        Promise.all([
+            fetch(`${API_URL}?tipo=${vistaActual}`).then(res => res.json()),
+            fetch(`${API_URL}?tipo=publicidad`).then(res => res.json())
+        ])
+        .then(([datosItems, datosPublicidad]) => {
+            datosOriginales = datosItems.filter(item => item.Estado && String(item.Estado).toLowerCase() === 'activo');
+            publicidadActiva = datosPublicidad.filter(ad => ad.Estado && String(ad.Estado).toLowerCase() === 'activo');
+            llenarFiltroCategorias(datosOriginales);
+            aplicarFiltros(); 
+        })
+        .catch(error => {
+            contenedor.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Error al cargar datos</p>';
+            console.error("Error al cargar datos:", error);
+            datosOriginales = [];
+            publicidadActiva = [];
+            mostrarDatos([]);
+        });
+    }
+
+    function crearCardPublicidad(item) {
+        const adLink = item.Enlace || '#';
+        const adImage = item.Imagen && item.Imagen.startsWith('http') ? item.Imagen : '';
+
+        return `
+            <div class="ad-card" data-ad-id="${item.ID}">
+                <a href="${adLink}" target="_blank" onclick="registrarClickPublicidad('${item.ID}')" style="text-decoration: none;">
+                    ${adImage ? `
+                        <div class="ad-card-image-container">
+                            <img src="${adImage}" alt="${item.Nombre || 'Anuncio'}" loading="lazy">
+                        </div>
+                    ` : `
+                        <div class="ad-card-image-container" style="background: var(--color-surface); display: flex; justify-content: center; align-items: center; min-height: 100px;">
+                            <i class="fas fa-bullhorn fa-4x" style="color: var(--color-advertisement);"></i>
+                        </div>
+                    `}
+                    <div class="ad-card-body">
+                        <h4><i class="fas fa-bullhorn"></i> ${item.Nombre || 'Promoción Especial'}</h4>
+                        <p>${item.Descripción || '¡Haz crecer tu negocio hoy mismo!'}</p>
+                    </div>
+                    <div class="ad-cta">
+                        ¡Más Información! <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        `;
+    }
+
+    function mostrarDatos(items) {
+        const contenedor = document.getElementById('contenedor');
+        contenedor.innerHTML = ''; 
+        
+        if (!items || items.length === 0) {
+            const searchActive = document.getElementById('search-input').value || document.getElementById('category-filter').value;
+            const mensaje = !searchActive
+                ? '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-danger);">No hay items activos.</p>'
+                : '<p style="grid-column: 1 / -1; text-align: center;">No hay ítems que coincidan con los filtros.</p>';
+            contenedor.innerHTML = mensaje;
+        }
+        
+        const fragment = document.createDocumentFragment();
+        const itemNodes = items.map(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const imgUrl = item.Imagen && item.Imagen.startsWith('http') ? item.Imagen : 'https://via.placeholder.com/400x220?text=Sin+Imagen';
+            const price = formatPrice(item.Precio) || 'Consultar';
+            const desc = item.Descripción || 'Sin descripción disponible.';
+            const itemName = item.Nombre || item.Titulo || 'Sin Título'; 
+            
+            card.innerHTML = `
+                <div class="card-image-container">
+                    <img src="${imgUrl}" alt="${itemName}" loading="lazy" onclick="event.stopPropagation(); mostrarImg('${imgUrl}');">
+                </div>
+                <div class="card-body">
+                    <h3>${itemName}</h3>
+                    <div class="price">${price}</div>
+                    <p class="description">${desc}</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-info" onclick="mostrarInfo(datosOriginales.find(i => i.ID === '${item.ID}')); registrarClick('${item.ID}');">
+                        <i class="fas fa-info-circle"></i> Detalle
+                    </button>
+                    <a href="https://wa.me/${item.WhatsApp}?text=Hola! Vi tu ${vistaActual.slice(0, -1)}: ${itemName}. Me interesa!" 
+                       class="btn-whatsapp" target="_blank" onclick="registrarClick('${item.ID}')">
+                        <i class="fab fa-whatsapp"></i> Contactar
+                    </a>
+                </div>
+            `;
+            return card;
+        });
+
+        const adsParaGrid = publicidadActiva.filter(ad => 
+            !isNaN(parseInt(ad.Posición)) && parseInt(ad.Posición) >= 1
+        );
+
+        if (adsParaGrid && adsParaGrid.length > 0) {
+            adsParaGrid.sort((a, b) => parseInt(a.Posición) - parseInt(b.Posición));
+
+            for (let i = adsParaGrid.length - 1; i >= 0; i--) {
+                const ad = adsParaGrid[i];
+                const posicion = parseInt(ad.Posición);
+                const adNodeHTML = crearCardPublicidad(ad); 
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = adNodeHTML;
+                const adElement = tempDiv.firstChild;
+                
+                if (adElement) {
+                    if (posicion >= 1 && posicion && posicion <= itemNodes.length) { 
+                        itemNodes.splice(posicion, 0, adElement); 
+                    } else if (posicion > itemNodes.length) {
+                        itemNodes.push(adElement);
+                    }
+                }
+            }
+        }
+        
+        itemNodes.forEach(node => {
+            fragment.appendChild(node);
+        });
+
+        contenedor.appendChild(fragment); 
+    }
+    
+    function registrarClick(itemID) {
+         if (!itemID) return;
+         fetch(`${API_URL}?tipo=${vistaActual}&accion=click&id=${itemID}`, { method: 'POST' })
+         .then(res => {
+             if (res.ok) console.log(`Click registrado para el item ID: ${itemID}`);
+         })
+         .catch(error => console.error("Error al registrar click:", error));
+    }
+
+    function registrarClickPublicidad(adID) {
+        fetch(`${API_URL}?tipo=publicidad&accion=click&id=${adID}`, { method: 'POST' })
+        .then(res => {
+            if (res.ok) console.log(`Click registrado para el anuncio ID: ${adID}`);
+         })
+         .catch(error => console.error("Error al registrar click de publicidad:", error));
+    }
+
+    function mostrarInfo(item) {
+        const modal = document.getElementById('modalInfo');
+        const titulo = document.getElementById('modal-titulo');
+        const contenido = document.getElementById('modalContenido');
+        const descripcionCompleta = document.getElementById('modal-description');
+        const btnShare = document.getElementById('btnShareModal');
+        
+        titulo.textContent = `Detalle de: ${item.Nombre || item.Titulo}`;
+        descripcionCompleta.textContent = item.Descripción || 'No hay una descripción completa disponible.';
+
+        let detailHTML = '';
+        for (const [key, value] of Object.entries(item)) {
+            if (!CAMPOS_A_EXCLUIR.includes(key) && value) {
+                const displayKey = key === 'WhatsApp' ? 'Contacto' : key;
+                const displayValue = (key === 'Precio' && !isNaN(value)) ? formatPrice(value) : value;
+                detailHTML += `<p><strong>${displayKey}:</strong> ${displayValue}</p>`;
+            }
+        }
+        contenido.innerHTML = detailHTML;
+        
+        btnShare.onclick = () => {
+            const url = `${window.location.origin}${window.location.pathname}?tipo=${vistaActual}&id=${item.ID}`;
+            if (navigator.clipboard) {
+                 navigator.clipboard.writeText(url).then(() => {
+                     alert('Enlace copiado al portapapeles!');
+                 }).catch(err => {
+                     console.error('Error al copiar el enlace:', err);
+                     alert('Error al copiar. Copia la URL manualmente.');
+                 });
+            } else {
+                 alert('Tu navegador no soporta la copia automática.');
+            }
+        };
+
+        modal.classList.add('is-open'); 
+    }
+    
+    function mostrarImg(src) {
+        const modal = document.getElementById('modalImg');
+        document.getElementById('imgAmpliada').src = src && src.startsWith('http') ? src : 'https://via.placeholder.com/600x400?text=Imagen+No+Disponible';
+        modal.classList.add('is-open'); 
+    }
+
+    function cerrarModal(id) {
+        document.getElementById(id).classList.remove('is-open');
+    }
+
+    window.onclick = e => {
+        if (e.target.id === 'modalInfo') cerrarModal('modalInfo');
+        if (e.target.id === 'modalImg') cerrarModal('modalImg');
+    };
+
+    const AD_POPUP_INTERVAL = 60000;
+    const AD_POPUP_DURATION = 10000;
+    let adPopupTimeout = null;
+    let adInterval = null;
+
+    function mostrarPublicidadModal() {
+        const adsParaPopup = publicidadActiva.filter(ad => 
+            isNaN(parseInt(ad.Posición)) || parseInt(ad.Posición) < 1
+        );
+        
+        if (adsParaPopup.length === 0) {
+            return; 
+        }
+
+        const randomIndex = Math.floor(Math.random() * adsParaPopup.length);
+        const ad = adsParaPopup[randomIndex];
+
+        const modal = document.getElementById('modalPublicidadPopup');
+        const title = document.getElementById('adPopupTitle');
+        const text = document.getElementById('adPopupText');
+        const link = document.getElementById('adPopupLink');
+        const imageContainer = document.getElementById('adPopupImageContainer');
+        
+        title.textContent = ad.Nombre || '¡PROMOCIÓN IMPERDIBLE!';
+        text.textContent = ad.Descripción || 'Aprovecha esta oferta por tiempo limitado.';
+        link.href = ad.Enlace || '#';
+        link.dataset.adid = ad.ID;
+        link.textContent = 'Ver Oferta ';
+        
+        imageContainer.innerHTML = '';
+        if (ad.Imagen && ad.Imagen.startsWith('http')) {
+             imageContainer.innerHTML = `<img src="${ad.Imagen}" alt="${ad.Nombre || 'Anuncio'}">`;
+        } else {
+            imageContainer.innerHTML = `<i class="fas fa-bullhorn fa-4x" style="color: var(--color-advertisement); margin: 30px 0;"></i>`;
+        }
+        
+        modal.classList.add('is-open');
+
+        adPopupTimeout = setTimeout(() => {
+            cerrarPublicidadModal();
+        }, AD_POPUP_DURATION);
+    }
+
+    function cerrarPublicidadModal() {
+        const modal = document.getElementById('modalPublicidadPopup');
+        modal.classList.remove('is-open');
+        if (adPopupTimeout) {
+            clearTimeout(adPopupTimeout);
+            adPopupTimeout = null;
+        }
+    }
+
+    function iniciarIntervaloPublicidad() {
+        if (adInterval) {
+            clearInterval(adInterval);
+        }
+        adInterval = setInterval(mostrarPublicidadModal, AD_POPUP_INTERVAL);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDarkModePreference();
+        cambiarVista('productos');
+        iniciarIntervaloPublicidad();
+    });
+</script>
+
+</body>
+</html>
+
