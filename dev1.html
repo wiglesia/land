@@ -8,14 +8,12 @@
     <meta name="keywords" content="Diseño Web, Currículum, Fotocopias, TV Box, Trámites rápidos, IGW, Iglesia Web">
     <meta name="author" content="IGW - Iglesia Web">
     
-    <!-- Open Graph -->
     <meta property="og:title" content="IGW | Soluciones Digitales Pro">
     <meta property="og:description" content="Transformamos tu visión en éxito digital. Diseño web, gráfico, CVs, impresiones y más.">
     <meta property="og:image" content="https://i.ibb.co/mZbsmLk/logo.webp">
     <meta property="og:url" content="https://wiglesia.github.io/land/">
     <meta property="og:type" content="website">
     
-    <!-- Schema Markup -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -35,1070 +33,1069 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<style>
-    /* ========================================
-       RESET Y VARIABLES
-       ======================================== */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    :root {
-        --primary: #00BFFF;
-        --secondary: #00FFC0;
-        --accent: #6C5CE7;
-        --dark: #0A0A0A;
-        --bg: #1A1A1A;
-        --card-bg: rgba(44, 44, 44, 0.85);
-        --text-light: #F0F0F0;
-        --text-muted: #A0A9B8;
-        --border: rgba(255, 255, 255, 0.1);
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        --wa: #25D366;
-        --header-height: 70px;
-    }
-
-    body {
-        font-family: 'Inter', sans-serif;
-        background: var(--bg);
-        color: var(--text-light);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        opacity: 0;
-        overflow-x: hidden;
-        transition: opacity 0.5s ease-out;
-    }
-
-    body.loaded {
-        opacity: 1;
-    }
-
-    body.menu-open {
-        overflow: hidden;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-        transition: all 0.3s ease;
-    }
-
-    .container {
-        max-width: 100%;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 2rem;
-    }
-
-    @media (min-width: 1400px) {
-        .container {
-            padding: 0 4rem;
+    
+    <style>
+        /* ========================================
+        RESET Y VARIABLES
+        ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
 
-    @media (min-width: 1800px) {
-        .container {
-            padding: 0 6rem;
+        :root {
+            --primary: #00BFFF;
+            --secondary: #00FFC0;
+            --accent: #6C5CE7;
+            --dark: #0A0A0A;
+            --bg: #1A1A1A;
+            --card-bg: rgba(44, 44, 44, 0.85);
+            --text-light: #F0F0F0;
+            --text-muted: #A0A9B8;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --wa: #25D366;
+            --header-height: 70px;
         }
-    }
 
-    /* ========================================
-       LOADER
-       ======================================== */
-    #loader {
-        position: fixed;
-        inset: 0;
-        background: var(--bg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease-out;
-    }
-
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 4px solid rgba(255, 255, 255, 0.1);
-        border-top-color: var(--primary);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    /* ========================================
-       NAVBAR
-       ======================================== */
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: var(--header-height);
-        background: rgba(10, 10, 10, 0.95);
-        backdrop-filter: saturate(180%) blur(10px);
-        border-bottom: 1px solid var(--border);
-        box-shadow: var(--shadow);
-        z-index: 1000;
-        transition: all 0.3s ease;
-    }
-
-    .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
-        padding: 0 2rem;
-        max-width: 100%;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    @media (min-width: 1400px) {
-        .nav-container {
-            padding: 0 4rem;
-        }
-    }
-
-    @media (min-width: 1800px) {
-        .nav-container {
-            padding: 0 6rem;
-        }
-    }
-
-    .logo {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: var(--primary);
-        letter-spacing: -1px;
-    }
-
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 2rem;
-        align-items: center;
-    }
-
-    .nav-menu a {
-        color: var(--text-muted);
-        font-weight: 500;
-        font-size: 0.95rem;
-        position: relative;
-    }
-
-    .nav-menu a:hover {
-        color: var(--text-light);
-    }
-
-    .nav-menu a::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--primary);
-        transition: width 0.3s ease;
-    }
-
-    .nav-menu a:hover::after {
-        width: 100%;
-    }
-
-    .nav-btn {
-        background: var(--primary);
-        color: var(--dark);
-        padding: 0.6rem 1.5rem;
-        border-radius: 25px;
-        font-weight: 600;
-        border: 2px solid var(--primary);
-    }
-
-    .nav-btn:hover {
-        background: transparent;
-        color: var(--primary);
-        transform: translateY(-2px);
-    }
-
-    .menu-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    .menu-toggle span {
-        width: 25px;
-        height: 2px;
-        background: var(--text-light);
-        transition: all 0.3s ease;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-
-    /* ========================================
-       VIDEO SECTIONS
-       ======================================== */
-    .video-section {
-        position: relative;
-        overflow: hidden;
-        isolation: isolate;
-    }
-
-    .video-bg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        transform: translate(-50%, -50%);
-        z-index: -2;
-        object-fit: cover;
-        filter: brightness(0.5);
-    }
-
-    .video-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-    }
-
-    .overlay-hero {
-        background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 191, 255, 0.2) 100%);
-    }
-
-    .overlay-about {
-        background: rgba(26, 26, 26, 0.85);
-    }
-
-    .overlay-services {
-        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9) 0%, rgba(108, 92, 231, 0.2) 50%, rgba(10, 10, 10, 0.9) 100%);
-    }
-
-    .overlay-benefits {
-        background: linear-gradient(135deg, rgba(44, 44, 44, 0.85) 0%, rgba(0, 255, 192, 0.15) 100%);
-    }
-
-    .overlay-process {
-        background: linear-gradient(to right, rgba(10, 10, 10, 0.88) 0%, rgba(0, 191, 255, 0.25) 50%, rgba(10, 10, 10, 0.88) 100%);
-    }
-
-    .overlay-cta {
-        background: linear-gradient(45deg, rgba(0, 191, 255, 0.3) 0%, rgba(0, 255, 192, 0.2) 100%),
-                    radial-gradient(circle at center, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
-    }
-
-    /* ========================================
-       HERO SECTION
-       ======================================== */
-    header {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 8rem 1rem 4rem;
-    }
-
-    header h1 {
-        font-size: clamp(2.5rem, 8vw, 5rem);
-        margin-bottom: 1rem;
-        color: var(--secondary);
-        text-shadow: 0 0 30px rgba(0, 255, 192, 0.5);
-        font-weight: 900;
-        letter-spacing: -2px;
-        animation: fadeInUp 1s ease;
-    }
-
-    header p {
-        font-size: clamp(1.1rem, 3vw, 1.5rem);
-        margin: 0 auto 3rem;
-        font-weight: 300;
-        max-width: 700px;
-        color: var(--text-muted);
-        animation: fadeInUp 1.2s ease;
-    }
-
-    @keyframes fadeInUp {
-        from {
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
             opacity: 0;
-            transform: translateY(30px);
+            overflow-x: hidden;
+            transition: opacity 0.5s ease-out;
         }
-        to {
+
+        body.loaded {
             opacity: 1;
-            transform: translateY(0);
         }
-    }
 
-    .cta-group {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        animation: fadeInUp 1.4s ease;
-    }
-
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem 2.5rem;
-        border-radius: 30px;
-        font-weight: 600;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        border: 2px solid;
-    }
-
-    .btn-primary {
-        background: var(--primary);
-        color: var(--dark);
-        border-color: var(--primary);
-    }
-
-    .btn-primary:hover {
-        background: transparent;
-        color: var(--primary);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0, 191, 255, 0.3);
-    }
-
-    .btn-secondary {
-        background: transparent;
-        color: var(--secondary);
-        border-color: var(--secondary);
-    }
-
-    .btn-secondary:hover {
-        background: var(--secondary);
-        color: var(--dark);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0, 255, 192, 0.3);
-    }
-
-    .btn-wa {
-        background: var(--wa);
-        color: white;
-        border-color: var(--wa);
-    }
-
-    .btn-wa:hover {
-        background: #1ed152;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-    }
-
-    /* ========================================
-       FLOATING BUTTONS
-       ======================================== */
-    .float-group {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        z-index: 999;
-    }
-
-    .float-btn {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 1.8rem;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        transition: all 0.3s ease;
-        animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0);
+        body.menu-open {
+            overflow: hidden;
         }
-        50% {
-            transform: translateY(-10px);
-        }
-    }
 
-    .float-wa {
-        background: var(--wa);
-    }
-
-    .float-store {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-        animation-delay: 0.2s;
-    }
-
-    .float-btn:hover {
-        transform: scale(1.15) translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 191, 255, 0.5);
-        animation: none;
-    }
-
-    /* ========================================
-       SECTIONS
-       ======================================== */
-    section {
-        padding: 6rem 0;
-        position: relative;
-        width: 100%;
-        background: var(--bg);
-    }
-
-    /* Asegurar que las secciones con video cubran todo */
-    .video-section {
-        background: var(--bg);
-    }
-
-    .section-title {
-        text-align: center;
-        font-size: clamp(2rem, 5vw, 3rem);
-        margin-bottom: 4rem;
-        color: var(--primary);
-        font-weight: 800;
-        letter-spacing: -1px;
-    }
-
-    .section-title::after {
-        content: '';
-        display: block;
-        width: 80px;
-        height: 4px;
-        background: var(--secondary);
-        margin: 1rem auto 0;
-        border-radius: 2px;
-    }
-
-    /* Grid System */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        width: 100%;
-    }
-
-    @media (min-width: 1400px) {
-        .grid {
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-        }
-    }
-
-    .card {
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        padding: 2.5rem;
-        border-radius: 15px;
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
-        transition: all 0.3s ease;
-        text-align: center;
-    }
-
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 191, 255, 0.2);
-        border-color: var(--primary);
-        background: rgba(44, 44, 44, 0.95);
-    }
-
-    .card i {
-        font-size: 3rem;
-        color: var(--secondary);
-        margin-bottom: 1.5rem;
-        display: block;
-    }
-
-    .card h3 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: var(--text-light);
-    }
-
-    .card p {
-        color: var(--text-muted);
-        line-height: 1.7;
-    }
-
-    /* About Section */
-    .about-item {
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        padding: 2.5rem;
-        border-radius: 15px;
-        border: 1px solid var(--border);
-        border-top: 4px solid var(--primary);
-        box-shadow: var(--shadow);
-        transition: all 0.3s ease;
-    }
-
-    .about-item:hover {
-        transform: translateY(-8px);
-        border-top-color: var(--secondary);
-    }
-
-    .about-item h3 {
-        color: var(--secondary);
-        font-size: 1.6rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Benefits List */
-    .benefits-list {
-        list-style: none;
-        max-width: 100%;
-        width: 100%;
-        margin: 0 auto;
-        display: grid;
-        gap: 1rem;
-    }
-
-    @media (min-width: 1200px) {
-        .benefits-list {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-    }
-
-    @media (min-width: 1600px) {
-        .benefits-list {
-            max-width: 1400px;
-        }
-    }
-
-    .benefits-list li {
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border-left: 4px solid var(--primary);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        transition: all 0.3s ease;
-    }
-
-    .benefits-list li:hover {
-        transform: translateX(10px);
-        border-left-color: var(--secondary);
-    }
-
-    .benefits-list i {
-        color: var(--secondary);
-        font-size: 1.5rem;
-        min-width: 30px;
-    }
-
-    /* Process Steps */
-    .step-card {
-        position: relative;
-        padding-top: 3rem;
-    }
-
-    .step-number {
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        font-weight: 900;
-        color: var(--dark);
-        box-shadow: 0 5px 20px rgba(0, 191, 255, 0.4);
-    }
-
-    /* Portfolio */
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        width: 100%;
-    }
-
-    @media (min-width: 1200px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-        }
-    }
-
-    @media (min-width: 1600px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
-        }
-    }
-
-    .portfolio-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 15px;
-        box-shadow: var(--shadow);
-        aspect-ratio: 16/10;
-        cursor: pointer;
-    }
-
-    .portfolio-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .portfolio-item:hover img {
-        transform: scale(1.1);
-        filter: brightness(0.5);
-    }
-
-    .portfolio-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(0, 191, 255, 0.9), rgba(0, 255, 192, 0.9));
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        text-align: center;
-        padding: 2rem;
-    }
-
-    .portfolio-item:hover .portfolio-overlay {
-        opacity: 1;
-    }
-
-    .portfolio-overlay h3 {
-        color: var(--dark);
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .portfolio-overlay p {
-        color: var(--dark);
-        font-weight: 600;
-        background: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 25px;
-    }
-
-    /* FAQ */
-    .faq-item {
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border-left: 4px solid var(--secondary);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .faq-item:hover {
-        background: rgba(44, 44, 44, 0.95);
-    }
-
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: var(--primary);
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-
-    .faq-question i {
-        transition: transform 0.3s ease;
-    }
-
-    .faq-item.active .faq-question i {
-        transform: rotate(180deg);
-    }
-
-    .faq-answer {
-        display: none;
-        padding-top: 1rem;
-        color: var(--text-muted);
-        line-height: 1.7;
-    }
-
-    .faq-item.active .faq-answer {
-        display: block;
-    }
-
-    /* Contact Form */
-    .contact-form {
-        max-width: 700px;
-        width: 100%;
-        margin: 0 auto;
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        padding: 3rem;
-        border-radius: 15px;
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
-    }
-
-    @media (min-width: 1400px) {
-        .contact-form {
-            max-width: 900px;
-            padding: 4rem;
-        }
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: var(--primary);
-        font-weight: 600;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        width: 100%;
-        padding: 1rem;
-        background: rgba(10, 10, 10, 0.5);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        color: var(--text-light);
-        font-size: 1rem;
-        font-family: inherit;
-        transition: all 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
-    }
-
-    .form-group textarea {
-        resize: vertical;
-        min-height: 120px;
-    }
-
-    /* Modal */
-    .modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.95);
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-        padding: 2rem;
-    }
-
-    .modal-content {
-        position: relative;
-        max-width: 90%;
-        max-height: 90vh;
-        background: var(--card-bg);
-        border-radius: 15px;
-        padding: 2rem;
-        overflow-y: auto;
-    }
-
-    @media (min-width: 768px) {
-        .modal-content {
-            max-width: 800px;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .modal-content {
-            max-width: 1000px;
-        }
-    }
-
-    .modal-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 2rem;
-        color: var(--primary);
-        cursor: pointer;
-        background: rgba(0, 0, 0, 0.5);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .modal-close:hover {
-        background: var(--primary);
-        color: var(--dark);
-    }
-
-    #modalImage {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-bottom: 1.5rem;
-    }
-
-    .modal-arrows {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .arrow {
-        background: rgba(0, 0, 0, 0.5);
-        color: var(--secondary);
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .arrow:hover {
-        background: var(--primary);
-        color: var(--dark);
-    }
-
-    /* Separator */
-    .separator {
-        height: 1px;
-        background: linear-gradient(to right, transparent, var(--border), transparent);
-        margin: 0;
-        width: 100%;
-    }
-
-    /* Footer */
-    footer {
-        background: var(--dark);
-        padding: 3rem 2rem;
-        text-align: center;
-        color: var(--text-muted);
-        border-top: 1px solid var(--border);
-        width: 100%;
-    }
-
-    @media (min-width: 1400px) {
-        footer {
-            padding: 3rem 4rem;
-        }
-    }
-
-    footer a {
-        color: var(--primary);
-    }
-
-    footer a:hover {
-        color: var(--secondary);
-    }
-
-    /* Lazy Load Animation */
-    .lazy {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .lazy.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* ========================================
-       RESPONSIVE
-       ======================================== */
-    @media (max-width: 992px) {
-        .nav-container {
-            padding: 0 1.5rem;
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
         }
 
         .container {
-            padding: 0 1.5rem;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .menu-toggle {
+        @media (min-width: 1400px) {
+            .container {
+                padding: 0 4rem;
+            }
+        }
+
+        @media (min-width: 1800px) {
+            .container {
+                padding: 0 6rem;
+            }
+        }
+
+        /* ========================================
+        LOADER
+        ======================================== */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
             display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========================================
+        NAVBAR
+        ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: saturate(180%) blur(10px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1400px) {
+            .nav-container {
+                padding: 0 4rem;
+            }
+        }
+
+        @media (min-width: 1800px) {
+            .nav-container {
+                padding: 0 6rem;
+            }
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
         }
 
         .nav-menu {
-            position: fixed;
-            top: var(--header-height);
-            left: 0;
-            width: 100%;
-            height: calc(100vh - var(--header-height));
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(10px);
-            flex-direction: column;
-            justify-content: center;
+            display: flex;
+            list-style: none;
             gap: 2rem;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-menu.active {
-            transform: translateX(0);
+            align-items: center;
         }
 
         .nav-menu a {
-            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
         }
 
-        header {
-            min-height: 90vh;
-            padding: 6rem 1rem 3rem;
+        .nav-menu a:hover {
+            color: var(--text-light);
         }
 
-        section {
-            padding: 4rem 0;
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
         }
 
-        .grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+        .nav-menu a:hover::after {
+            width: 100%;
         }
 
-        .portfolio-grid {
-            grid-template-columns: 1fr;
+        .nav-btn {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            border: 2px solid var(--primary);
         }
 
-        .benefits-list {
-            grid-template-columns: 1fr;
+        .nav-btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .float-group {
-            right: 15px;
-            bottom: 15px;
-        }
-
-        .float-btn {
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-        }
-
-        .contact-form {
-            padding: 2rem 1.5rem;
-        }
-
-        .cta-group {
+        .menu-toggle {
+            display: none;
             flex-direction: column;
-            width: 100%;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        .btn {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .logo {
-            font-size: 1.5rem;
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-light);
+            transition: all 0.3s ease;
         }
 
-        .container {
-            padding: 0 1rem;
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
         }
 
-        .nav-container {
-            padding: 0 1rem;
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
         }
 
-        header h1 {
-            font-size: 2rem;
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
 
-        header p {
-            font-size: 1rem;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-        }
-
-        .card {
-            padding: 2rem 1.5rem;
-        }
-
-        .card i {
-            font-size: 2.5rem;
-        }
-
-        .float-btn {
-            width: 45px;
-            height: 45px;
-            font-size: 1.3rem;
-        }
-
-        .contact-form {
-            padding: 1.5rem 1rem;
-        }
-
-        footer {
-            padding: 2rem 1rem;
-        }
-    }
-
-    /* Reducir movimiento */
-    @media (prefers-reduced-motion: reduce) {
-        * {
-            animation: none !important;
-            transition: none !important;
+        /* ========================================
+        VIDEO SECTIONS
+        ======================================== */
+        .video-section {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
         }
 
         .video-bg {
-            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -2;
+            object-fit: cover;
+            filter: brightness(0.5);
         }
-    }
-</style>
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .overlay-hero {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 191, 255, 0.2) 100%);
+        }
+
+        .overlay-about {
+            background: rgba(26, 26, 26, 0.85);
+        }
+
+        .overlay-services {
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9) 0%, rgba(108, 92, 231, 0.2) 50%, rgba(10, 10, 10, 0.9) 100%);
+        }
+
+        .overlay-benefits {
+            background: linear-gradient(135deg, rgba(44, 44, 44, 0.85) 0%, rgba(0, 255, 192, 0.15) 100%);
+        }
+
+        .overlay-process {
+            background: linear-gradient(to right, rgba(10, 10, 10, 0.88) 0%, rgba(0, 191, 255, 0.25) 50%, rgba(10, 10, 10, 0.88) 100%);
+        }
+
+        .overlay-cta {
+            background: linear-gradient(45deg, rgba(0, 191, 255, 0.3) 0%, rgba(0, 255, 192, 0.2) 100%),
+                        radial-gradient(circle at center, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+        }
+
+        /* ========================================
+        HERO SECTION
+        ======================================== */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 1rem 4rem;
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            text-shadow: 0 0 30px rgba(0, 255, 192, 0.5);
+            font-weight: 900;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease;
+        }
+
+        header p {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin: 0 auto 3rem;
+            font-weight: 300;
+            max-width: 700px;
+            color: var(--text-muted);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 191, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 192, 0.3);
+        }
+
+        .btn-wa {
+            background: var(--wa);
+            color: white;
+            border-color: var(--wa);
+        }
+
+        .btn-wa:hover {
+            background: #1ed152;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        /* ========================================
+        FLOATING BUTTONS
+        ======================================== */
+        .float-group {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .float-wa {
+            background: var(--wa);
+        }
+
+        .float-store {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            animation-delay: 0.2s;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.5);
+            animation: none;
+        }
+
+        /* ========================================
+        SECTIONS
+        ======================================== */
+        section {
+            padding: 6rem 0;
+            position: relative;
+            width: 100%;
+            background: var(--bg);
+        }
+
+        /* Asegurar que las secciones con video cubran todo */
+        .video-section {
+            background: var(--bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 4rem;
+            color: var(--primary);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        @media (min-width: 1400px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 3rem;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 191, 255, 0.2);
+            border-color: var(--primary);
+            background: rgba(44, 44, 44, 0.95);
+        }
+
+        .card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--primary);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .about-item:hover {
+            transform: translateY(-8px);
+            border-top-color: var(--secondary);
+        }
+
+        .about-item h3 {
+            color: var(--secondary);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Benefits List */
+        .benefits-list {
+            list-style: none;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 1200px) {
+            .benefits-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .benefits-list {
+                max-width: 1400px;
+            }
+        }
+
+        .benefits-list li {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefits-list li:hover {
+            transform: translateX(10px);
+            border-left-color: var(--secondary);
+        }
+
+        .benefits-list i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            min-width: 30px;
+        }
+
+        /* Process Steps */
+        .step-card {
+            position: relative;
+            padding-top: 3rem;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--dark);
+            box-shadow: 0 5px 20px rgba(0, 191, 255, 0.4);
+        }
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        @media (min-width: 1200px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 3rem;
+            }
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            aspect-ratio: 16/10;
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.5);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.9), rgba(0, 255, 192, 0.9));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            color: var(--dark);
+            font-weight: 600;
+            background: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: rgba(44, 44, 44, 0.95);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding-top: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        @media (min-width: 1400px) {
+            .contact-form {
+                max-width: 900px;
+                padding: 4rem;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        @media (min-width: 768px) {
+            .modal-content {
+                max-width: 800px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .modal-content {
+                max-width: 1000px;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: var(--primary);
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        #modalImage {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-arrows {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .arrow {
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .arrow:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Separator */
+        .separator {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+            margin: 0;
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            width: 100%;
+        }
+
+        @media (min-width: 1400px) {
+            footer {
+                padding: 3rem 4rem;
+            }
+        }
+
+        footer a {
+            color: var(--primary);
+        }
+
+        footer a:hover {
+            color: var(--secondary);
+        }
+
+        /* Lazy Load Animation */
+        .lazy {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .lazy.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========================================
+        RESPONSIVE
+        ======================================== */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .nav-menu a {
+                font-size: 1.2rem;
+            }
+
+            header {
+                min-height: 90vh;
+                padding: 6rem 1rem 3rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-list {
+                grid-template-columns: 1fr;
+            }
+
+            .float-group {
+                right: 15px;
+                bottom: 15px;
+            }
+
+            .float-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 2rem 1.5rem;
+            }
+
+            .card i {
+                font-size: 2.5rem;
+            }
+
+            .float-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem 1rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Reducir movimiento */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .video-bg {
+                display: none;
+            }
+        }
+    </style>
+</head>
 <body>
-    <!-- LOADER -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
-    <!-- NAVBAR -->
     <nav>
         <div class="nav-container container">
             <div class="logo">IGW</div>
@@ -1120,7 +1117,6 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <header class="video-section lazy">
         <video class="video-bg" autoplay loop muted playsinline preload="none">
             <source src="https://static.vecteezy.com/system/resources/previews/051/890/766/mp4/futuristic-square-spaceship-adorned-with-blue-and-pink-neon-lights-captured-in-a-zoom-in-effect-offering-a-cinematic-and-immersive-look-at-the-spacecraft-for-sci-fi-space-exploration-free-video.mp4" type="video/mp4">
@@ -1139,7 +1135,6 @@
         </div>
     </header>
 
-    <!-- FLOATING BUTTONS -->
     <div class="float-group">
         <a href="https://wa.me/5492646706973" target="_blank" class="float-btn float-wa" aria-label="Contactar por WhatsApp">
             <i class="fab fa-whatsapp"></i>
@@ -1149,7 +1144,6 @@
         </a>
     </div>
 
-    <!-- ABOUT -->
     <section id="about" class="video-section lazy">
         <video class="video-bg" autoplay loop muted playsinline preload="none">
             <source src="https://static.vecteezy.com/system/resources/previews/023/887/099/mp4/animated-blue-color-wavy-abstract-digital-particle-background-animation-cyber-or-technology-background-free-video.mp4" type="video/mp4">
@@ -1178,7 +1172,6 @@
 
     <div class="separator"></div>
 
-    <!-- SERVICES -->
     <section id="servicios" class="video-section lazy">
         <video class="video-bg" autoplay loop muted playsinline preload="none">
             <source src="https://static.vecteezy.com/system/resources/previews/008/468/286/mp4/abstract-flow-of-digital-data-on-light-blue-background-animation-of-binary-code-seamless-loop-technology-or-business-concept-free-video.mp4" type="video/mp4">
@@ -1225,7 +1218,6 @@
 
     <div class="separator"></div>
 
-    <!-- BENEFITS -->
     <section id="beneficios" class="video-section lazy">
         <video class="video-bg" autoplay loop muted playsinline preload="none">
             <source src="https://static.vecteezy.com/system/resources/previews/009/663/683/mp4/abstract-geometric-particle-background-blue-and-purple-gradient-plexus-particles-motion-graphics-and-animated-background-free-video.mp4" type="video/mp4">
@@ -1233,178 +1225,149 @@
         <div class="video-overlay overlay-benefits"></div>
 
         <div class="container">
-            <h2 class="section-title">Por qué Invertir en tu Web</h2>
+            <h2 class="section-title">Beneficios Clave</h2>
             
             <ul class="benefits-list">
-                <li>
-                    <i class="fas fa-check-circle"></i>
-                    <span><strong>Autoridad:</strong> Te diferenciás de la competencia y te posicionás como líder en tu nicho con una imagen profesional.</span>
-                </li>
-                <li>
-                    <i class="fas fa-check-circle"></i>
-                    <span><strong>Confianza:</strong> Ofrecés una imagen profesional y seria, esencial para generar credibilidad en tus clientes potenciales.</span>
-                </li>
-                <li>
-                    <i class="fas fa-check-circle"></i>
-                    <span><strong>Organización:</strong> Podés estructurar tu información y productos de forma clara y accesible las 24 horas del día, 7 días a la semana.</span>
-                </li>
-                <li>
-                    <i class="fas fa-check-circle"></i>
-                    <span><strong>Canal Propio:</strong> Dejás de depender exclusivamente de redes sociales (que pueden cambiar sus reglas, algoritmos o desaparecer).</span>
-                </li>
+                <li><i class="fas fa-bolt"></i> Máxima velocidad de carga.</li>
+                <li><i class="fas fa-mobile-alt"></i> Diseño 100% responsivo para todos los dispositivos.</li>
+                <li><i class="fas fa-search-dollar"></i> Optimización SEO para aparecer en los buscadores.</li>
+                <li><i class="fas fa-shield-alt"></i> Seguridad avanzada contra ataques.</li>
+                <li><i class="fas fa-chart-line"></i> Enfoque en conversión y resultados.</li>
+                <li><i class="fas fa-map-marked-alt"></i> Diseño personalizado y único para tu marca.</li>
             </ul>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#contacto" class="btn btn-secondary">Comenzar mi proyecto</a>
+            </div>
         </div>
     </section>
 
     <div class="separator"></div>
 
-    <!-- PROCESS -->
-    <section id="proceso" class="video-section lazy">
+    <section id="proceso" class="lazy">
+        <div class="container">
+            <h2 class="section-title">Nuestro Proceso Simplificado</h2>
+
+            <div class="grid">
+                <div class="step-card card">
+                    <div class="step-number">1</div>
+                    <h3>Planificación y Estrategia</h3>
+                    <p>Definimos objetivos, público meta y estructura ideal para asegurar que tu web trabaje para tu negocio desde el inicio.</p>
+                </div>
+                <div class="step-card card">
+                    <div class="step-number">2</div>
+                    <h3>Diseño y Desarrollo</h3>
+                    <p>Creamos un diseño moderno y atractivo, y luego codificamos la web optimizada para velocidad y responsividad.</p>
+                </div>
+                <div class="step-card card">
+                    <div class="step-number">3</div>
+                    <h3>Revisión y Lanzamiento</h3>
+                    <p>Hacemos pruebas finales, corregimos detalles y lanzamos tu web al público, asegurando un despliegue sin fallas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="separator"></div>
+
+    <section id="portfolio" class="video-section lazy">
         <video class="video-bg" autoplay loop muted playsinline preload="none">
-            <source src="https://static.vecteezy.com/system/resources/previews/006/900/962/mp4/abstract-plexus-blue-geometrical-shapes-motion-graphic-technology-and-engineering-background-free-video.mp4" type="video/mp4">
+            <source src="https://static.vecteezy.com/system/resources/previews/004/434/991/mp4/abstract-futuristic-background-with-moving-lines-and-dots-digital-technological-network-animation-loop-free-video.mp4" type="video/mp4">
         </video>
         <div class="video-overlay overlay-process"></div>
 
         <div class="container">
-            <h2 class="section-title">Nuestro Proceso Simple</h2>
-            
-            <div class="grid">
-                <div class="card step-card">
-                    <span class="step-number">1</span>
-                    <h3>Análisis y Planificación</h3>
-                    <p>Definimos tus objetivos, audiencia y la estructura óptima para tu proyecto digital.</p>
-                </div>
-
-                <div class="card step-card">
-                    <span class="step-number">2</span>
-                    <h3>Diseño y Prototipado</h3>
-                    <p>Creamos una propuesta visual moderna y ajustamos el diseño con tu feedback detallado.</p>
-                </div>
-
-                <div class="card step-card">
-                    <span class="step-number">3</span>
-                    <h3>Desarrollo Web</h3>
-                    <p>Codificación, integración de contenido optimizado y pruebas exhaustivas de funcionalidad y rendimiento.</p>
-                </div>
-
-                <div class="card step-card">
-                    <span class="step-number">4</span>
-                    <h3>Lanzamiento y Soporte</h3>
-                    <p>Tu web se publica. Ofrecemos formación, manuales y soporte post-lanzamiento para que sigas creciendo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="separator"></div>
-
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="lazy">
-        <div class="container">
-            <h2 class="section-title">Nuestros Últimos Proyectos</h2>
+            <h2 class="section-title">Portfolio de Proyectos</h2>
 
             <div class="portfolio-grid">
-                <div class="portfolio-item" data-url="https://goo.su/rV2ynuz">
-                    <img src="https://i.ibb.co/rK1DJxL4/Captura-de-pantalla-2025-11-19-020209.png" alt="Proyecto 1 - Landing Page">
+                
+                <div class="portfolio-item" data-id="proyecto1">
+                    <img src="https://i.ibb.co/rK1DJxL4/Captura-de-pantalla-2025-11-19-020209.png" alt="Preview Tienda Online" loading="lazy">
                     <div class="portfolio-overlay">
-                        <h3> Web de Pastelería y Cafe</h3>
-                        <p>Ver Plantilla</p>
+                        <h3>Tienda Online - Catálogo</h3>
+                        <p>Ver detalles</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-url="https://consultorabmp.com">
-                    <img src="https://i.ibb.co/GfcBWbpf/Captura-de-pantalla-2025-11-19-021530.png" alt="Proyecto 2 - Web Corporativa">
+                <div class="portfolio-item" data-id="proyecto2">
+                    <img src="https://i.ibb.co/GfcBWbpf/Captura-de-pantalla-2025-11-19-021530.png" alt="Preview Landing Page" loading="lazy">
                     <div class="portfolio-overlay">
-                        <h3>Web para RRHH</h3>
-                        <p>Ver Plantilla</p>
+                        <h3>Landing Page de Servicios</h3>
+                        <p>Ver detalles</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-url="https://goo.su/Xt1DnB">
-                    <img src="https://i.ibb.co/dw0qMQMy/Captura-de-pantalla-2025-11-19-024427.png" alt="Proyecto 3 - Landing Page">
+                <div class="portfolio-item" data-id="proyecto3">
+                    <img src="https://i.ibb.co/dw0qMQMy/Captura-de-pantalla-2025-11-19-024427.png" alt="Preview Web Corporativa" loading="lazy">
                     <div class="portfolio-overlay">
-                        <h3>Web de Servicio Satelital</h3>
-                        <p>Ver Plantilla</p>
+                        <h3>Web de Servicios</h3>
+                        <p>Ver detalles</p>
+                    </div>
+                
+                </div>
+                <div class="portfolio-item" data-id="proyecto4">
+                    <img src="https://i.ibb.co/m553sBFm/Captura-de-pantalla-2025-11-19-025148.png" alt="Preview Web Corporativa" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <h3>Web de Servicios</h3>
+                        <p>Ver detalles</p>
                     </div>
                 </div>
-
-                <div class="portfolio-item" data-url="https://goo.su/zgfws">
-                    <img src="https://i.ibb.co/m553sBFm/Captura-de-pantalla-2025-11-19-025148.png">
+                <div class="portfolio-item" data-id="proyecto5">
+                    <img src="https://i.ibb.co/sdk8XbcJ/Captura-de-pantalla-2025-11-19-033112.png" alt="Preview Web Corporativa" loading="lazy">
                     <div class="portfolio-overlay">
-                        <h3>Tienda Online</h3>
-                        <p>Ver Plantilla</p>
+                        <h3>Web de Barberias-Peluquerias</h3>
+                        <p>Ver detalles</p>
                     </div>
                 </div>
-
-                <div class="portfolio-item" data-url="https://goo.su/mTi1aZ">
-                    <img src="https://i.ibb.co/sdk8XbcJ/Captura-de-pantalla-2025-11-19-033112.png" alt="Proyecto 5 ">
-                    <div class="portfolio-overlay">
-                        <h3>Web para Barberia</h3>
-                        <p>Ver Plantilla</p>
-                    </div>
+                
                 </div>
-            </div>
         </div>
     </section>
 
-    <!-- MODAL -->
-    <div id="imgModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            
-            <div class="modal-arrows">
-                <span class="arrow left">&#10094;</span>
-                <span class="arrow right">&#10095;</span>
-            </div>
-
-            <img id="modalImage" src="" alt="Vista ampliada del proyecto">
-
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                <a id="modalViewBtn" href="#" target="_blank" class="btn btn-primary" style="flex: 1; min-width: 200px; justify-content: center;">
-                    <i class="fas fa-eye"></i> Visitar Web
-                </a>
-                <a id="modalWhatsAppBtn" href="https://wa.me/5492646706973" target="_blank" class="btn btn-wa" style="flex: 1; min-width: 200px; justify-content: center;">
-                    <i class="fab fa-whatsapp"></i> Consultar Diseño
-                </a>
-            </div>
-        </div>
-    </div>
-
     <div class="separator"></div>
 
-    <!-- FAQ -->
     <section id="faq" class="lazy">
         <div class="container">
             <h2 class="section-title">Preguntas Frecuentes</h2>
 
-            <div class="faq-container">
+            <div class="faq-container" style="max-width: 900px; margin: 0 auto;">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>¿Cuánto tiempo demoran en desarrollar una web?</span>
-                        <i class="fas fa-angle-down"></i>
+                        ¿Cuánto tiempo toma crear un sitio web?
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Depende del proyecto. Una landing page simple puede estar lista en pocos días (3-5 días hábiles), mientras que un catálogo puede llevar 2-3 semanas, según la complejidad y el tiempo de entrega de contenido.</p>
+                        Una Landing Page o Web de Catálogo puede estar lista en **5 a 10 días hábiles**, dependiendo de la complejidad y de la rapidez con que nos envíes el contenido (textos, imágenes, etc.).
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Qué incluye el mantenimiento mensual?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        El mantenimiento incluye hosting, dominio, copias de seguridad diarias, actualizaciones técnicas, monitoreo de seguridad y soporte técnico prioritario para que tu web funcione 24/7 sin preocupaciones.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Necesito tener mi propio hosting y dominio?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        No. En nuestros planes de desarrollo, nosotros nos encargamos de todo: registramos tu dominio y proveemos el hosting de alta velocidad. Todo el servicio se gestiona bajo una única cuota mensual.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>¿Necesito un servicio de hosting y dominio?</span>
-                        <i class="fas fa-angle-down"></i>
+                        ¿Hacen tiendas online (eCommerce) completas?
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Sí, son necesarios para que tu web esté online. Pero no te preocupes, te asesoraré para que elijas el hosting más rápido y seguro, y te ayudaré con la configuración del dominio.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Puedo actualizar yo mismo el contenido de mi web?</span>
-                        <i class="fas fa-angle-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>¡Absolutamente! Si el proyecto lo requiere, te entrego un sitio autoadministrable (por ejemplo, con WordPress) o te doy la formación necesaria para que puedas manejar tu propio contenido (textos, imágenes, etc.).</p>
+                        Sí, desarrollamos tiendas online a medida utilizando plataformas como WooCommerce o Shopify, adaptadas a tu inventario, métodos de pago y logística de envíos. ¡Pregunta por este servicio!
                     </div>
                 </div>
             </div>
@@ -1413,267 +1376,269 @@
 
     <div class="separator"></div>
 
-    <!-- CONTACT -->
     <section id="contacto" class="video-section lazy">
         <video class="video-bg" autoplay loop muted playsinline preload="none">
-            <source src="https://static.vecteezy.com/system/resources/previews/003/036/965/mp4/abstract-digital-grid-wave-with-flowing-particles-free-video.mp4" type="video/mp4">
+            <source src="https://static.vecteezy.com/system/resources/previews/000/538/193/mp4/abstract-particles-and-lines-with-a-connecting-dots-background-free-video.mp4" type="video/mp4">
         </video>
         <div class="video-overlay overlay-cta"></div>
-
+        
         <div class="container">
-            <h2 class="section-title" style="color: var(--secondary);">Hablemos de tu Proyecto</h2>
-            <p style="text-align: center; max-width: 650px; margin: 0 auto 3rem; color: var(--text-muted); font-size: 1.1rem;">
-                Completa el formulario y te contactaremos de inmediato por WhatsApp para discutir tu idea y enviarte un presupuesto a medida.
+            <h2 class="section-title" style="color: var(--secondary); text-shadow: 0 0 10px rgba(0, 255, 192, 0.4);">Empecemos tu proyecto</h2>
+            <p style="text-align: center; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; color: var(--text-light);">
+                Completa el formulario o contáctanos por WhatsApp para recibir una cotización gratuita y personalizada.
             </p>
 
-            <form id="contactForm" class="contact-form">
+            <form class="contact-form" action="TU_ENDPOINT_DE_FORMULARIO" method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre y Apellido</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Tu Nombre">
+                    <input type="text" id="nombre" name="nombre" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="telefono">Teléfono (con código de área)</label>
-                    <input type="text" id="telefono" name="telefono" required placeholder="Ej: +549264XXXXXXX">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" required placeholder="tu-email@ejemplo.com">
+                    <label for="telefono">Teléfono (WhatsApp)</label>
+                    <input type="tel" id="telefono" name="telefono">
                 </div>
-
                 <div class="form-group">
-                    <label for="consulta">Cuéntanos sobre tu proyecto</label>
-                    <textarea id="consulta" name="consulta" required placeholder="¿Qué necesitas? (Landing Page, Catálogo, SEO, Web Corporativa, etc.)"></textarea>
+                    <label for="mensaje">Mensaje / Describe tu Proyecto</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
                 </div>
-
-                <button type="submit" class="btn btn-wa" style="width: 100%; justify-content: center;">
-                    <i class="fab fa-whatsapp"></i> Enviar Consulta por WhatsApp
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Enviar Consulta <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">O escríbenos directamente:</p>
+                <a href="https://wa.me/5492646706973" target="_blank" class="btn btn-wa">
+                    <i class="fab fa-whatsapp"></i> Chat en Vivo (WhatsApp)
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
-            <p>© 2025 <strong>IGW</strong> | Iglesia Web. Todos los derechos reservados.</p>
-            <p style="margin-top: 0.5rem;">
-                <a href="#about">Acerca de</a> | 
-                <a href="#servicios">Servicios</a> | 
-                <a href="#portfolio">Portfolio</a> | 
-                <a href="#contacto">Contacto</a>
-            </p>
+            <p>&copy; 2024 IGW - Iglesia Web. Todos los derechos reservados.</p>
+            <p>Hecho con <i class="fas fa-heart" style="color: var(--primary);"></i> por IGW. <a href="https://wiglesia.github.io/land/Index.html" target="_blank">Iglesia Web</a> | <a href="https://wiglesia.github.io/land/catalogo.html" target="_blank">Tienda</a></p>
         </div>
     </footer>
 
-    <script>
-        // ==========================================
-        // INICIALIZACIÓN Y LOADER
-        // ==========================================
-        const loader = document.getElementById('loader');
-        const body = document.body;
+    <div id="portfolioModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
 
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                body.classList.add('loaded');
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
-            }, 800);
+            <div class="modal-arrows">
+                <div id="prevArrow" class="arrow"><i class="fas fa-chevron-left"></i></div>
+                <div id="nextArrow" class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <img id="modalImage" src="" alt="Imagen del proyecto" />
+            <h2 id="modalTitle" style="color: var(--primary); margin-bottom: 0.5rem;"></h2>
+            <p id="modalDescription" style="color: var(--text-light); margin-bottom: 1.5rem;"></p>
+            
+            <a id="modalLink" href="#" target="_blank" class="btn btn-primary" style="display: none; justify-content: center; width: 100%;">
+                <i class="fas fa-external-link-alt"></i> Visitar Web
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 1. Lógica para el Portafolio (Modal y Navegación)
+        // ----------------------------------------------------
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        const modal = document.getElementById('portfolioModal');
+        const modalClose = document.querySelector('.modal-close');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalLink = document.getElementById('modalLink');
+        
+        // Define tus proyectos aquí: URLs e imágenes VERIFICADAS
+        const projects = {
+            'proyecto1': {
+                title: 'Tienda Online - Landing Page',
+                description: 'Web para pasteleria y Cafe',
+                imageUrl: 'https://i.ibb.co/rK1DJxL4/Captura-de-pantalla-2025-11-19-020209.png',
+                link: 'https://goo.su/rV2ynuz' 
+            },
+            'proyecto2': {
+                title: 'Landing Page Corporativa',
+                description: 'Página de aterrizaje optimizada para empresa de RRHH.',
+                imageUrl: 'https://i.ibb.co/GfcBWbpf/Captura-de-pantalla-2025-11-19-021530.png',
+                link: 'https://consultorabmp.com' 
+            },
+            'proyecto3': {
+                title: 'Web Empresarial',
+                description: 'Sitio web destinado a empresas de tecnologia.',
+                imageUrl: 'https://i.ibb.co/dw0qMQMy/Captura-de-pantalla-2025-11-19-024427.png',
+                link: 'https://goo.su/Xt1DnB' 
+            },
+            'proyecto4': {
+                title: 'Web Ecomerce',
+                description: 'Sitio web destinado a ventas online.',
+                imageUrl: 'https://i.ibb.co/m553sBFm/Captura-de-pantalla-2025-11-19-025148.png',
+                link: 'https://goo.su/zgfws' 
+            },
+            'proyecto5': {
+                title: 'Web de Servicio',
+                description: 'Sitio web destinado a Barberias-Peluquerias.',
+                imageUrl: 'https://i.ibb.co/sdk8XbcJ/Captura-de-pantalla-2025-11-19-033112.png',
+                link: 'https://goo.su/mTi1aZ' 
+            }
+        };
+
+        let currentProjectIndex = 0;
+        const projectKeys = Object.keys(projects);
+
+        function openModal(projectId) {
+            const project = projects[projectId];
+            if (project) {
+                currentProjectIndex = projectKeys.indexOf(projectId);
+                modalImage.src = project.imageUrl;
+                modalTitle.textContent = project.title;
+                modalDescription.textContent = project.description;
+                
+                // ASIGNACIÓN DEL ENLACE CORREGIDA
+                modalLink.href = project.link; 
+                modalLink.target = "_blank"; 
+                modalLink.style.display = 'inline-flex'; 
+                
+                modal.style.display = 'flex';
+                document.body.classList.add('menu-open'); 
+            }
+        }
+
+        portfolioItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const projectId = item.getAttribute('data-id');
+                openModal(projectId);
+            });
         });
 
-        // ==========================================
-        // MENÚ MOBILE
-        // ==========================================
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.classList.remove('menu-open');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('menu-open');
+            }
+        });
+        
+        // Cierra el modal con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.classList.remove('menu-open');
+            }
+        });
+
+        // Lógica de navegación con flechas (prev/next)
+        function navigateProject(direction) {
+            let newIndex = currentProjectIndex + direction;
+            if (newIndex < 0) {
+                newIndex = projectKeys.length - 1;
+            } else if (newIndex >= projectKeys.length) {
+                newIndex = 0;
+            }
+            openModal(projectKeys[newIndex]);
+        }
+
+        const prevArrow = document.getElementById('prevArrow');
+        const nextArrow = document.getElementById('nextArrow');
+        if (prevArrow) prevArrow.addEventListener('click', () => navigateProject(-1));
+        if (nextArrow) nextArrow.addEventListener('click', () => navigateProject(1));
+
+
+        // ----------------------------------------------------
+        // 2. Lógica de Navegación (Menu Toggle)
+        // ----------------------------------------------------
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
 
         menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
-            body.classList.toggle('menu-open');
+            menuToggle.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
         });
 
-        // Cerrar menú al hacer click en un enlace
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                body.classList.remove('menu-open');
-            });
-        });
-
-        // ==========================================
-        // SCROLL SUAVE
-        // ==========================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offsetTop = target.offsetTop - 70;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+        document.querySelectorAll('.nav-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                // Cierra el menú en móviles después de hacer click en un enlace
+                if (window.innerWidth <= 992) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    document.body.classList.remove('menu-open');
                 }
             });
         });
 
-        // ==========================================
-        // LAZY LOAD ANIMATION
-        // ==========================================
+        // ----------------------------------------------------
+        // 3. Lógica de Loader (pantalla de carga)
+        // ----------------------------------------------------
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                document.body.classList.add('loaded');
+            }, 500); // Espera 500ms para que termine la animación de opacidad
+        });
+
+        // ----------------------------------------------------
+        // 4. Lógica de Lazy Loading y Intersection Observer (CORREGIDA)
+        // ----------------------------------------------------
         const lazyElements = document.querySelectorAll('.lazy');
-        const lazyObserver = new IntersectionObserver((entries) => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 
+        };
+
+        const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    lazyObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        lazyElements.forEach(el => lazyObserver.observe(el));
-
-        // ==========================================
-        // VIDEO OPTIMIZATION
-        // ==========================================
-        const videos = document.querySelectorAll('.video-bg');
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const video = entry.target;
-                if (entry.isIntersecting) {
-                    if (video.paused) {
-                        video.play().catch(e => console.log('Video autoplay prevented'));
+                    
+                    // Lógica para cargar videos
+                    const video = entry.target.querySelector('.video-bg');
+                    if (video) {
+                        // Carga el video si aún no tiene un atributo 'src' (o si tenía 'preload="none"')
+                        if (video.hasAttribute('preload')) {
+                             video.removeAttribute('preload'); // Remueve el preload para forzar la carga
+                        }
+                        video.load(); // Intenta cargar
+                        video.play().catch(error => {
+                            // Silencia errores de autoplay policy, si el usuario no ha interactuado aún
+                        });
                     }
+                    
+                    // Desobserva para no ejecutar más veces
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.25 });
+        }, observerOptions);
 
-        videos.forEach(video => {
-            videoObserver.observe(video);
-            
-            video.addEventListener('error', (e) => {
-                console.log('Error loading video');
-                video.style.display = 'none';
-            });
+        lazyElements.forEach(el => {
+            lazyLoadObserver.observe(el);
         });
 
-        // Mobile video optimization
-        if (window.innerWidth < 768) {
-            videos.forEach(video => {
-                video.style.width = 'auto';
-                video.style.height = '120%';
-            });
-        }
-
-        // ==========================================
-        // PORTFOLIO MODAL
-        // ==========================================
-        const modal = document.getElementById('imgModal');
-        const modalImg = document.getElementById('modalImage');
-        const modalClose = document.querySelector('.modal-close');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        const modalWhatsAppBtn = document.getElementById('modalWhatsAppBtn');
-        const modalViewBtn = document.getElementById('modalViewBtn');
-        const leftArrow = document.querySelector('.arrow.left');
-        const rightArrow = document.querySelector('.arrow.right');
-        const WA_NUMBER = '5492646706973';
-        let currentIndex = 0;
-
-        const closeModal = () => {
-            modal.style.display = 'none';
-        };
-
-        const updateModal = (index) => {
-            const item = portfolioItems[index];
-            const img = item.querySelector('img');
-            const projectUrl = item.getAttribute('data-url');
-            
-            modalImg.src = img.src;
-            
-            // Actualizar botón de Ver Plantilla
-            modalViewBtn.href = projectUrl;
-            
-            // Actualizar botón de WhatsApp con mensaje personalizado
-            const waMessage = encodeURIComponent(
-                `Hola, me interesa el proyecto que vi en el portfolio: ${projectUrl}. ¿Podrían darme más información?`
-            );
-            modalWhatsAppBtn.href = `https://wa.me/${WA_NUMBER}?text=${waMessage}`;
-        };
-
-        portfolioItems.forEach((item, i) => {
+        // ----------------------------------------------------
+        // 5. Lógica de FAQ
+        // ----------------------------------------------------
+        document.querySelectorAll('.faq-item').forEach(item => {
             item.addEventListener('click', () => {
-                currentIndex = i;
-                updateModal(currentIndex);
-                modal.style.display = 'flex';
+                item.classList.toggle('active');
             });
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        leftArrow.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + portfolioItems.length) % portfolioItems.length;
-            updateModal(currentIndex);
-        });
-
-        rightArrow.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % portfolioItems.length;
-            updateModal(currentIndex);
-        });
-
-        // ==========================================
-        // FAQ ACCORDION
-        // ==========================================
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Cerrar todos los items
-                faqItems.forEach(i => i.classList.remove('active'));
-                
-                // Abrir el clickeado si no estaba activo
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // ==========================================
-        // CONTACT FORM
-        // ==========================================
-        const contactForm = document.getElementById('contactForm');
-        
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const nombre = document.getElementById('nombre').value;
-            const telefono = document.getElementById('telefono').value;
-            const email = document.getElementById('email').value;
-            const consulta = document.getElementById('consulta').value;
-
-            const message = 
-                `*Nueva Consulta Web de IGW:*\n\n` +
-                `*Nombre:* ${nombre}\n` +
-                `*Teléfono:* ${telefono}\n` +
-                `*Email:* ${email}\n\n` +
-                `*Consulta del Proyecto:*\n${consulta}`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
-
-            window.open(whatsappUrl, '_blank');
-            contactForm.reset();
         });
     </script>
+
 </body>
 </html>
